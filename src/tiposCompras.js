@@ -1,5 +1,5 @@
 export const compras = [
-    "contado",
+    "CONTADO",
     "FOVISSSTE-infonavit-fovissste",
     "FOVISSSTE-tradicional",
     "FOVISSSTE-conyugal",
@@ -14,6 +14,6 @@ export const compras = [
     "IPEJAL-tradicional",
     "IPEJAL-terreno",
     "IPEJAL-conyugal",
-    "BANCARIO-terreno",
-    "BANCARIO-casa"
+    "BANCARIO / caja popular -terreno",
+    "BANCARIO / caja popular -casa"
 ]

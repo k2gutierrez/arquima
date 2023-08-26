@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import styles from './page.module.css'
 import cls from 'classnames'
 import { Card } from 'react-bootstrap'
-import Contado from '@/components/documentos/Contado'
+import ContadoSoltero from '@/components/documentos/ContadoSoltero'
 import { useAuthContext } from '@/context/AuthContext'
 import signoutfirebase from '@/firebase/auth/signoutfirebase'
 import { statusOpciones } from '@/tiposStatus'
@@ -77,8 +77,8 @@ export default function Page({ params }) {
 
       const Ref = doc(db, 'propiedades', docu.propiedadID)
       await updateDoc(Ref, {
-        status_inmueble: "LIBRE",
-        status_credito: "LIBRE",
+        status: "LIBRE",
+        status_interno: "LIBRE",
         asesor: "",
         nombre: "nombre",
         esquema: ""
@@ -111,8 +111,8 @@ export default function Page({ params }) {
 
       const Ref = doc(db, 'propiedades', docu.propiedadID)
       await updateDoc(Ref, {
-        status_inmueble: val,
-        status_credito: val
+        status: val,
+        status_interno: val
       })
 
       const cRef = doc(db, "clientes", params.id)
@@ -348,7 +348,7 @@ export default function Page({ params }) {
 
           { menu == "subirDocus" ?
             (
-              <Contado
+              <ContadoSoltero
                 id={docu.id}
                 currentUser={currentName} 
               />

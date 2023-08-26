@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { db } from '@/firebase/config'
-import { doc, getDocs, where, collection, query } from 'firebase/firestore'
+import { getDocs, where, collection, query } from 'firebase/firestore'
 import logo from '../../../../public/ArquimaLogo.png'
 import { useRouter } from 'next/navigation'
 import styles from './page.module.css'
@@ -12,7 +12,6 @@ import { Card } from 'react-bootstrap'
 
 export default function Page({ params }) {
 
-  const [folio, setFolio] = useState(null)
   const [docu, setDocu] = useState(null)
   const router = useRouter()
 
@@ -29,8 +28,7 @@ export default function Page({ params }) {
   }
 
   useEffect(() => {
-    setDocu(arr)
-    //getInfo();
+    getInfo();
   }, [])
 
   async function getInfo () {
@@ -69,7 +67,7 @@ export default function Page({ params }) {
                   <p>Folio: { docu.folio }</p>
                   <p>Asesor: { docu.asesor }</p>
                   <p>Trámite: { docu.esquema }</p>
-                  <p>Status: Aquí va Status</p>
+                  <p>Status: { docu.status }</p>
                   <p>Proyecto: { docu.proyecto }</p>
                 </div>
               </Card.Text>
@@ -85,7 +83,7 @@ export default function Page({ params }) {
 
           </div>
           <div className='col-md-5 col-12 text-end'>
-          <button type="button" onClick={() => window.alert("hola mundo")} className="btn"><a>¿Tienes dudas? Manda mensaje a tu asesor</a></button>
+          <button type="button" onClick={() => window.alert("Aquí va para poder mandar un mensaje")} className="btn"><a>¿Tienes dudas? Manda mensaje a tu asesor</a></button>
           </div>
           <div className='col-md-1'>
             

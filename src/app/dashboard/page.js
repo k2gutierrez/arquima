@@ -16,8 +16,9 @@ import paginationFactory from 'react-bootstrap-table2-paginator'
 import cellEditFactory, { type } from 'react-bootstrap-table2-editor'
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter'
 import ModalG from '@/components/ModalG'
-import DbUpload from '@/components/DbUpload'
+import DbUpload from '@/DbUpload'
 import { currencyMXN } from '@/formatCurrencyExample'
+import Docesquema from '@/components/DocEsquema'
 
 
 export default function Owner() {
@@ -37,7 +38,11 @@ export default function Owner() {
   const [propiedadID, setPropiedadID] = useState("")
   const [asesorID, setAsesorID] = useState("")
   const [compra, setCompra] = useState('')
-  const [proyectos, setProyectos] = useState(null)
+  const [proyectos, setProyectos] = useState([''])
+  const [tipoDocEsquema, setTipoDocEsquema] = useState('')
+  const [docEsquema, setDocEsquema] = useState('')
+  const [civil, setCivil] = useState('SOLTERO')
+  const [tipoMatrimonio, setTipoMatrimonio] = useState('NA')
 
   const [propiedades, setPropiedades] = useState(null)
   const [propiedadesL, setPropiedadesL] = useState(null)
@@ -72,13 +77,71 @@ export default function Owner() {
           }
         }
       })
-      setProyectos(output)
+      let setOutput = new Set(output)
+      setProyectos(setOutput)
 
       }
 
   }, [propiedades, menu])
 
-  console.log(proyectos)
+  useEffect(() => {
+    switch (compra) {
+      case "CONTADO":
+        setTipoDocEsquema("CURP")
+        break
+      case "FOVISSSTE-infonavit-fovissste":
+        setTipoDocEsquema("CURP")
+        break
+      case "FOVISSSTE-tradicional":
+        setTipoDocEsquema("CURP")
+        break
+      case "FOVISSSTE-conyugal":
+        setTipoDocEsquema("CURP")
+        break
+      case "FOVISSSTE-para-todos":
+        setTipoDocEsquema("CURP")
+        break
+      case "INFOVANIT-tradicional":
+        setTipoDocEsquema("NSS")
+        break
+      case "INFOVANIT-unamos-creditos":
+        setTipoDocEsquema("NSS")
+        break
+      case "INFOVANIT-conyugal":
+        setTipoDocEsquema("NSS")
+        break
+      case "INFOVANIT-infonavit-fovissste":
+        setTipoDocEsquema("NSS")
+        break
+      case "INFOVANIT-crediterreno":
+        setTipoDocEsquema("NSS")
+        break
+      case "INFOVANIT-segundo-credito":
+        setTipoDocEsquema("NSS")
+        break
+      case "INFOVANIT-cofinativ":
+        setTipoDocEsquema("NSS")
+        break
+      case "IPEJAL-tradicional":
+        setTipoDocEsquema("N_Afiliado")
+        break
+      case "IPEJAL-terreno":
+        setTipoDocEsquema("N_Afiliado")
+        break
+      case "IPEJAL-conyugal":
+        setTipoDocEsquema("N_Afiliado")
+        break
+      case "BANCARIO-terreno":
+        setTipoDocEsquema("CURP")
+        break
+      case "BANCARIO-casa":
+        setTipoDocEsquema("CURP")
+        break
+      default:
+        break
+    }
+
+  }, [compra])
 
   async function getSellers() {
     const q = query(collection(db, "empleados"), where("rol", "==", "vendedor"));
@@ -112,7 +175,7 @@ export default function Owner() {
     const docsPropsLibres = []
     await querysnapshot.forEach((doc) => {
       const docu = doc.data()
-      if (docu.status_inmueble == "LIBRE") {
+      if (docu.status == "LIBRE") {
         docsPropsLibres.push(doc.data())
       }
     })
@@ -129,6 +192,9 @@ export default function Owner() {
         pago: currencyMXN(pago),
         status: "ARMADO DE EXPEDIENTE",
         esquema: compra,
+        [tipoDocEsquema]: docEsquema,
+        civil: civil,
+        regimen_patrimonial: tipoMatrimonio,
         folio: folio,
         propiedadID: propiedadID,
         asesor: asesor,
@@ -149,8 +215,8 @@ export default function Owner() {
 
       const Ref = doc(db, 'propiedades', propiedadID)
       await updateDoc(Ref, {
-        status_inmueble: "ARMADO DE EXPEDIENTE",
-        status_credito: "ARMADO DE EXPEDIENTE",
+        status: "ARMADO DE EXPEDIENTE",
+        status_interno: "ARMADO DE EXPEDIENTE",
         asesor: asesor,
         nombre: nombre,
         esquema: compra
@@ -166,6 +232,10 @@ export default function Owner() {
       setAsesor('')
       setPropiedadID(0)
       setAsesorID(0)
+      setDocEsquema('')
+      setTipoDocEsquema('')
+      setCivil('SOLTERO')
+      setTipoMatrimonio('NA')
       setUpdate(!update)
     } catch (e) {
       setMessagem(e)
@@ -201,31 +271,57 @@ export default function Owner() {
       dataField: "numero_ext.",
       text: "Número Ext.",
       sort: true,
-      /*validator: (newValue, row, column) => {
-        if (isNaN(newValue)) {
-          return {
-            valid: false,
-            message: "Please enter numeric value",
-          };
-        }
-        return true;
-      },*/
     },
     {
-      dataField: "status_credito",
-      text: "Status Cŕedito",
+      dataField: "lte",
+      text: "lte",
+      sort: true,
+    },
+    {
+      dataField: "mz",
+      text: "mz",
+      sort: true,
+    },
+    {
+      dataField: "nivel",
+      text: "nivel",
+      sort: true,
+    },
+    {
+      dataField: "status",
+      text: "Status",
       sort: true
     },
     {
-      dataField: "status_inmueble",
-      text: "Status Inmueble",
+      dataField: "status_interno",
+      text: "Status Interno",
       sort: true
     },
     {
       dataField: "precio",
       text: "Precio",
       sort: true
-    }
+    },
+    {
+      dataField: "asesor",
+      text: "Asesor",
+      sort: true
+    },
+    {
+      dataField: "esquema",
+      text: "Esquema",
+      sort: true
+    },
+    {
+      dataField: "nombre",
+      text: "Cliente",
+      sort: true
+    },
+    {
+      dataField: "observaciones",
+      text: "Obs.",
+      sort: true
+    },
   ]
 
   const columns2 = [
@@ -329,6 +425,9 @@ export default function Owner() {
                 <div className="offcanvas-body">
                     <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                       <li className="nav-item">
+                          <Link href=""><button type='button' onClick={() => setMenu('')} className="btn" data-bs-dismiss="offcanvas" >Inicio</button></Link>
+                      </li>
+                      <li className="nav-item">
                           <Link href=""><button type='button' onClick={() => setMenu('registrarC')} className="btn" data-bs-dismiss="offcanvas" >Registrar Clientes</button></Link>
                       </li>
                       <li className="nav-item">
@@ -346,8 +445,9 @@ export default function Owner() {
             </div>
         </div>
       </nav>
-      <div className='container-md text-center'>
-        {menu == '' || menu == 'inicio' ? (
+      <div className='container-fluid text-center'>
+        {menu == '' || menu == 'inicio' ? 
+        (
           <div className='row justify-content-center'>
             <DbUpload />
           </div>
@@ -356,7 +456,7 @@ export default function Owner() {
         }
         {menu == "registrarC" ? 
         (
-          <div className='row justify-content-center'>
+          <div className='row justify-content-center text-center'>
           
             <div className='col-md-6 col-12 mt-4'>
               
@@ -385,6 +485,7 @@ export default function Owner() {
                   </div>
                   
                   <div className='mb-3 mx-5'>
+                    <p>Selecciona el Folio de la propiedad</p>
                     <select className="form-select" onChange={(e) => {setFolio(e.target.value); console.log(folio); console.log(propiedadID)}} aria-label="Default select example">
                       <option value="">Folio</option>
                       {propiedadesL.map((fol) => {
@@ -396,8 +497,9 @@ export default function Owner() {
                   </div>
 
                   <div className='mb-3 mx-5'> 
+                  <p>Selecciona al Asesor encargado de este cliente: </p>
                     <select className="form-select" onChange={(e) => setAsesor(e.target.value)}  aria-label="Default select example">
-                      <option value="">Vendedor</option>
+                      <option value="">Asesor</option>
                       {vendedores.map((vend) => {
                         return (
                           <option key={vend.id} onClick={() => setAsesorID(vend.id)} value={vend.nombre}>{vend.nombre}</option>
@@ -407,6 +509,7 @@ export default function Owner() {
                   </div>
 
                   <div className='mb-3 mx-5'> 
+                    <p>Elige el esquema: </p>
                     <select className="form-select" onChange={(e) => setCompra(e.target.value)}  aria-label="Default select example">
                       <option value="">Tipo de Trámite</option>
                       {compras.map(( comp, i) => {
@@ -416,9 +519,44 @@ export default function Owner() {
                       })}
                     </select>
                   </div>
+                  { compra != '' ? (
+                    <>
+                      <Docesquema 
+                        tipo={tipoDocEsquema}
+                        value={docEsquema}
+                        onChange={(e) => setDocEsquema(e.target.value.toUpperCase())}
+                      />
+                      <div className='mb-3 mx-5'> 
+                        <p>Estado Civil</p>
+                        <select className="form-select" onChange={(e) => setCivil(e.target.value)}  aria-label="Default select example">
+                          <option value="">Selecciona una opción</option>
+                          <option value="SOLTERO">SOLTERO</option>
+                          <option value="CASADO">CASADO</option>
+                        </select>
+                      </div>
+                    </>
+                    
+                  ) : (<></>)
+
+                  }
+
+                  { civil !='SOLTERO' ? (
+                    <div className='mb-3 mx-5'> 
+                      <p>Régimen Patrimonial</p>
+                      <select className="form-select" onChange={(e) => setTipoMatrimonio(e.target.value)}  aria-label="Default select example">
+                        <option value="">Selecciona una opción</option>
+                        <option value="Sociedad legal / Mancomunado">Sociedad legal / Mancomunado</option>
+                        <option value="Bienes separados">Bienes separados</option>
+                      </select>
+                    </div>
+                  ) : (<></>)
+
+                  }
+
+                  <div className='my-5'>
+                    <button type="button" onClick={registerClient}  className="btn btn-secondary">Registrar</button>
+                  </div>
                   
-                  <button type="button" onClick={registerClient}  className="btn btn-secondary">Registrar</button>
-              
               </form>
 
             </div>
@@ -432,7 +570,7 @@ export default function Owner() {
         
         {menu == "propiedades" ? 
         (
-          <div className='m-5 p-2'>
+          <div className='mt-5 mb-5'>
             {
               propiedades !=null && propiedades.length > 0 ? (
                   <BootstrapTable
@@ -458,7 +596,7 @@ export default function Owner() {
         }
         {menu == "clientes" ? 
         (
-          <div className='row m-5 p-2'>
+          <div className='m-5 p-2'>
             {
               clientes != null && clientes.length > 0 ? (
                   <BootstrapTable
