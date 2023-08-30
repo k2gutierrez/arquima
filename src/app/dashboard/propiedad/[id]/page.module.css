@@ -1,0 +1,12 @@
+.main {
+  /*display: flex;
+  flex-direction: column;*/
+  
+  /*padding: 6rem;*/
+  min-height: 90vh;
+  border: solid;
+}
+
+.logo {
+  opacity: 35%;
+}

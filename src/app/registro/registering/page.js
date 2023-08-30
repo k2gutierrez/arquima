@@ -9,6 +9,7 @@ import logoA from '../../../../public/ArquimaA.png'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button';
 import Image from 'next/image';
+import engrane from '../../../../public/engranes.gif'
 
 export default function Registering() {
 
@@ -57,6 +58,7 @@ export default function Registering() {
             </Modal>
             <div className='container-sm text-center align-items-center mt-5 text-center'>
                 <Image className='img-fluid' src={logo} alt='logo' width={681} height={443} />
+                <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
                 <p>Registrando cuenta en base de datos...</p>
             </div>
         </>

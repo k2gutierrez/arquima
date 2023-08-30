@@ -3,46 +3,71 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { db } from '@/firebase/config'
-import { getDocs, where, collection, query } from 'firebase/firestore'
+import { getDocs, where, collection, query, getDoc, doc, updateDoc } from 'firebase/firestore'
 import logo from '../../../../public/ArquimaLogo.png'
 import { useRouter } from 'next/navigation'
 import styles from './page.module.css'
 import cls from 'classnames'
 import { Card } from 'react-bootstrap'
+import ModalTerminos from '@/components/ModalTerminos'
 
 export default function Page({ params }) {
 
+  const [docuProp, setDocuProp] = useState(null)
   const [docu, setDocu] = useState(null)
+  const [terms, setTerms] = useState(false)
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+
   const router = useRouter()
 
-  let arr = {
-    nombre: "Carlitoris",
-    folio: 32470,
-    asesor: "Javier",
-    esquema: "2do crédito infonavit",
-    proyecto: "COTO CIELO",
-    StatusCliente: "Ahí va",
-    Direccion: "isla zante 3464",
-    doc1: true,
-    doc2: false
+  useEffect(() => {
+    getInfoClient();
+    if (docu != null) {
+      getInfo(docu.propiedadID);
+    }
+    
+  }, [docu])
+
+  async function getInfo (d) {
+    const q = doc(db, "propiedades", d)
+    const querySnapshot = await getDoc(q);
+    const docu = querySnapshot.data()
+    setDocuProp(docu)
   }
 
-  useEffect(() => {
-    getInfo();
-  }, [])
-
-  async function getInfo () {
-    const q = query(collection(db, "propiedades"), where("folio", "==", params.id));
+  async function getInfoClient () {
+    const q = query(collection(db, "clientes"), where("folio", "==", params.id));
     const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
+    await querySnapshot.forEach((doc) => {
       const docu = (doc.id, " => ", doc.data());
-      console.log(docu)
       setDocu(docu)
     });
+    if (docu.terminos == false) {
+      setShow(true);
+    }
+  }
+
+  const terminosAceptados = async () => {
+    const termRef = doc(db, "clientes", docu.id)
+    await updateDoc(termRef, {
+      terminos: true
+    })
+    handleClose()
   }
 
   return (
     <>
+    <ModalTerminos 
+      terms={terms}
+      show={show}
+      onHide={handleClose}
+      onClick={terminosAceptados}
+      aceptar={() => setTerms(!terms)}
+    />
+    
     {docu !== null ? (
 
       <div className='container-md mt-3 text-center'>
@@ -68,12 +93,13 @@ export default function Page({ params }) {
                   <p>Asesor: { docu.asesor }</p>
                   <p>Trámite: { docu.esquema }</p>
                   <p>Status: { docu.status }</p>
-                  <p>Proyecto: { docu.proyecto }</p>
+                  <p>Proyecto: { docuProp == null ? ("") :  (docuProp.proyecto) }</p>
                 </div>
               </Card.Text>
             </Card.Body>
           </Card>
         </div>
+
 
         <div className='row my-5'>
           <div className='col-md-3 col-12'>

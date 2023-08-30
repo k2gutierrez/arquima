@@ -4,6 +4,7 @@ import { useAuthContext } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import logo from '../../../public/ArquimaLogo.png'
+import engrane from '../../../public/engranes.gif'
 
 export default function User() {
 
@@ -15,18 +16,19 @@ export default function User() {
         switch (currentRol) {
             case "vendedor":
                 router.push("/ventas")
-                break;
+                break
             case "administrativo":
                 router.push("/admin")
-                break;
+                break
             case "owner":
                 router.push("/dashboard")
-                break;
+                break
             default:
                 router.push("/user-validation")
-                break;
+                break
         }
     },[currentRol])
+    console.log(user)
 
     return (
     <div className='container-sm text-center align-items-center my-5'>
@@ -34,6 +36,7 @@ export default function User() {
             <Image className='img-fluid' alt='logo' src={logo} width={600} height={460} />
         </div>
         <div>
+            <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
             <p>Loading...</p>
         </div>
     </div>

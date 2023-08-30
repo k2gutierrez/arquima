@@ -4,6 +4,7 @@ import { db } from "@/firebase/config";
 import { doc, getDoc } from "firebase/firestore";
 import firebase_app from "@/firebase/config";
 import logo from '../../public/ArquimaLogo.png';
+import engrane from '../../public/engranes.gif';
 import Image from "next/image";
 
 const auth = getAuth(firebase_app);
@@ -69,6 +70,7 @@ export const AuthContextProvider = ({
                         <Image className='img-fluid' alt='logo' src={logo} width={600} height={460} />
                     </div>
                     <div>
+                        <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
                         <p>Loading...</p>
                     </div>
                 </div> : children}

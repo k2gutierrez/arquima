@@ -19,6 +19,7 @@ import ModalG from '@/components/ModalG'
 import DbUpload from '@/DbUpload'
 import { currencyMXN } from '@/formatCurrencyExample'
 import Docesquema from '@/components/DocEsquema'
+import engrane from '../../../public/engranes.gif'
 
 
 export default function Owner() {
@@ -33,12 +34,15 @@ export default function Owner() {
   const [email, setEmail] = useState('')
   const [cel, setCel] = useState('')
   const [pago, setPago] = useState('')
-  const [folio, setFolio] = useState(0)
+  const [folio, setFolio] = useState('')
   const [asesor, setAsesor] = useState(undefined)
   const [propiedadID, setPropiedadID] = useState("")
   const [asesorID, setAsesorID] = useState("")
   const [compra, setCompra] = useState('')
+
   const [proyectos, setProyectos] = useState([''])
+  const [empleados, setEmpleados] = useState(null)
+
   const [tipoDocEsquema, setTipoDocEsquema] = useState('')
   const [docEsquema, setDocEsquema] = useState('')
   const [civil, setCivil] = useState('SOLTERO')
@@ -49,6 +53,7 @@ export default function Owner() {
   const [vendedores, setVendedores] = useState([{id: "none", nombre: "none"}])
   const [clientes, setClientes] = useState(null)
 
+  // Arranque inicial y con cada update para llamar a los vendedores, propiedades y clientes, o sino te saca del panel
   useEffect(() => {
     if (user == null) {
       router.push("/")
@@ -61,11 +66,53 @@ export default function Owner() {
     }
   }, [user, update])
 
+  // Use efecto con la función getPropiedadFolio para revisar cambios en el estado y declarar el ID de la propiedad para el registro del cliente
+  useEffect(() => {
+    if (propiedadID == '') {
+      getPropiedadFolio()
+    } else {
+      getPropiedadFolio()
+    }
+  }, [propiedadID])
+
+  //
+  useEffect(() => {
+    if (asesorID == '') {
+      getSellerName()
+    } else {
+      getSellerName()
+    }
+  }, [asesorID])
+
+
+  // Función para obtener el folio de la propiedad seleccionada para el registro del cliente se pone en un useEffect que siga los cambios de propiedadID
+  async function getPropiedadFolio () {
+    if (propiedadID != '') {
+      const docRef = doc(db, "propiedades", propiedadID)
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        let docu = docSnap.data()
+        setFolio(docu.folio)
+      }
+    }
+  }
+
+  // Función para obtener el nombre del Asesor de acuerdo al ID del Asesor
+  async function getSellerName () {
+    if (asesorID != '') {
+      const docRef = doc(db, "empleados", asesorID)
+      const docSnap = await getDoc(docRef)
+      if (docSnap.exists()) {
+        let docu = docSnap.data()
+        setAsesor(docu.nombre)
+      }
+    }
+  }
+  
+  // Si propiedades es ya un documento mapea para obtener los proyectos para el panel principal
   useEffect(() => {
     if (propiedades != null) {
-      
       const output = []
-
       propiedades.forEach(v => {
         if (!output.map(o => o.proyecto).includes(v.proyecto)) {
           output.push(v.proyecto)
@@ -79,11 +126,10 @@ export default function Owner() {
       })
       let setOutput = new Set(output)
       setProyectos(setOutput)
-
       }
-
   }, [propiedades, menu])
 
+  // Use efecto con el tipo de compra para el registro del cliente, este manda llamar opciones al momento de registro
   useEffect(() => {
     switch (compra) {
       case "CONTADO":
@@ -140,19 +186,28 @@ export default function Owner() {
       default:
         break
     }
-
   }, [compra])
 
+  // Función para obtener a los vendedores y empleados
   async function getSellers() {
-    const q = query(collection(db, "empleados"), where("rol", "==", "vendedor"));
+    const q = query(collection(db, "empleados"))
     const querysnapshot = await getDocs(q);
     const docSnapshots = []
     querysnapshot.forEach((doc) => {
       docSnapshots.push(doc.data())
     });
-    setVendedores(docSnapshots)
+    setEmpleados(docSnapshots)
+    const vend = []
+    await querysnapshot.forEach((doc) => {
+      const docu = doc.data()
+      if (docu.rol == 'vendedor') {
+        vend.push(doc.data())
+      }
+    })
+    setVendedores(vend)
   }
 
+  // Función para obtener a los clientes
   async function getClients() {
     const q = query(collection(db, "clientes"));
     const querysnapshot = await getDocs(q);
@@ -163,6 +218,7 @@ export default function Owner() {
     setClientes(docSnapshots)
   }
 
+  // Función para obtener propiedades en general y para obtener las propiedades libres
   async function getProperties() {
     const q = query(collection(db, "propiedades"));
     //const q = query(collection(db, "propiedades"), where("status_inmueble", "==", "LIBRE"));
@@ -180,9 +236,9 @@ export default function Owner() {
       }
     })
     setPropiedadesL(docsPropsLibres)
-
   }
 
+  // Función para registrar clientes
   async function registerClient () {
     try {
       const data = {
@@ -199,6 +255,7 @@ export default function Owner() {
         propiedadID: propiedadID,
         asesor: asesor,
         asesorID: asesorID,
+        terminos: false,
         historial: [
           {
             registrado: currentName,
@@ -224,19 +281,8 @@ export default function Owner() {
 
       setMessagem("Registro exitoso") //poner un modal bonito para indicar que el registro fue exitoso!
       handleShow()
-      setNombre('')
-      setEmail('')
-      setCel('')
-      setPago('')
-      setFolio('')
-      setAsesor('')
-      setPropiedadID(0)
-      setAsesorID(0)
-      setDocEsquema('')
-      setTipoDocEsquema('')
-      setCivil('SOLTERO')
-      setTipoMatrimonio('NA')
       setUpdate(!update)
+      setMenu('inicio')
     } catch (e) {
       setMessagem(e)
       handleShow()
@@ -385,12 +431,51 @@ export default function Owner() {
     }
   ]
 
+  const columns3 = [
+    {
+      dataField: "id",
+      text: "ID",
+      sort: true,
+      filter: textFilter()
+    },
+    {
+      dataField: "nombre",
+      text: "Nombre",
+      sort: true,
+      filter: textFilter()
+    },
+    {
+      dataField: "email",
+      text: "Email",
+      sort: true,
+      filter: textFilter()
+    },
+    {
+      dataField: "rol",
+      text: "Rol",
+      sort: true,
+      filter: textFilter()
+    },
+  ]
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const rowEventClient = {
     onClick: (e, row, rowIndex) => {
       router.push(`/dashboard/cliente/${row.id}`)
+    }
+  };
+
+  const rowEventEmpleado = {
+    onClick: (e, row, rowIndex) => {
+      router.push(`/dashboard/empleado/${row.id}`)
+    }
+  };
+
+  const rowEventPropiedad = {
+    onClick: (e, row, rowIndex) => {
+      router.push(`/dashboard/propiedad/${row.id}`)
     }
   };
 
@@ -428,6 +513,9 @@ export default function Owner() {
                           <Link href=""><button type='button' onClick={() => setMenu('')} className="btn" data-bs-dismiss="offcanvas" >Inicio</button></Link>
                       </li>
                       <li className="nav-item">
+                          <Link href=""><button type='button' onClick={() => setMenu('empleados')} className="btn" data-bs-dismiss="offcanvas" >Empleados</button></Link>
+                      </li>
+                      <li className="nav-item">
                           <Link href=""><button type='button' onClick={() => setMenu('registrarC')} className="btn" data-bs-dismiss="offcanvas" >Registrar Clientes</button></Link>
                       </li>
                       <li className="nav-item">
@@ -450,6 +538,33 @@ export default function Owner() {
         (
           <div className='row justify-content-center'>
             <DbUpload />
+          </div>
+        ) : (<></>)
+
+        }
+        {menu == 'empleados' ? 
+        (
+          <div className='row justify-content-center'>
+            {
+              propiedades !=null && propiedades.length > 0 ? (
+                  <BootstrapTable
+                    striped
+                    condensed
+                    hover
+                    keyField='id'
+                    data={empleados}
+                    columns={columns3}
+                    pagination={paginationFactory()}
+                    filter={filterFactory()}
+                    rowEvents={rowEventEmpleado}
+                  />
+                ) : (
+                <>
+                  <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
+                  <p>Loading...</p>
+                </>
+                )
+              }
           </div>
         ) : (<></>)
 
@@ -486,11 +601,11 @@ export default function Owner() {
                   
                   <div className='mb-3 mx-5'>
                     <p>Selecciona el Folio de la propiedad</p>
-                    <select className="form-select" onChange={(e) => {setFolio(e.target.value); console.log(folio); console.log(propiedadID)}} aria-label="Default select example">
-                      <option value="">Folio</option>
+                    <select className="form-select" onChange={(e) => { propiedadID == '' ? (setPropiedadID(e.target.value)):(setPropiedadID(e.target.value))}} aria-label="Default select example">
+                      <option value="" >Folio</option>
                       {propiedadesL.map((fol) => {
                         return (
-                          <option key={fol.id} onClick={() => setPropiedadID(fol.id)} value={fol.folio}>{fol.folio}</option>
+                          <option key={fol.id} value={fol.id}>{fol.folio}</option>
                         )
                       })}
                     </select>
@@ -498,11 +613,11 @@ export default function Owner() {
 
                   <div className='mb-3 mx-5'> 
                   <p>Selecciona al Asesor encargado de este cliente: </p>
-                    <select className="form-select" onChange={(e) => setAsesor(e.target.value)}  aria-label="Default select example">
+                    <select className="form-select" onChange={(e) => setAsesorID(e.target.value)}  aria-label="Default select example">
                       <option value="">Asesor</option>
                       {vendedores.map((vend) => {
                         return (
-                          <option key={vend.id} onClick={() => setAsesorID(vend.id)} value={vend.nombre}>{vend.nombre}</option>
+                          <option key={vend.id} value={vend.id}>{vend.nombre}</option>
                         )
                       })}
                     </select>
@@ -545,8 +660,8 @@ export default function Owner() {
                       <p>Régimen Patrimonial</p>
                       <select className="form-select" onChange={(e) => setTipoMatrimonio(e.target.value)}  aria-label="Default select example">
                         <option value="">Selecciona una opción</option>
-                        <option value="Sociedad legal / Mancomunado">Sociedad legal / Mancomunado</option>
-                        <option value="Bienes separados">Bienes separados</option>
+                        <option value="SOCIEDAD LEGAL / MANCOMUNADO">Sociedad legal / Mancomunado</option>
+                        <option value="BIENES SEPARADOS">Bienes separados</option>
                       </select>
                     </div>
                   ) : (<></>)
@@ -581,12 +696,15 @@ export default function Owner() {
                     data={propiedades}
                     columns={columns}
                     pagination={paginationFactory()}
-                    cellEdit={cellEditFactory({
-                      mode: "dbclick",
-                    })}
                     filter={filterFactory()}
+                    rowEvents={rowEventPropiedad}
                   />
-                ) : (<>Loading</>)
+                ) : (
+                <>
+                  <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
+                  <p>Loading...</p>
+                </>
+                )
               }
           </div>
         ) : 
@@ -610,7 +728,12 @@ export default function Owner() {
                     filter={filterFactory()}
                     rowEvents={rowEventClient}
                   />
-                ) : (<>Loading</>)
+                ) : (
+                  <>
+                    <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
+                    <p>Loading...</p>
+                  </>
+                )
               }
           </div>
         ) : 
