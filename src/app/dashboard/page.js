@@ -57,14 +57,14 @@ export default function Owner() {
   useEffect(() => {
     if (user == null) {
       router.push("/")
-    } else if (currentRol != "owner") {
+    } else if (currentRol !== "owner") {
       router.push("/user-validation")
-    } else if (currentRol == "owner") {
+    } else if (currentRol === "owner") {
       getSellers();
       getProperties();
       getClients();
     }
-  }, [user, update])
+  }, [user, update, currentRol])
 
   // Use efecto con la función getPropiedadFolio para revisar cambios en el estado y declarar el ID de la propiedad para el registro del cliente
   useEffect(() => {

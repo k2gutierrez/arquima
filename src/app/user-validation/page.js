@@ -27,7 +27,7 @@ export default function User() {
                 router.push("/user-validation")
                 break
         }
-    },[currentRol])
+    },[user, currentRol])
     console.log(user)
 
     return (

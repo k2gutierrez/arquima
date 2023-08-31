@@ -54,12 +54,12 @@ export default function Ventas() {
   useEffect(() => {
     if (user == null) {
       router.push("/")
-    } else if (currentRol != "vendedor") {
+    } else if (currentRol !== "vendedor") {
       router.push("/user-validation")
-    } else if (currentRol == "vendedor") {
+    } else if (currentRol === "vendedor") {
       getClients();
     }
-  }, [user, update])
+  }, [user, update, currentRol])
 
   // Use efecto con la función getPropiedadFolio para revisar cambios en el estado y declarar el ID de la propiedad para el registro del cliente
   useEffect(() => {

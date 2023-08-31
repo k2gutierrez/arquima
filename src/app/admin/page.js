@@ -57,14 +57,14 @@ export default function Admin() {
   useEffect(() => {
     if (user == null) {
       router.push("/")
-    } else if (currentRol != "administrativo") {
+    } else if (currentRol !== "administrativo") {
       router.push("/user-validation")
-    } else if (currentRol == "administrativo") {
+    } else if (currentRol === "administrativo") {
       getSellers();
       getProperties();
       getClients();
     }
-  }, [user, update])
+  }, [user, update, currentRol])
 
   // Use efecto con la función getPropiedadFolio para revisar cambios en el estado y declarar el ID de la propiedad para el registro del cliente
   useEffect(() => {
