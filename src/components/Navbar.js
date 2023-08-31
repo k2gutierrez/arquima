@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Container, Form, Nav, Navbar, Offcanvas } from 'react-bootstrap'
 
-export default function Navbar(props) {
+export default function NavbarComponent(props) {
   return (
     <>
         <Navbar expand={false} className="bg-body-tertiary mb-3" >

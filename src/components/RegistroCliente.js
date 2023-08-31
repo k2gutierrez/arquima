@@ -39,7 +39,7 @@ export default function Signform(props) {
               <option value="">Forma de Compra</option>
               {vendedores.map((vend) => {
                 return (
-                  <option value={vend.id}>{vend.nombre}</option>
+                  <option key={vend.id} value={vend.id}>{vend.nombre}</option>
                 )
               })}
             </select>

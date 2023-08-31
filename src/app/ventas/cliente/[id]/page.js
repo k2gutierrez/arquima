@@ -298,7 +298,7 @@ export default function Page({ params }) {
                       <option selected>Cambiar status del cliente</option>
                       {statusOpciones.map((t) => {
                         return (
-                          <option value={ t }>{ t }</option>
+                          <option key={ t } value={ t }>{ t }</option>
                         )
                       })
                       }
