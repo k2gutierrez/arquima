@@ -1,3 +1,4 @@
+// opciones de status para el proceso y clientes
 export const statusOpciones = [
     "LIBRE",
     "ARMADO DE EXPEDIENTE",
