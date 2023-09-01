@@ -36,7 +36,7 @@ export async function getStaticPaths () {
 
 }
 
-export default function Page({ params }) {
+function Page({ params }) {
   
   const [statusInterno, setStatusInterno] = useState('')
   const [obs, setObs] = useState('')
@@ -157,3 +157,5 @@ export default function Page({ params }) {
     </>
   )
 }
+
+export default Page
