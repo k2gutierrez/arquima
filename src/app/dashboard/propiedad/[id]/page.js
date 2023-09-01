@@ -13,7 +13,7 @@ import { useAuthContext } from '@/context/AuthContext'
 import signoutfirebase from '@/firebase/auth/signoutfirebase'
 import engrane from '../../../../../public/engranes.gif'
 
-export async function getStaticPaths () {
+export async function generateStaticParams () {
   
   const q = query(collection(db, "propiedades"))
   const querysnapshot = await getDocs(q);
@@ -24,20 +24,20 @@ export async function getStaticPaths () {
   
   const paths = docPropiedades.map((propiedad) => {
     return {
-      params: {
-        id: propiedad.id.toString(),
-      }
+      id: propiedad.id
     };
   });
-  return {
-    paths,
-    fallback: true,
-  };
+  //return {
+   // paths,
+    //fallback: true,
+  //};
 
 }
 
 function Page({ params }) {
   
+  const { id } = params
+
   const [statusInterno, setStatusInterno] = useState('')
   const [obs, setObs] = useState('')
 
@@ -57,7 +57,7 @@ function Page({ params }) {
   const changeStatus = async () => {
     
     try {
-      const docRef = doc(db, "propiedades", params.id)
+      const docRef = doc(db, "propiedades", id)
       await updateDoc(docRef, {
         status_interno: statusInterno
       });
@@ -70,7 +70,7 @@ function Page({ params }) {
   const changeObs = async () => {
     
     try {
-      const docRef = doc(db, "propiedades", params.id)
+      const docRef = doc(db, "propiedades", id)
       await updateDoc(docRef, {
         observaciones: obs
       });
