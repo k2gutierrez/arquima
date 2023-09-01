@@ -11,15 +11,48 @@ import styles from './page.module.css'
 import cls from 'classnames'
 import { useAuthContext } from '@/context/AuthContext'
 import signoutfirebase from '@/firebase/auth/signoutfirebase'
+import engrane from '../../../../../public/engranes.gif'
+
+export async function getStaticPaths () {
+  
+  const q = query(collection(db, "propiedades"))
+  const querysnapshot = await getDocs(q);
+  const docPropiedades = []
+  await querysnapshot.forEach((doc) => {
+    docPropiedades.push(doc.data())
+  });
+  
+  const paths = docPropiedades.map((propiedad) => {
+    return {
+      params: {
+        id: propiedad.id.toString(),
+      }
+    };
+  });
+  return {
+    paths,
+    fallback: true,
+  };
+
+}
 
 export default function Page({ params }) {
-
+  
   const [statusInterno, setStatusInterno] = useState('')
   const [obs, setObs] = useState('')
 
   const router = useRouter()
 
   const { currentName } = useAuthContext()
+
+  if (router.isFallback) {
+    return (
+      <>
+        <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
+        <p>Loading...</p>
+      </>
+    )
+  }
 
   const changeStatus = async () => {
     
