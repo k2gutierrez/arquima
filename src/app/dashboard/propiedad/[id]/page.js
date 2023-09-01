@@ -13,7 +13,9 @@ import { useAuthContext } from '@/context/AuthContext'
 import signoutfirebase from '@/firebase/auth/signoutfirebase'
 import engrane from '../../../../../public/engranes.gif'
 
-function Page() {
+function Page({ params }) {
+  
+  const { id } = params
 
   const [statusInterno, setStatusInterno] = useState('')
   const [obs, setObs] = useState('')
@@ -34,7 +36,7 @@ function Page() {
   const changeStatus = async () => {
     
     try {
-      const docRef = doc(db, "propiedades", propiedadId)
+      const docRef = doc(db, "propiedades", id)
       await updateDoc(docRef, {
         status_interno: statusInterno
       });
@@ -47,7 +49,7 @@ function Page() {
   const changeObs = async () => {
     
     try {
-      const docRef = doc(db, "propiedades", propiedadId)
+      const docRef = doc(db, "propiedades", id)
       await updateDoc(docRef, {
         observaciones: obs
       });

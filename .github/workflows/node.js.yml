@@ -2,7 +2,7 @@
 name: ARQUIMA
 
 on:
-  push:
+  #push:
     branches: [main]
     paths-ignore: ["*.md", "*.yml", "*.yaml"]
 
