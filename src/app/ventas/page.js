@@ -173,7 +173,18 @@ export default function Ventas() {
     await querysnapshot.forEach((doc) => {
       docsPropsLibres.push(doc.data())
     })
-    setPropiedadesL(docsPropsLibres)
+    let data = await docsPropsLibres.sort(function(a, b) {
+      let fa = a.folio.toUpperCase()
+      let fb = b.folio.toUpperCase()
+      if (fa < fb) {
+        return -1;
+      }
+      if (fa > fb) {
+        return 1;
+      }
+      return 0;
+    })
+    setPropiedadesL(data)
   }
 
   // Función para registrar clientes
