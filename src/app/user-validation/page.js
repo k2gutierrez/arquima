@@ -23,6 +23,8 @@ export default function User() {
             case "owner":
                 router.push("/dashboard")
                 break
+            case "" || null:
+                router.push("/")
             default:
                 router.push("/user-validation")
                 break

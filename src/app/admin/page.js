@@ -215,14 +215,25 @@ export default function Admin() {
       docSnapshotsProperties.push(doc.data())
     });
     setPropiedades(docSnapshotsProperties)
-    const docsPropsLibres = []
+    let docsPropsLibres = []
     await querysnapshot.forEach((doc) => {
       const docu = doc.data()
       if (docu.status == "LIBRE") {
         docsPropsLibres.push(doc.data())
       }
     })
-    setPropiedadesL(docsPropsLibres)
+    let data = await docsPropsLibres.sort(function(a, b) {
+      let fa = a.folio.toUpperCase()
+      let fb = b.folio.toUpperCase()
+      if (fa < fb) {
+        return -1;
+      }
+      if (fa > fb) {
+        return 1;
+      }
+      return 0;
+    })
+    setPropiedadesL(data)
   }
 
   // Función para registrar clientes
