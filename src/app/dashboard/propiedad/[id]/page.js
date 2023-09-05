@@ -12,17 +12,21 @@ import cls from 'classnames'
 import { useAuthContext } from '@/context/AuthContext'
 import signoutfirebase from '@/firebase/auth/signoutfirebase'
 import engrane from '../../../../../public/engranes.gif'
+import ModalG from '@/components/ModalG'
 
 function Page({ params }) {
-  
-  const { id } = params
 
   const [statusInterno, setStatusInterno] = useState('')
   const [obs, setObs] = useState('')
+  const [show, setShow] = useState(false)
+  const [message, setMessage] = useState('')
 
   const router = useRouter()
 
   const { currentName } = useAuthContext()
+
+  const handleShow = () => setShow(true)
+  const handleHide = () => setShow(false)
 
   if (router.isFallback) {
     return (
@@ -36,26 +40,30 @@ function Page({ params }) {
   const changeStatus = async () => {
     
     try {
-      const docRef = doc(db, "propiedades", id)
+      const docRef = doc(db, "propiedades", params.id)
       await updateDoc(docRef, {
         status_interno: statusInterno
       });
-      router.push("/dashboard")
+      setMessage("Status interno modificado")
+      handleShow()
     } catch (e) {
-      window.alert(e)
+      setMessage(e)
+      handleShow()
     }
   }
 
   const changeObs = async () => {
     
     try {
-      const docRef = doc(db, "propiedades", id)
+      const docRef = doc(db, "propiedades", params.id)
       await updateDoc(docRef, {
         observaciones: obs
       });
-      router.push("/dashboard")
+      setMessage("Observación agregada")
+      handleShow()
     } catch (e) {
-      window.alert(e)
+      setMessage(e)
+      handleShow()
     }
   }
 
@@ -68,7 +76,13 @@ function Page({ params }) {
 
   return (
     <>
-      
+        <ModalG
+          show={show}
+          onHide={handleHide}
+          message={message}
+          onClick={handleHide}
+          button={"Aceptar"}
+        />
         <nav className="navbar bg-body-tertiary sticky-top">
           <div className="container-fluid">
               <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -116,8 +130,8 @@ function Page({ params }) {
           <div className='align-items-center mb-5'>
             <h3>Cambiar Status Interno</h3>
             <div class="mb-3">
-              <label for="nombre" class="form-label">Nuevo status:</label>
-              <input type="text" onChange={(e) => setStatusInterno(e.target.value)} class="form-control" id="nombre" />
+              <label for="status" class="form-label">Nuevo status:</label>
+              <input type="text" onChange={(e) => setStatusInterno(e.target.value)} class="form-control" id="status" />
             </div>
             <button type="button" onClick={changeStatus} class="btn btn-primary">Cambiar Status Interno</button>
           </div>
@@ -125,8 +139,8 @@ function Page({ params }) {
           <div className='align-items-center mb-5'>
             <h3>Observaciones</h3>
             <div class="mb-3">
-              <label for="nombre" class="form-label">Cambiar observación:</label>
-              <input type="text" onChange={(e) => setObs(e.target.value)} class="form-control" id="nombre" />
+              <label for="obs" class="form-label">Cambiar observación:</label>
+              <input type="text" onChange={(e) => setObs(e.target.value)} class="form-control" id="obs" />
             </div>
             <button type="button" onClick={changeObs} class="btn btn-primary">Cambiar Status Interno</button>
           </div>

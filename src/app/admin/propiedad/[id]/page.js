@@ -11,26 +11,35 @@ import styles from './page.module.css'
 import cls from 'classnames'
 import { useAuthContext } from '@/context/AuthContext'
 import signoutfirebase from '@/firebase/auth/signoutfirebase'
+import ModalG from '@/components/ModalG'
 
 export default function Page({ params }) {
 
   const [statusInterno, setStatusInterno] = useState('')
   const [obs, setObs] = useState('')
 
+  const [show, setShow] = useState(false)
+  const [message, setMessage] = useState('')
+
   const router = useRouter()
 
   const { currentName } = useAuthContext()
+
+  const handleShow = () => setShow(true)
+  const handleHide = () => setShow(false)
 
   const changeStatus = async () => {
     
     try {
       const docRef = doc(db, "propiedades", params.id)
       await updateDoc(docRef, {
-        status_intenro: statusInterno
+        status_interno: statusInterno
       });
-      router.push("/dashboard")
+      setMessage("Status interno modificado")
+      handleShow()
     } catch (e) {
-      window.alert(e)
+      setMessage(e)
+      handleShow()
     }
   }
 
@@ -46,15 +55,23 @@ export default function Page({ params }) {
       await updateDoc(docRef, {
         observaciones: obs
       });
-      router.push("/dashboard")
+      setMessage("Observación agregada")
+      handleShow()
     } catch (e) {
-      window.alert(e)
+      setMessage(e)
+      handleShow()
     }
   }
 
   return (
     <>
-      
+      <ModalG
+          show={show}
+          onHide={handleHide}
+          message={message}
+          onClick={handleHide}
+          button={"Aceptar"}
+        />
         <nav className="navbar bg-body-tertiary sticky-top">
           <div className="container-fluid">
               <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -102,8 +119,8 @@ export default function Page({ params }) {
           <div className='align-items-center mb-5'>
             <h3>Cambiar Status Interno</h3>
             <div class="mb-3">
-              <label for="nombre" class="form-label">Nuevo status:</label>
-              <input type="text" onChange={(e) => setStatusInterno(e.target.value)} class="form-control" id="nombre" />
+              <label for="status" class="form-label">Nuevo status:</label>
+              <input type="text" onChange={(e) => setStatusInterno(e.target.value)} class="form-control" id="status" />
             </div>
             <button type="button" onClick={changeStatus} class="btn btn-primary">Cambiar Status Interno</button>
           </div>
@@ -111,8 +128,8 @@ export default function Page({ params }) {
           <div className='align-items-center mb-5'>
             <h3>Observaciones</h3>
             <div class="mb-3">
-              <label for="nombre" class="form-label">Cambiar observación:</label>
-              <input type="text" onChange={(e) => setObs(e.target.value)} class="form-control" id="nombre" />
+              <label for="obs" class="form-label">Cambiar observación:</label>
+              <input type="text" onChange={(e) => setObs(e.target.value)} class="form-control" id="obs" />
             </div>
             <button type="button" onClick={changeObs} class="btn btn-primary">Cambiar Status Interno</button>
           </div>
