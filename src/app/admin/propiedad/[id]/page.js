@@ -40,8 +40,9 @@ export default function Page({ params }) {
   }
 
   useEffect(() => {
+    console.log('useEffect de property')
     getProperty()
-  }, [changeObs])
+  }, [menu])
 
   async function getProperty () {
     const docRef = doc(db, "propiedades", params.id);
