@@ -30,6 +30,11 @@ export default function Page({ params }) {
   const handleShow = () => setShow(true)
   const handleHide = () => setShow(false)
 
+  useEffect(() => {
+
+    getProperty()
+  }, [])
+
   if (router.isFallback) {
     return (
       <>
@@ -38,11 +43,6 @@ export default function Page({ params }) {
       </>
     )
   }
-
-  useEffect(() => {
-    console.log('useEffect de property')
-    getProperty()
-  }, [menu])
 
   async function getProperty () {
     const docRef = doc(db, "propiedades", params.id);
