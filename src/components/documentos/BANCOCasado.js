@@ -1175,390 +1175,388 @@ export default function BANCOCasado(props) {
           </h2>
           <div id="flush-collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             {/*<div className="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>*/}
+            <div className='row text-start mx-5 px-5'>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">Tel. oficina</span>
+              <input type="text" className="form-control" onChange={(e) => setTelOficina(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">Tel. casa</span>
+              <input type="text" className="form-control" onChange={(e) => setTelCasa(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">Cel.</span>
+              <input type="text" className="form-control" onChange={(e) => setCelular(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <div className="input-group mb-3">
+              <p>último grado de estudios</p>
+              <input type="text" className="form-control" onChange={(e) => setEstudios(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <p className='mb-2'>Referencia personal:</p>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">Nombre</span>
+              <input type="text" className="form-control" onChange={(e) => setNombreRefPersonal(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">Teléfono</span>
+              <input type="text" className="form-control" onChange={(e) => setTelRefPersonal(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">Tiempo de conocerse</span>
+              <input type="text" className="form-control" onChange={(e) => setTiempoRefPersonal(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <p className='mb-2'>Referencia familiar que no viva con la persona:</p>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">Nombre</span>
+              <input type="text" className="form-control" onChange={(e) => setNombreRefFamiliar(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">Teléfono</span>
+              <input type="text" className="form-control" onChange={(e) => setTelRefFamiliar(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">Parentesco</span>
+              <input type="text" className="form-control" onChange={(e) => setParentescoRefFamiliar(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <p className='mb-2'>Peso y estatura de acreditado:</p>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">Peso</span>
+              <input type="text" className="form-control" onChange={(e) => setPesoAcre(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">estatura</span>
+              <input type="text" className="form-control" onChange={(e) => setEstaturaAcre(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <p className='mb-2'>Peso y estatura de cónyuge:</p>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">Peso</span>
+              <input type="text" className="form-control" onChange={(e) => setPesoCon(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">estatura</span>
+              <input type="text" className="form-control" onChange={(e) => setEstaturaCon(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <div className="input-group mb-3">
+              <p>Tiempo de vivir en su dimicilio</p>
+              <input type="text" className="form-control" onChange={(e) => setTiempoDom(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <div className='mb-3'>
+              <p>Selecciona una opción respecto al domicilio donde vive el solicitante:</p>
+              <select className="form-select" onChange={(e) => setStatusDom(e.target.value)} aria-label="Default select example">
+                <option selected>Seleccionar</option>
+                <option value="propio">Propio</option>
+                <option value="rentado">Rentado</option>
+                <option value="de familiares">de familiares</option>
+              </select>
+            </div>
+
+            <div className='mb-3'>
+              <p>Dependientes económicos:</p>
+              <select className="form-select" onChange={(e) => setDependientes(e.target.value)} aria-label="Default select example">
+                <option value="0" selected>Seleccionar</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+              </select>
+            </div>
+
+            {dependientes == "1" ? (
+              <div className="input-group mb-3">
+                <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad1' placeholder="Edad" aria-label="Edad" />
+                <span className="input-group-text">-</span>
+                <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren1' placeholder="Parentesco" aria-label="Parentesco" />
+              </div>
+            
+            ) : (<></>)
+            }
+
+            {dependientes == "2" ? (
+              <>
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad21' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren21' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+                
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad22' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren22' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+              </>
+            
+            ) : (<></>)
+            }
+
+            {dependientes == "3" ? (
+              <>
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad31' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren31' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+                
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad32' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren32' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad3(e.target.value)} id='edad33' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen3(e.target.value)} id='paren33' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+              </>
+            
+            ) : (<></>)
+            }
+
+            {dependientes == "4" ? (
+              <>
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad41' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren41' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+                
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad42' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren42' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad3(e.target.value)} id='edad43' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen3(e.target.value)} id='paren43' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad4(e.target.value)} id='edad44' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen4(e.target.value)} id='paren44' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+              </>
+            
+            ) : (<></>)
+            }
+
+            {dependientes == "5" ? (
+              <>
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad51' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren51' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+                
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad52' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren52' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad3(e.target.value)} id='edad53' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen3(e.target.value)} id='paren53' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad4(e.target.value)} id='edad54' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen4(e.target.value)} id='paren54' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad5(e.target.value)} id='edad55' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen5(e.target.value)} id='paren55' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+              </>
+
+            ) : (<></>)
+            }
+
+            {dependientes == "6" ? (
+              <>
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad61' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren61' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+                
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad62' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren62' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad3(e.target.value)} id='edad63' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen3(e.target.value)} id='paren63' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad4(e.target.value)} id='edad64' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen4(e.target.value)} id='paren64' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad5(e.target.value)} id='edad65' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen5(e.target.value)} id='paren65' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad6(e.target.value)} id='edad66' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen6(e.target.value)} id='paren66' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+              </>
+
+            ) : (<></>)
+            }
+
+            {dependientes == "7" ? (
+              <>
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad71' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren71' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+                
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad72' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren72' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad3(e.target.value)} id='edad73' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen3(e.target.value)} id='paren73' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad4(e.target.value)} id='edad74' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen4(e.target.value)} id='paren74' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad5(e.target.value)} id='edad75' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen5(e.target.value)} id='paren75' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad6(e.target.value)} id='edad76' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen6(e.target.value)} id='paren76' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad7(e.target.value)} id='edad77' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen7(e.target.value)} id='paren77' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+              </>
+
+            ) : (<></>)
+            }
+
+            {dependientes == "8" ? (
+              <>
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad81' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren81' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+                
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad82' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren82' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad3(e.target.value)} id='edad83' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen3(e.target.value)} id='paren83' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad4(e.target.value)} id='edad84' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen4(e.target.value)} id='paren84' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad5(e.target.value)} id='edad85' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen5(e.target.value)} id='paren85' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad6(e.target.value)} id='edad86' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen6(e.target.value)} id='paren86' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad7(e.target.value)} id='edad87' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen7(e.target.value)} id='paren87' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" onChange={(e) => setDepEdad8(e.target.value)} id='edad88' placeholder="Edad" aria-label="Edad" />
+                  <span className="input-group-text">-</span>
+                  <input type="text" className="form-control" onChange={(e) => setDepParen8(e.target.value)} id='paren88' placeholder="Parentesco" aria-label="Parentesco" />
+                </div>
+              </>
+
+            ) : (<></>)
+            }
+
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="inputGroup-sizing-default">Valor aproximado de la propiedad a adquirir</span>
+              <input type="text" className="form-control" onChange={(e) => setValorPropiedad(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+            </div>
+
+            <button type='button' onClick={registrarInfoIndispensable} className='btn btn-secondary my-3' >Registrar Información</button>
+
+          </div>
           </div>
         </div>
-      </div>
-    
-
-      <div className='row text-start mx-5 px-5'>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">Tel. oficina</span>
-          <input type="text" className="form-control" onChange={(e) => setTelOficina(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">Tel. casa</span>
-          <input type="text" className="form-control" onChange={(e) => setTelCasa(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">Cel.</span>
-          <input type="text" className="form-control" onChange={(e) => setCelular(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <div className="input-group mb-3">
-          <p>último grado de estudios</p>
-          <input type="text" className="form-control" onChange={(e) => setEstudios(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <p className='mb-2'>Referencia personal:</p>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">Nombre</span>
-          <input type="text" className="form-control" onChange={(e) => setNombreRefPersonal(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">Teléfono</span>
-          <input type="text" className="form-control" onChange={(e) => setTelRefPersonal(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">Tiempo de conocerse</span>
-          <input type="text" className="form-control" onChange={(e) => setTiempoRefPersonal(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <p className='mb-2'>Referencia familiar que no viva con la persona:</p>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">Nombre</span>
-          <input type="text" className="form-control" onChange={(e) => setNombreRefFamiliar(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">Teléfono</span>
-          <input type="text" className="form-control" onChange={(e) => setTelRefFamiliar(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">Parentesco</span>
-          <input type="text" className="form-control" onChange={(e) => setParentescoRefFamiliar(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <p className='mb-2'>Peso y estatura de acreditado:</p>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">Peso</span>
-          <input type="text" className="form-control" onChange={(e) => setPesoAcre(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">estatura</span>
-          <input type="text" className="form-control" onChange={(e) => setEstaturaAcre(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <p className='mb-2'>Peso y estatura de cónyuge:</p>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">Peso</span>
-          <input type="text" className="form-control" onChange={(e) => setPesoCon(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">estatura</span>
-          <input type="text" className="form-control" onChange={(e) => setEstaturaCon(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <div className="input-group mb-3">
-          <p>Tiempo de vivir en su dimicilio</p>
-          <input type="text" className="form-control" onChange={(e) => setTiempoDom(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <div className='mb-3'>
-          <p>Selecciona una opción respecto al domicilio donde vive el solicitante:</p>
-          <select className="form-select" onChange={(e) => setStatusDom(e.target.value)} aria-label="Default select example">
-            <option selected>Seleccionar</option>
-            <option value="propio">Propio</option>
-            <option value="rentado">Rentado</option>
-            <option value="de familiares">de familiares</option>
-          </select>
-        </div>
-
-        <div className='mb-3'>
-          <p>Dependientes económicos:</p>
-          <select className="form-select" onChange={(e) => setDependientes(e.target.value)} aria-label="Default select example">
-            <option value="0" selected>Seleccionar</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-          </select>
-        </div>
-
-        {dependientes == "1" ? (
-          <div className="input-group mb-3">
-            <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad1' placeholder="Edad" aria-label="Edad" />
-            <span className="input-group-text">-</span>
-            <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren1' placeholder="Parentesco" aria-label="Parentesco" />
-          </div>
-        
-        ) : (<></>)
-        }
-
-        {dependientes == "2" ? (
-          <>
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad21' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren21' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-            
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad22' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren22' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-          </>
-        
-        ) : (<></>)
-        }
-
-        {dependientes == "3" ? (
-          <>
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad31' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren31' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-            
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad32' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren32' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad3(e.target.value)} id='edad33' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen3(e.target.value)} id='paren33' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-          </>
-        
-        ) : (<></>)
-        }
-
-        {dependientes == "4" ? (
-          <>
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad41' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren41' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-            
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad42' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren42' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad3(e.target.value)} id='edad43' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen3(e.target.value)} id='paren43' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad4(e.target.value)} id='edad44' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen4(e.target.value)} id='paren44' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-          </>
-        
-        ) : (<></>)
-        }
-
-        {dependientes == "5" ? (
-          <>
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad51' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren51' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-            
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad52' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren52' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad3(e.target.value)} id='edad53' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen3(e.target.value)} id='paren53' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad4(e.target.value)} id='edad54' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen4(e.target.value)} id='paren54' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad5(e.target.value)} id='edad55' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen5(e.target.value)} id='paren55' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-          </>
-
-        ) : (<></>)
-        }
-
-        {dependientes == "6" ? (
-          <>
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad61' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren61' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-            
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad62' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren62' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad3(e.target.value)} id='edad63' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen3(e.target.value)} id='paren63' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad4(e.target.value)} id='edad64' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen4(e.target.value)} id='paren64' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad5(e.target.value)} id='edad65' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen5(e.target.value)} id='paren65' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad6(e.target.value)} id='edad66' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen6(e.target.value)} id='paren66' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-          </>
-
-        ) : (<></>)
-        }
-
-        {dependientes == "7" ? (
-          <>
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad71' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren71' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-            
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad72' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren72' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad3(e.target.value)} id='edad73' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen3(e.target.value)} id='paren73' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad4(e.target.value)} id='edad74' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen4(e.target.value)} id='paren74' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad5(e.target.value)} id='edad75' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen5(e.target.value)} id='paren75' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad6(e.target.value)} id='edad76' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen6(e.target.value)} id='paren76' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad7(e.target.value)} id='edad77' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen7(e.target.value)} id='paren77' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-          </>
-
-        ) : (<></>)
-        }
-
-        {dependientes == "8" ? (
-          <>
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad1(e.target.value)} id='edad81' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen1(e.target.value)} id='paren81' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-            
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad2(e.target.value)} id='edad82' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen2(e.target.value)} id='paren82' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad3(e.target.value)} id='edad83' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen3(e.target.value)} id='paren83' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad4(e.target.value)} id='edad84' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen4(e.target.value)} id='paren84' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad5(e.target.value)} id='edad85' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen5(e.target.value)} id='paren85' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad6(e.target.value)} id='edad86' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen6(e.target.value)} id='paren86' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad7(e.target.value)} id='edad87' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen7(e.target.value)} id='paren87' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-
-            <div className="input-group mb-3">
-              <input type="text" className="form-control" onChange={(e) => setDepEdad8(e.target.value)} id='edad88' placeholder="Edad" aria-label="Edad" />
-              <span className="input-group-text">-</span>
-              <input type="text" className="form-control" onChange={(e) => setDepParen8(e.target.value)} id='paren88' placeholder="Parentesco" aria-label="Parentesco" />
-            </div>
-          </>
-
-        ) : (<></>)
-        }
-
-        <div className="input-group mb-3">
-          <span className="input-group-text" id="inputGroup-sizing-default">Valor aproximado de la propiedad a adquirir</span>
-          <input type="text" className="form-control" onChange={(e) => setValorPropiedad(e.target.value)} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
-        </div>
-
-        <button type='button' onClick={registrarInfoIndispensable} className='btn btn-secondary my-3' >Registrar Información</button>
-
       </div>
       
     </>

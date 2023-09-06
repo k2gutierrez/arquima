@@ -30,6 +30,7 @@ import IPEJALCasadoBS from '@/components/documentos/IPEJALCasadoBS'
 import IPEJALSoltero from '@/components/documentos/IPEJALSoltero'
 import ModalBaja from '@/components/modalBaja'
 import engrane from '../../../../../public/engranes.gif'
+import ModalG from '@/components/ModalG'
 
 export default function Page({ params }) {
 
@@ -38,12 +39,22 @@ export default function Page({ params }) {
   const [docu, setDocu] = useState(null)
   const [history, setHistory] = useState(null)
   const [update, setUpdate] = useState(false)
-  
+  const [showG, setShowG] = useState(false);
   const [show, setShow] = useState(false);
   const [mensajeBaja, setMensajeBaja] = useState(null)
+  const [messagem, setMessagem] = useState('')
 
+  const [nombre, setNombre] = useState('')
+  const [email, setEmail] = useState('')
+  const [cel, setCel] = useState('')
+  const [NSS, setNSS] = useState('')
+  const [CURP, setCURP] = useState('')
+  const [NAfiliado, setNAfiliado] = useState('')
+  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCloseG = () => setShowG(false);
+  const handleShowG = () => setShowG(true);
 
   const router = useRouter()
   const { currentName } = useAuthContext()
@@ -65,7 +76,23 @@ export default function Page({ params }) {
 
   useEffect(() => {
     getInfo();
+    
+  }, [])
+
+  useEffect(() => {
+    
+    if (menu == "inicio") {
+      getInfo();
+    } else if (menu == "historial") {
+      getInfo();
+    }
+  }, [menu, update])
+
+  useEffect(() => {
     if (docu != null) {
+      const hist = docu.historial
+      setHistory(hist) 
+
       getPropiedad()
       const fov = Boolean(docu.esquema == "FOVISSSTE-infonavit-fovissste" || docu.esquema == "FOVISSSTE-tradicional" || docu.esquema == "FOVISSSTE-conyugal" || docu.esquema == "FOVISSSTE-para-todos")
 
@@ -106,21 +133,6 @@ export default function Page({ params }) {
     }
   }, [docu])
 
-  useEffect(() => {
-    if (menu == "inicio") {
-      getInfo();
-    } else if (menu == "historial") {
-      getInfo();
-    }
-  }, [menu, update])
-
-  useEffect(() => {
-    if (docu != null) {
-      const hist = docu.historial
-      setHistory(hist) 
-    }
-  }, [docu])
-
   async function signOut () {
     await signoutfirebase()
     router.push("/")
@@ -134,6 +146,12 @@ export default function Page({ params }) {
     await querySnapshot.forEach((doc) => {
       const docu = (doc.id, " => ", doc.data());
       setDocu(docu)
+      setNombre(docu.nombre)
+      setEmail(docu.email)
+      setCel(docu.cel)
+      setNSS(docu.NSS)
+      setCURP(docu.CURP_DATA)
+      setNAfiliado(docu.N_Afiliado)
     });
 
   }
@@ -149,17 +167,17 @@ export default function Page({ params }) {
 
   }
 
-  const downloadFrom = (url, name) => {
-    fetch(url).then(response => response.blob()).then(blob => {
+  const downloadFrom = async (url, name) => {
+    await fetch(url).then(response => response.blob()).then(blob => {
       const blobURL = window.URL.createObjectURL(new Blob([blob]))
       const aTag = document.createElement('a')
       aTag.href=blobURL
-      aTag.setAttribute('download', `${docu.nombre}_${name}.pdf `)
+      aTag.setAttribute('download', `${docu.nombre}_${name}.pdf`)
       document.body.appendChild(aTag)
       aTag.click()
       aTag.remove()
     })
-    
+    setUpdate(!update)
   }
 
   const bajaCliente = async () => {
@@ -180,6 +198,7 @@ export default function Page({ params }) {
         propiedadID: "",
         status: "BAJA",
         pago: currencyMXN(""),
+        terminos: false,
         historial: arrayUnion({
           registrado: currentName,
           fecha: Timestamp.fromDate(new Date()),
@@ -210,16 +229,206 @@ export default function Page({ params }) {
         historial: arrayUnion({
           registrado: currentName,
           fecha: Timestamp.fromDate(new Date()),
-          comentario: `Se actualizo el status a ${val}`
+          comentario: `Se actualizó el status a ${val}`
         })
       });
-
+      setMessagem("Se actualizó el status a ", val)
+      handleShowG()
       setUpdate(!update)
 
     } catch (e) {
-      window.alert(e)
+      setMessagem(e)
+      handleShowG()
     }
   }
+
+  const changeName = async () => {
+  
+    try {
+
+      const cRef = doc(db, "clientes", params.id)
+      const clientRef = await updateDoc(cRef, {
+        nombre: nombre,
+        historial: arrayUnion({
+          registrado: currentName,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: `Se actualizo el nombre a ${nombre}`
+        })
+      });
+      setMessagem('Se actualizó el nombre a ', nombre)
+      handleShowG()
+      setUpdate(!update)
+
+    } catch (e) {
+      setMessagem(e)
+      handleShowG()
+    }
+  }
+
+  const changeEmail = async () => {
+
+    try {
+
+      const cRef = doc(db, "clientes", params.id)
+      const clientRef = await updateDoc(cRef, {
+        email: email,
+        historial: arrayUnion({
+          registrado: currentName,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: `Se actualizo el email a ${email}`
+        })
+      });
+      setMessagem('Se actualizó el email a ', email)
+      handleShowG()
+      setUpdate(!update)
+
+    } catch (e) {
+      setMessagem(e)
+      handleShowG()
+    }
+  }
+
+  const changeCel = async () => {
+
+    try {
+
+      const cRef = doc(db, "clientes", params.id)
+      const clientRef = await updateDoc(cRef, {
+        cel: cel,
+        historial: arrayUnion({
+          registrado: currentName,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: `Se actualizo el celular a ${cel}`
+        })
+      });
+      setMessagem('Se actualizó el celular a ', cel)
+      handleShowG()
+      setUpdate(!update)
+
+    } catch (e) {
+      setMessagem(e)
+      handleShowG()
+    }
+  }
+
+  const changeNSS = async () => {
+
+    try {
+
+      const cRef = doc(db, "clientes", params.id)
+      const clientRef = await updateDoc(cRef, {
+        NSS: NSS,
+        historial: arrayUnion({
+          registrado: currentName,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: `Se actualizo el NSS a ${NSS}`
+        })
+      });
+      setMessagem('Se actualizó el NSS a ', NSS)
+      handleShowG()
+      setUpdate(!update)
+
+    } catch (e) {
+      setMessagem(e)
+      handleShowG()
+    }
+  }
+
+  const changeCURP = async () => {
+
+    try {
+
+      const cRef = doc(db, "clientes", params.id)
+      const clientRef = await updateDoc(cRef, {
+        CURP_DATA: CURP,
+        historial: arrayUnion({
+          registrado: currentName,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: `Se actualizo el CURP a ${CURP}`
+        })
+      });
+      setMessagem('Se actualizó el CURP a ', CURP)
+      handleShowG()
+      setUpdate(!update)
+
+    } catch (e) {
+      setMessagem(e)
+      handleShowG()
+    }
+  }
+
+  const changeN_Afiliado = async () => {
+
+    try {
+
+      const cRef = doc(db, "clientes", params.id)
+      const clientRef = await updateDoc(cRef, {
+        N_Afiliado: NAfiliado,
+        historial: arrayUnion({
+          registrado: currentName,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: `Se actualizo el numero de afiliado a ${NAfiliado}`
+        })
+      });
+      setMessagem('Se actualizó el numero de afiliado a ', NAfiliado)
+      handleShowG()
+      setUpdate(!update)
+
+    } catch (e) {
+      setMessagem(e)
+      handleShowG()
+    }
+  }
+
+  const changeCivil = async (e) => {
+    e.preventDefault()
+    const val = e.target.value
+    try {
+
+      const cRef = doc(db, "clientes", params.id)
+      const clientRef = await updateDoc(cRef, {
+        civil: val,
+        historial: arrayUnion({
+          registrado: currentName,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: `Se actualizo el estado civil a ${val}`
+        })
+      });
+      setMessagem('Se actualizó el estado civil a ', val)
+      handleShowG()
+      setUpdate(!update)
+
+    } catch (e) {
+      setMessagem(e)
+      handleShowG()
+    }
+  }
+
+  const changeRegimen = async (e) => {
+    e.preventDefault()
+    const val = e.target.value
+    try {
+
+      const cRef = doc(db, "clientes", params.id)
+      const clientRef = await updateDoc(cRef, {
+        regimen_patrimonial: val,
+        historial: arrayUnion({
+          registrado: currentName,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: `Se actualizo el regimen patrimonial a ${val}`
+        })
+      });
+      setMessagem('Se actualizó el regimen patrimonial a ', val)
+      handleShowG()
+      setUpdate(!update)
+
+    } catch (e) {
+      setMessagem(e)
+      handleShowG()
+    }
+  }
+
+   
 
   return (
     <>
@@ -230,6 +439,13 @@ export default function Page({ params }) {
         onClick={handleClose}
         baja={bajaCliente}
         mensajeBaja={mensajeBaja}
+      />
+      <ModalG
+        onClick={handleCloseG}
+        show={showG}
+        onHide={handleCloseG}
+        message={messagem}
+        button={"aceptar"} 
       />
       {docu !== null ? (
         <>
@@ -282,10 +498,18 @@ export default function Page({ params }) {
               <button className="nav-link" onClick={() => setMenu("inicio")} >Infomación general</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link" onClick={() => setMenu("subirDocus")} >Subir documentos</button>
+              { docu.status == 'BAJA' ? (
+                <button className="nav-link" onClick={() => setMenu("subirDocus")} disabled >Subir documentos</button>
+              ) : (
+                <button className="nav-link" onClick={() => setMenu("subirDocus")} >Subir documentos</button>
+              )
+              }
             </li>
             <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("historial")} >Historial</button>
+            </li>
+            <li className="nav-item">
+              <button className="nav-link" onClick={() => setMenu("datos")} >Modificar Datos</button>
             </li>
           </ul>
 
@@ -322,6 +546,7 @@ export default function Page({ params }) {
                         <p>Asesor: { docu.asesor }</p>
                         <p>Trámite: { docu.esquema }</p>
                         <p>Status: { docu.status }</p>
+                        <p>Fecha de entrega: { docu == null || docu.fecha_entrega == undefined || docu.fecha_entrega == null ? ("TBD") :  (docu.fecha_entrega) }</p>
                       </div>
                     </Card.Text>
                   </Card.Body>
@@ -329,7 +554,7 @@ export default function Page({ params }) {
                 </div>
 
                 <div className='row mb-5'>
-                  { contadoSoltero == true ? 
+                  { contadoSoltero == true  && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -480,7 +705,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { contadoCasadoBS == true ? 
+                  { contadoCasadoBS == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -638,7 +863,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { contadoCasadoBM == true ? 
+                  { contadoCasadoBM == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -824,7 +1049,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { fovisssteCasadoBM == true ? 
+                  { fovisssteCasadoBM == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -1047,7 +1272,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { fovisssteCasadoBS == true ? 
+                  { fovisssteCasadoBS == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -1240,7 +1465,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { fovisssteSoltero == true ? 
+                  { fovisssteSoltero == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -1426,7 +1651,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { infonavitCasadoBM == true ? 
+                  { infonavitCasadoBM == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -1663,7 +1888,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { infonavitCasadoBS == true ? 
+                  { infonavitCasadoBS == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -1870,7 +2095,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { infonavitSoltero == true ? 
+                  { infonavitSoltero == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -2070,7 +2295,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { ipejalCasadoBM == true ? 
+                  { ipejalCasadoBM == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -2224,7 +2449,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { ipejalCasadoBS == true ? 
+                  { ipejalCasadoBS == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -2357,7 +2582,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { ipejalSoltero == true ? 
+                  { ipejalSoltero == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -2483,7 +2708,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { bancoCasado == true ?
+                  { bancoCasado == true && docu.status != 'BAJA' ?
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -2610,7 +2835,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { bancoSoltero == true ?
+                  { bancoSoltero == true && docu.status != 'BAJA' ?
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -2729,7 +2954,7 @@ export default function Page({ params }) {
             ) : (<></>)
           }
 
-          { menu == "subirDocus" ?
+          { menu == "subirDocus" && docu.status != 'BAJA' ?
             (
               <>
                 { contadoSoltero == true ? (
@@ -2863,6 +3088,111 @@ export default function Page({ params }) {
                     }
                 </tbody>
                 </table>
+              </div>
+            ) : (<></>)
+          }
+
+          { menu == "datos" ?
+            (
+              <div className='col-md-8 col-12 my-5'>
+                <div className="accordion" id="accordionExample">
+                  <div className="accordion-item">
+                    <h2 className="accordion-header">
+                      <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Dar de alta nuevamente
+                      </button>
+                    </h2>
+                    <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                      <div className="accordion-body">
+                        <strong>Falta actualizar esta parte</strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="accordion-item">
+                    <h2 className="accordion-header">
+                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Modificar datos del cliente
+                      </button>
+                    </h2>
+                    <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div className="accordion-body">
+                        {/*Información para modificar de la base de datos*/}
+                        <div className="mb-3">
+                          <label for="nombre" className="form-label">Nombre: </label>
+                          <input type="text" onChange={(e) => setNombre(e.target.value)} defaultValue={nombre} className="form-control mb-3" id="nombre" />
+                          <button type="button" onClick={changeName} className="btn btn-primary">Cambiar Nombre</button>
+                        </div>
+                        <div className="mb-3">
+                          <label for="email" className="form-label">Email: </label>
+                          <input type="email" onChange={(e) => setEmail(e.target.value)} defaultValue={email} className="form-control mb-3" id="email" />
+                          <button type="button" onClick={changeEmail} className="btn btn-primary">Cambiar Email</button>
+                        </div>
+                        <div className="mb-3">
+                          <label for="cel" className="form-label">Celular: </label>
+                          <input type="text" onChange={(e) => setCel(e.target.value)} defaultValue={cel} className="form-control mb-3" id="cel" />
+                          <button type="button" onClick={changeCel} className="btn btn-primary">Cambiar Celular</button>
+                        </div>
+                        { docu.NSS == undefined || docu.NSS == null ? (<></>) : (
+                          <div className="mb-3">
+                            <label for="NSS" className="form-label">NSS: </label>
+                            <input maxLength={11} type="text" onChange={(e) => setNSS(e.target.value)} defaultValue={NSS} className="form-control mb-3" id="NSS" />
+                            <button type="button" onClick={changeNSS} className="btn btn-primary">Cambiar NSS</button>
+                        </div>
+                        )
+                        }
+                        { docu.CURP_DATA == undefined || docu.CURP_DATA == null ? (<></>) : (
+                          <div className="mb-3">
+                            <label for="CURP" className="form-label">CURP: </label>
+                            <input maxLength={18} type="text" onChange={(e) => setCURP(e.target.value)} defaultValue={CURP} className="form-control mb-3" id="CURP" />
+                            <button type="button" onClick={changeCURP} className="btn btn-primary">Cambiar CURP</button>
+                          </div>
+                          )
+                        }
+                        { docu.N_Afiliado == undefined || docu.N_Afiliado == null ? (<></>) : (
+                          <div className="mb-3">
+                            <label for="N_Afiliado" className="form-label">N_Afiliado: </label>
+                            <input maxLength={20} type="text" onChange={(e) => setNAfiliado(e.target.value)} defaultValue={NAfiliado} className="form-control mb-3" id="N_Afiliado" />
+                            <button type="button" onClick={changeN_Afiliado} className="btn btn-primary">Cambiar N. Afiliado</button>
+
+                          </div>
+                          )
+                        }
+                        <div className='mb-3 mx-5'> 
+                        <p>Estado Civil</p>
+                        <select className="form-select" onChange={changeCivil}  aria-label="Default select example">
+                          <option value={docu.civil}>Actual en BD: {docu.civil}</option>
+                          <option value="SOLTERO">SOLTERO</option>
+                          <option value="CASADO">CASADO</option>
+                        </select>
+                        { docu.civil !='SOLTERO' ? (
+                          <div className='mb-3 mx-5'> 
+                            <p>Régimen Patrimonial</p>
+                            <select className="form-select" onChange={changeRegimen}  aria-label="Default select example">
+                              <option value={docu.regimen_patrimonial}>Status en BD: {docu.regimen_patrimonial}</option>
+                              <option value="SOCIEDAD LEGAL / MANCOMUNADO">Sociedad legal / Mancomunado</option>
+                              <option value="BIENES SEPARADOS">Bienes separados</option>
+                            </select>
+                          </div>
+                        ) : (<></>)
+                        } 
+
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="accordion-item">
+                    <h2 className="accordion-header">
+                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Establecer fecha de entrega
+                      </button>
+                    </h2>
+                    <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div className="accordion-body">
+                        <strong>Falta actualizar esta parte</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             ) : (<></>)
           }

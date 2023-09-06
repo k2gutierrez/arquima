@@ -74,7 +74,7 @@ export default function Page({ params }) {
           </div>
         </nav>
 
-        <div className='container-md mt-3 text-center'>
+        <div className='container-md mt-3 text-center align-items-center'>
           <div className='row align-items-center mb-5'>
             <div className='col-sm-4 col-6 order-md-1 order-1'>
               <Image className={cls(styles.logo, 'img-fluid')} alt='logo' src={logo} height={160} width={300} />
@@ -87,7 +87,7 @@ export default function Page({ params }) {
             </div>
           </div>
 
-          <div className='align-items-center mb-5'>
+          <div className='col-md-5 col-12 align-self-center mb-5'>
             <h3>Cambiar de nombre</h3>
             <div class="mb-3">
               <label for="nombre" class="form-label">Nuevo Nombre:</label>

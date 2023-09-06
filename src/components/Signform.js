@@ -31,7 +31,7 @@ export default function Signform(props) {
             </div>
             <p>Password</p>
             <div className="input-group mb-3 mx-1">
-            <input type={type} aria-describedby="button-addon2" onChange={props.setPassword} name='password' className="form-control" id="password" placeholder="password" />
+            <input required type={type} aria-describedby="button-addon2" onChange={props.setPassword} name='password' className="form-control" id="password" placeholder="password" />
             <button class="btn btn-outline-transparent" type="button" id="button-addon2">
               <span class="flex justify-around items-center" id='password' onClick={handleToggle}>
                 <Icon class="absolute mr-10" icon={icon} size={25}/>

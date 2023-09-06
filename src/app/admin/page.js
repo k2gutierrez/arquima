@@ -52,6 +52,7 @@ export default function Admin() {
   const [propiedadesL, setPropiedadesL] = useState(null)
   const [vendedores, setVendedores] = useState([{id: "none", nombre: "none"}])
   const [clientes, setClientes] = useState(null)
+  const [esquemaLength, setEsquemaLength] = useState(20)
 
   // Arranque inicial y con cada update para llamar a los vendedores, propiedades y clientes, o sino te saca del panel
   useEffect(() => {
@@ -113,40 +114,52 @@ export default function Admin() {
   useEffect(() => {
     switch (compra) {
       case "CONTADO":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       case "FOVISSSTE-infonavit-fovissste":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       case "FOVISSSTE-tradicional":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       case "FOVISSSTE-conyugal":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       case "FOVISSSTE-para-todos":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       case "INFOVANIT-tradicional":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "INFOVANIT-unamos-creditos":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "INFOVANIT-conyugal":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "INFOVANIT-infonavit-fovissste":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "INFOVANIT-crediterreno":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "INFOVANIT-segundo-credito":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "INFOVANIT-cofinativ":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "IPEJAL-tradicional":
         setTipoDocEsquema("N_Afiliado")
@@ -158,10 +171,12 @@ export default function Admin() {
         setTipoDocEsquema("N_Afiliado")
         break
       case "BANCARIO-terreno":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       case "BANCARIO-casa":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       default:
         break
@@ -254,6 +269,7 @@ export default function Admin() {
         asesor: asesor,
         asesorID: asesorID,
         terminos: false,
+        fecha_entrega: "TBD",
         historial: [
           {
             registrado: currentName,
@@ -362,7 +378,7 @@ export default function Admin() {
       sort: true
     },
     {
-      dataField: "observaciones",
+      dataField: "last_obs",
       text: "Obs.",
       sort: true
     },
@@ -433,13 +449,13 @@ export default function Admin() {
   const handleShow = () => setShow(true);
 
   const rowEventClient = {
-    onClick: (e, row, rowIndex) => {
+    onDoubleClick: (e, row, rowIndex) => {
       router.push(`/admin/cliente/${row.id}`)
     }
   };
 
   const rowEventPropiedad = {
-    onClick: (e, row, rowIndex) => {
+    onDoubleClick: (e, row, rowIndex) => {
       router.push(`/admin/propiedad/${row.id}`)
     }
   };
@@ -505,10 +521,10 @@ export default function Admin() {
               <Image className='img-fluid' alt='logo' src={logo2} width={450} height={360} />
               <h3 className="my-3">Registro de Cliente</h3>
               <form className="form">
-                  
+                  {/* revisar si está igual en dashboard, admin y ventas */}
                   <div className="mb-3 mx-5">
                     <label htmlFor="nombre" className="form-label">Nombre completo</label>
-                    <input type="text" onChange={(e) => setNombre(e.target.value.toUpperCase())} value={nombre} name='nombre' className="form-control" id="nombre" placeholder="Nombre Completo" />
+                    <input required type="text" onChange={(e) => setNombre(e.target.value.toUpperCase())} value={nombre} name='nombre' className="form-control" id="nombre" placeholder="Nombre Completo" />
                   </div>
                   
                   <div className="mb-3 mx-5">
@@ -523,7 +539,7 @@ export default function Admin() {
 
                   <div className="mb-3 mx-5">
                     <label htmlFor="pago" className="form-label">Pago inicial</label>
-                    <input type="text" onChange={(e) => setPago(e.target.value)} value={pago} name='pago' className="form-control" id="pago" placeholder="5000" />
+                    <input required type="text" onChange={(e) => setPago(e.target.value)} value={pago} name='pago' className="form-control" id="pago" placeholder="5000" />
                   </div>
                   
                   <div className='mb-3 mx-5'>
@@ -565,6 +581,7 @@ export default function Admin() {
                     <>
                       <Docesquema 
                         tipo={tipoDocEsquema}
+                        maxLength={esquemaLength}
                         value={docEsquema}
                         onChange={(e) => setDocEsquema(e.target.value.toUpperCase())}
                       />

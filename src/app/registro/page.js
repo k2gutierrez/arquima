@@ -96,7 +96,7 @@ export default function Registro() {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="cel" className="form-label">Celular / Whatsapp</label>
-                  <input required type="text" onChange={(e) => changeCel(e.target.value)} name='cel' className="form-control" id="cel" placeholder="3312345678" />
+                  <input required type="text" maxLength={10} onChange={(e) => changeCel(e.target.value)} name='cel' className="form-control" id="cel" placeholder="3312345678" />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">Email</label>

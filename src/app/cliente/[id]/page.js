@@ -66,10 +66,10 @@ export default function Page({ params }) {
       onHide={handleClose}
       onClick={terminosAceptados}
       aceptar={() => setTerms(!terms)}
+      centered
     />
     
     {docu !== null ? (
-
       <div className='container-md mt-3 text-center'>
         <div className='row align-items-center mb-5'>
           <div className='col-sm-4 col-6 order-md-1 order-1'>
@@ -94,6 +94,7 @@ export default function Page({ params }) {
                   <p>Trámite: { docu.esquema }</p>
                   <p>Status: { docu.status }</p>
                   <p>Proyecto: { docuProp == null ? ("") :  (docuProp.proyecto) }</p>
+                  <p>Fecha de entrega: { docu == null || docu.fecha_entrega == undefined || docu.fecha_entrega == null ? ("TBD") :  (docu.fecha_entrega) }</p>
                 </div>
               </Card.Text>
             </Card.Body>

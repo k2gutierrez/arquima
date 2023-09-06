@@ -28,7 +28,6 @@ import INFONAVITSoltero from '@/components/documentos/INFONAVITSoltero'
 import IPEJALCasadoBM from '@/components/documentos/IPEJALCasadoBM'
 import IPEJALCasadoBS from '@/components/documentos/IPEJALCasadoBS'
 import IPEJALSoltero from '@/components/documentos/IPEJALSoltero'
-import ModalBaja from '@/components/modalBaja'
 import engrane from '../../../../../public/engranes.gif'
 
 export default function Page({ params }) {
@@ -154,7 +153,7 @@ export default function Page({ params }) {
       const blobURL = window.URL.createObjectURL(new Blob([blob]))
       const aTag = document.createElement('a')
       aTag.href=blobURL
-      aTag.setAttribute('download', `${docu.nombre}_${name}.pdf `)
+      aTag.setAttribute('download', `${docu.nombre}_${name}.pdf`)
       document.body.appendChild(aTag)
       aTag.click()
       aTag.remove()
@@ -162,75 +161,9 @@ export default function Page({ params }) {
     
   }
 
-  const bajaCliente = async () => {
-    try {
-
-      const Ref = doc(db, 'propiedades', docu.propiedadID)
-      await updateDoc(Ref, {
-        status: "LIBRE",
-        status_interno: "LIBRE",
-        asesor: "",
-        nombre: "nombre",
-        esquema: ""
-      })
-
-      const cRef = doc(db, "clientes", params.id)
-      const clientRef = await updateDoc(cRef, {
-        folio: "",
-        propiedadID: "",
-        status: "BAJA",
-        pago: currencyMXN(""),
-        historial: arrayUnion({
-          registrado: currentName,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: `Baja de cliente. ${mensajeBaja}`
-        })
-      });
-      handleClose()
-      setUpdate(!update)
-
-    } catch (e) {
-      window.alert(e)
-    }
-  }
-
-  async function updateStatus (e) {
-    e.preventDefault()
-    const val = e.target.value
-    try {
-
-      const Ref = doc(db, 'propiedades', docu.propiedadID)
-      await updateDoc(Ref, {
-        status: val,
-      })
-
-      const cRef = doc(db, "clientes", params.id)
-      const clientRef = await updateDoc(cRef, {
-        status: val,
-        historial: arrayUnion({
-          registrado: currentName,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: `Se actualizo el status a ${val}`
-        })
-      });
-
-      setUpdate(!update)
-
-    } catch (e) {
-      window.alert(e)
-    }
-  }
-
   return (
     <>
-      <ModalBaja
-        show={show}
-        onHide={handleClose}
-        onChange={(e) => setMensajeBaja(e.target.value)}
-        onClick={handleClose}
-        baja={bajaCliente}
-        mensajeBaja={mensajeBaja}
-      />
+      
       {docu !== null ? (
         <>
         <nav className="navbar bg-body-tertiary sticky-top">
@@ -282,7 +215,12 @@ export default function Page({ params }) {
               <button className="nav-link" onClick={() => setMenu("inicio")} >Infomación general</button>
             </li>
             <li className="nav-item">
-              <button className="nav-link" onClick={() => setMenu("subirDocus")} >Subir documentos</button>
+              { docu.status == 'BAJA' ? (
+                <button className="nav-link" onClick={() => setMenu("subirDocus")} disabled >Subir documentos</button>
+              ) : (
+                <button className="nav-link" onClick={() => setMenu("subirDocus")} >Subir documentos</button>
+              )
+              }
             </li>
             <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("historial")} >Historial</button>
@@ -292,24 +230,6 @@ export default function Page({ params }) {
           { menu == "inicio" || menu == "" ?
             (
               <div className='row justify-content-center'>
-                {docu.status != 'BAJA' ? (<div className='row justify-content-center'>
-                  <div className='col-8 w-50 my-3 align-self-center'>
-                    <select className="form-select" onChange={updateStatus} aria-label="Default select example">
-                      <option selected>Cambiar status del cliente</option>
-                      {statusOpciones.map((t) => {
-                        return (
-                          <option key={ t } value={ t }>{ t }</option>
-                        )
-                      })
-                      }
-                      
-                    </select>
-                  </div>
-
-                  <div className='col-4 my-3 align-self-center'>
-                    <button type='button' onClick={() => setShow(true)} className='btn btn-outline-danger'>Dar de baja</button>
-                  </div>
-                </div>) : (<></>)}
 
                 <div className='m-5 w-75'>
                 <Card border="light" bg='transparent' > {/*18*/}
@@ -322,6 +242,7 @@ export default function Page({ params }) {
                         <p>Asesor: { docu.asesor }</p>
                         <p>Trámite: { docu.esquema }</p>
                         <p>Status: { docu.status }</p>
+                        <p>Fecha de entrega: { docu == null || docu.fecha_entrega == undefined || docu.fecha_entrega == null ? ("TBD") :  (docu.fecha_entrega) }</p>
                       </div>
                     </Card.Text>
                   </Card.Body>
@@ -329,7 +250,7 @@ export default function Page({ params }) {
                 </div>
 
                 <div className='row mb-5'>
-                  { contadoSoltero == true ? 
+                  { contadoSoltero == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -480,7 +401,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { contadoCasadoBS == true ? 
+                  { contadoCasadoBS == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -638,7 +559,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { contadoCasadoBM == true ? 
+                  { contadoCasadoBM == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -824,7 +745,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { fovisssteCasadoBM == true ? 
+                  { fovisssteCasadoBM == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -1047,7 +968,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { fovisssteCasadoBS == true ? 
+                  { fovisssteCasadoBS == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -1240,7 +1161,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { fovisssteSoltero == true ? 
+                  { fovisssteSoltero == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -1426,7 +1347,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { infonavitCasadoBM == true ? 
+                  { infonavitCasadoBM == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -1663,7 +1584,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { infonavitCasadoBS == true ? 
+                  { infonavitCasadoBS == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -1870,7 +1791,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { infonavitSoltero == true ? 
+                  { infonavitSoltero == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -2070,7 +1991,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { ipejalCasadoBM == true ? 
+                  { ipejalCasadoBM == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -2224,7 +2145,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { ipejalCasadoBS == true ? 
+                  { ipejalCasadoBS == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -2357,7 +2278,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { ipejalSoltero == true ? 
+                  { ipejalSoltero == true && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -2483,7 +2404,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { bancoCasado == true ?
+                  { bancoCasado == true && docu.status != 'BAJA' ?
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -2610,7 +2531,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { bancoSoltero == true ?
+                  { bancoSoltero == true && docu.status != 'BAJA' ?
                     (
                       <div className='row justify-content-center'>
                         <ul className="list-group w-75">
@@ -2729,7 +2650,7 @@ export default function Page({ params }) {
             ) : (<></>)
           }
 
-          { menu == "subirDocus" ?
+          { menu == "subirDocus"  && docu.status != 'BAJA' ?
             (
               <>
                 { contadoSoltero == true ? (

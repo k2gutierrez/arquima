@@ -10,7 +10,7 @@ export const compras = [
     "INFONAVIT-infonavit-fovissste",
     "INFONAVIT-crediterreno",
     "INFONAVIT-segundo-credito",
-    "INFONAVIT-cofinativ",
+    "INFONAVIT-cofinavit",
     "IPEJAL-tradicional",
     "IPEJAL-terreno",
     "IPEJAL-conyugal",

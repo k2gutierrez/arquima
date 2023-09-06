@@ -12,14 +12,16 @@ import cls from 'classnames'
 import { useAuthContext } from '@/context/AuthContext'
 import signoutfirebase from '@/firebase/auth/signoutfirebase'
 import ModalG from '@/components/ModalG'
+import engrane from '../../../../../public/engranes.gif'
 
 export default function Page({ params }) {
 
   const [statusInterno, setStatusInterno] = useState('')
   const [obs, setObs] = useState('')
-
   const [show, setShow] = useState(false)
   const [message, setMessage] = useState('')
+  const [menu, setMenu] = useState('info')
+  const [property, setProperty] = useState(null)
 
   const router = useRouter()
 
@@ -27,6 +29,27 @@ export default function Page({ params }) {
 
   const handleShow = () => setShow(true)
   const handleHide = () => setShow(false)
+
+  if (router.isFallback) {
+    return (
+      <>
+        <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
+        <p>Loading...</p>
+      </>
+    )
+  }
+
+  useEffect(() => {
+    getProperty()
+  }, [changeObs])
+
+  async function getProperty () {
+    const docRef = doc(db, "propiedades", params.id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setProperty(docSnap.data())
+    }
+  }
 
   const changeStatus = async () => {
     
@@ -53,7 +76,8 @@ export default function Page({ params }) {
     try {
       const docRef = doc(db, "propiedades", params.id)
       await updateDoc(docRef, {
-        observaciones: obs
+        last_obs: obs,
+        observaciones: arrayUnion(obs)
       });
       setMessage("Observación agregada")
       handleShow()
@@ -116,23 +140,67 @@ export default function Page({ params }) {
             </div>
           </div>
 
-          <div className='align-items-center mb-5'>
-            <h3>Cambiar Status Interno</h3>
-            <div class="mb-3">
-              <label for="status" class="form-label">Nuevo status:</label>
-              <input type="text" onChange={(e) => setStatusInterno(e.target.value)} class="form-control" id="status" />
-            </div>
-            <button type="button" onClick={changeStatus} class="btn btn-primary">Cambiar Status Interno</button>
-          </div>
+          <ul className="nav nav-tabs">
+            <li className="nav-item">
+              <button className="nav-link" onClick={() => setMenu("info")} >Infomación</button>
+            </li>
+            <li className="nav-item">
+              <button className="nav-link" onClick={() => setMenu("obs")} >Observaciones</button>
+            </li>
+          </ul>
 
-          <div className='align-items-center mb-5'>
-            <h3>Observaciones</h3>
-            <div class="mb-3">
-              <label for="obs" class="form-label">Cambiar observación:</label>
-              <input type="text" onChange={(e) => setObs(e.target.value)} class="form-control" id="obs" />
-            </div>
-            <button type="button" onClick={changeObs} class="btn btn-primary">Cambiar Status Interno</button>
-          </div>
+          { menu == 'info' ? (
+            <>
+              <div className="card">
+                <div className="card-header">
+                  Proyecto: {property != null ? (property.proyecto):('')}
+                </div>
+                <div className="card-body">
+                  <h3 className="card-title">Dirección: {property != null ? (property.direccion):('')}</h3>
+                  <h3 className="card-title">Número exterior: {property != null ? (property.numero_ext):('')}</h3>
+                  <h3 className="card-title">Folio: {property != null ? (property.folio):('')}</h3>
+                  <h3 className="card-title">Inmueble: {property != null ? (property.inmueble):('')}</h3>
+                  
+                </div>
+              </div>
+
+              <div className='col-md-5 col-12 align-items-center mb-5'>
+                <h3>Cambiar Status Interno</h3>
+                <div className="mb-3">
+                  <label for="status" className="form-label">Nuevo status:</label>
+                  <input type="text" onChange={(e) => setStatusInterno(e.target.value)} className="form-control" id="status" />
+                </div>
+                <button type="button" onClick={changeStatus} className="btn btn-primary">Cambiar Status Interno</button>
+              </div>
+
+              <div className='col-md-5 col-12 align-items-center mb-5'>
+                <h3>Observaciones</h3>
+                <div className="mb-3">
+                  <label for="obs" className="form-label">Cambiar observación:</label>
+                  <input type="text" onChange={(e) => setObs(e.target.value)} className="form-control" id="obs" />
+                </div>
+                <button type="button" onClick={changeObs} className="btn btn-primary">Cambiar Status Interno</button>
+              </div>
+            </>
+          ) : 
+          (<></>)
+          }
+
+          { menu == 'obs' ? (
+            <>
+              <ul class="list-group list-group-flush">
+              { property.observaciones.map((o, k) => {
+                return (
+                    <li key={k} class="list-group-item">{o}</li>
+                )
+              })
+              }
+              </ul>
+            </>
+          ) : (
+            <></>
+          )
+          }
 
         </div>
         

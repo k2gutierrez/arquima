@@ -49,6 +49,7 @@ export default function Ventas() {
 
   const [propiedadesL, setPropiedadesL] = useState(null)
   const [clientes, setClientes] = useState(null)
+  const [esquemaLength, setEsquemaLength] = useState(20)
 
   // Arranque inicial y con cada update para llamar a los clientes, o sino te saca del panel
   useEffect(() => {
@@ -58,11 +59,13 @@ export default function Ventas() {
       router.push("/user-validation")
     } else if (currentRol === "vendedor") {
       getClients();
+      getProperties();
     }
   }, [user, update, currentRol])
 
   // Use efecto con la función getPropiedadFolio para revisar cambios en el estado y declarar el ID de la propiedad para el registro del cliente
   useEffect(() => {
+    console.log('useEffect para obtener propiedad')
     if (propiedadID == '') {
       getPropiedadFolio()
     } else {
@@ -85,42 +88,55 @@ export default function Ventas() {
 
   // Use efecto con el tipo de compra para el registro del cliente, este manda llamar opciones al momento de registro
   useEffect(() => {
+    console.log('useEffect de switch para designar tipo de esquema')
     switch (compra) {
       case "CONTADO":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       case "FOVISSSTE-infonavit-fovissste":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       case "FOVISSSTE-tradicional":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       case "FOVISSSTE-conyugal":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       case "FOVISSSTE-para-todos":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       case "INFOVANIT-tradicional":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "INFOVANIT-unamos-creditos":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "INFOVANIT-conyugal":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "INFOVANIT-infonavit-fovissste":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "INFOVANIT-crediterreno":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "INFOVANIT-segundo-credito":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "INFOVANIT-cofinativ":
         setTipoDocEsquema("NSS")
+        setEsquemaLength(11)
         break
       case "IPEJAL-tradicional":
         setTipoDocEsquema("N_Afiliado")
@@ -132,10 +148,12 @@ export default function Ventas() {
         setTipoDocEsquema("N_Afiliado")
         break
       case "BANCARIO-terreno":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       case "BANCARIO-casa":
-        setTipoDocEsquema("CURP")
+        setTipoDocEsquema("CURP_DATA")
+        setEsquemaLength(18)
         break
       default:
         break
@@ -167,7 +185,7 @@ export default function Ventas() {
 
   // Función para obtener las propiedades libres
   async function getProperties() {
-    const q = query(collection(db, "propiedades"), where("status_inmueble", "==", "LIBRE"));
+    const q = query(collection(db, "propiedades"), where("status", "==", "LIBRE"));
     const querysnapshot = await getDocs(q);
     const docsPropsLibres = []
     await querysnapshot.forEach((doc) => {
@@ -205,6 +223,7 @@ export default function Ventas() {
         asesor: currentName,
         asesorID: user.uid,
         terminos: false,
+        fecha_entrega: "TBD",
         historial: [
           {
             registrado: currentName,
@@ -231,7 +250,7 @@ export default function Ventas() {
       setMessagem("Registro exitoso") //poner un modal bonito para indicar que el registro fue exitoso!
       handleShow()
       setUpdate(!update)
-      setMenu('inicio')
+      setMenu('clientes')
     } catch (e) {
       setMessagem(e)
       handleShow()
@@ -297,7 +316,7 @@ export default function Ventas() {
   const handleShow = () => setShow(true);
 
   const rowEventClient = {
-    onClick: (e, row, rowIndex) => {
+    onDoubleClick: (e, row, rowIndex) => {
       router.push(`/ventas/cliente/${row.id}`)
     }
   };
@@ -360,10 +379,10 @@ export default function Ventas() {
               <Image className='img-fluid' alt='logo' src={logo2} width={450} height={360} />
               <h3 className="my-3">Registro de Cliente</h3>
               <form className="form">
-                  
+                  {/* revisar si está igual en dashboard, admin y ventas */}
                   <div className="mb-3 mx-5">
                     <label htmlFor="nombre" className="form-label">Nombre completo</label>
-                    <input type="text" onChange={(e) => setNombre(e.target.value.toUpperCase())} value={nombre} name='nombre' className="form-control" id="nombre" placeholder="Nombre Completo" />
+                    <input required type="text" onChange={(e) => setNombre(e.target.value.toUpperCase())} value={nombre} name='nombre' className="form-control" id="nombre" placeholder="Nombre Completo" />
                   </div>
                   
                   <div className="mb-3 mx-5">
@@ -378,7 +397,7 @@ export default function Ventas() {
 
                   <div className="mb-3 mx-5">
                     <label htmlFor="pago" className="form-label">Pago inicial</label>
-                    <input type="text" onChange={(e) => setPago(e.target.value)} value={pago} name='pago' className="form-control" id="pago" placeholder="5000" />
+                    <input required type="text" onChange={(e) => setPago(e.target.value)} value={pago} name='pago' className="form-control" id="pago" placeholder="5000" />
                   </div>
                   
                   <div className='mb-3 mx-5'>
@@ -409,6 +428,7 @@ export default function Ventas() {
                       <Docesquema 
                         tipo={tipoDocEsquema}
                         value={docEsquema}
+                        maxLength={esquemaLength}
                         onChange={(e) => setDocEsquema(e.target.value.toUpperCase())}
                       />
                       <div className='mb-3 mx-5'> 
@@ -484,7 +504,9 @@ export default function Ventas() {
         }
         {menu == "password" ? 
         (
-          <div className='row align-items-center mb-5'>
+          <div className='container-sm'>
+
+          <div className='col-md-6 col-12 align-items-center my-5'>
             <h3>Cambiar Contraseña</h3>
             <div class="mb-3">
               <label for="pass" class="form-label">Nueva contraseña:</label>
@@ -495,6 +517,7 @@ export default function Ventas() {
               <input type="password" onChange={(e) => setToken(e.target.value)} class="form-control" id="token" />
             </div>
             <button type="button" onClick={passwordChange} class="btn btn-primary">Cambiar Status Interno</button>
+          </div>
           </div>
         ) : 
         (

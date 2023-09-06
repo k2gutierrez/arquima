@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import logoA from '../../public/ArquimaA.png'
+import Image from 'next/image';
 
 function ModalTerminos(props) {
 
@@ -12,12 +14,16 @@ function ModalTerminos(props) {
         onHide={props.onHide}
         backdrop="static"
         keyboard={false}
+        size='xl'
       >
         <Modal.Header>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>
+            <Image className='img-fluid' alt='logoA' src={logoA} width={150} height={150} />
+            Términos y condiciones
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Aqui pueden ir términos y condiciones o ponemos links que abran una página aparte
+          Aqui van los términos y condiciones
         </Modal.Body>
         <Modal.Footer>
             <Form.Check aria-label="option 1" label="Acepto términos y condiciones" onClick={props.aceptar} />
