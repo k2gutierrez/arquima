@@ -21,6 +21,8 @@ export default function Login() {
   const handleSignin = async (event) => {
     event.preventDefault()
     let {result, error} = signIn(email, password);
+    console.log("emal: ", email)
+    console.log("password: ", password)
     if (error) {
       setMessage("Usuario o contraseña incorrectos")
       handleShow
@@ -29,8 +31,6 @@ export default function Login() {
     }
     
   }
-  console.log("emal: ", email)
-  console.log("password: ", password)
 
   return (
     <>
