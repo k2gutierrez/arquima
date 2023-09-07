@@ -37,7 +37,7 @@ export const AuthContextProvider = ({
             setLoading(false);
         });
         return () => unsubscribe();
-    }, [user]);
+    }, [auth, user]);
 
     async function userDB () {
         try {
