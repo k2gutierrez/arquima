@@ -22,6 +22,7 @@ function Page({ params }) {
   const [message, setMessage] = useState('')
   const [menu, setMenu] = useState('info')
   const [property, setProperty] = useState(null)
+  const [update, setUpdate] = useState(false)
 
   const router = useRouter()
 
@@ -31,9 +32,8 @@ function Page({ params }) {
   const handleHide = () => setShow(false)
 
   useEffect(() => {
-    console.log('useEffect de property')
     getProperty()
-  }, [])
+  }, [update])
 
   if (router.isFallback) {
     return (
@@ -62,6 +62,8 @@ function Page({ params }) {
       });
       setMessage("Status interno modificado")
       handleShow()
+      setUpdate(!update)
+      setStatusInterno('')
     } catch (e) {
       setMessage(e)
       handleShow()
@@ -78,6 +80,8 @@ function Page({ params }) {
       });
       setMessage("Observación agregada")
       handleShow()
+      setUpdate(!update)
+      setObs('')
     } catch (e) {
       setMessage(e)
       handleShow()
@@ -171,8 +175,8 @@ function Page({ params }) {
               <div className='col-md-5 col-12 align-items-center mb-5'>
                 <h3>Cambiar Status Interno</h3>
                 <div className="mb-3">
-                  <label for="status" className="form-label">Nuevo status:</label>
-                  <input type="text" onChange={(e) => setStatusInterno(e.target.value)} className="form-control" id="status" />
+                  <label htmlFor="status" className="form-label">Nuevo status:</label>
+                  <input type="text" onChange={(e) => setStatusInterno(e.target.value.toUpperCase())} value={statusInterno} className="form-control" id="status" />
                 </div>
                 <button type="button" onClick={changeStatus} className="btn btn-primary">Cambiar Status Interno</button>
               </div>
@@ -180,8 +184,8 @@ function Page({ params }) {
               <div className='col-md-5 col-12 align-items-center mb-5'>
                 <h3>Observaciones</h3>
                 <div className="mb-3">
-                  <label for="obs" className="form-label">Cambiar observación:</label>
-                  <input type="text" onChange={(e) => setObs(e.target.value)} className="form-control" id="obs" />
+                  <label htmlFor="obs" className="form-label">Cambiar observación:</label>
+                  <input type="text" onChange={(e) => setObs(e.target.value.toUpperCase())} value={obs} className="form-control" id="obs" />
                 </div>
                 <button type="button" onClick={changeObs} className="btn btn-primary">Cambiar Status Interno</button>
               </div>

@@ -28,15 +28,14 @@ export const AuthContextProvider = ({
     const router = useRouter();
 
     React.useEffect(() => {
-        console.log('useEffect de context')
         const unsubscribe = onAuthStateChanged(auth, async (user) => {  
             if (user) {
                 await setUser(user);
-                console.log("User: ", user)
+                
                 await setUserUID(user.uid)
-                console.log("userID: ", user.uid)
+                
                 await userDB(); 
-                console.log("CurrentRol: ", currentRol)
+                
                 router.push("/user-validation")
             } else {
                 setUser(null);
