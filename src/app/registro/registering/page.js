@@ -17,15 +17,6 @@ export default function Registering() {
     const router = useRouter();
     const [show, setShow] = useState(false)
 
-    if (router.isFallback) {
-        return (
-          <>
-            <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
-            <p>Loading...</p>
-          </>
-        )
-    }
-
     function register () {
         let data = {
             id: user.uid,
@@ -42,6 +33,15 @@ export default function Registering() {
         handleShow();
         console.log("useEffect register")
     }, [])
+
+    if (router.isFallback) {
+        return (
+          <>
+            <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
+            <p>Loading...</p>
+          </>
+        )
+    }
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
