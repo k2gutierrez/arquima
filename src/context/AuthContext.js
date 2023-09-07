@@ -17,6 +17,7 @@ export const AuthContextProvider = ({
     children,
 }) => {
     const [user, setUser] = React.useState(null);
+    const [userUID, setUserUID] = React.useState(null);
     const [loading, setLoading] = React.useState(true);
     const [name, setName] = React.useState('');
     const [cel, setCel] = React.useState('');
@@ -32,9 +33,9 @@ export const AuthContextProvider = ({
                 //userDB()
                 handleUser(user)
                 
-            } //else {
-                //setUser(null);
-            //}
+            } else {
+                setUser(null);
+            }
             setLoading(false);
         });
         return () => unsubscribe();
@@ -42,12 +43,15 @@ export const AuthContextProvider = ({
 
     async function handleUser (user) {
         await setUser(user)
-        userDB()
+        if (user.uid !== null) {
+            await setUserUID(user.uid)
+            userDB()   
+        }
     }
 
     async function userDB () {
         try {
-            const docRef = doc(db, "empleados", user.uid)
+            const docRef = doc(db, "empleados", userUID)
             const docSnap = await getDoc(docRef)
             const docus = docSnap.data()
             setCurrentRol(docus.rol)
