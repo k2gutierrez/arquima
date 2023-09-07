@@ -27,12 +27,13 @@ export const AuthContextProvider = ({
 
     React.useEffect(() => {
         console.log('useEffect de context')
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user !== null) {
-                //setUser(user)
-                //userDB()
-                handleUser(user)
-                
+                await setUser(user);
+                if (user.uid !=== null) {
+                    await setUserUID(user.uid)
+                    userDB();   
+                }
             } else {
                 setUser(null);
             }
@@ -40,14 +41,6 @@ export const AuthContextProvider = ({
         });
         return () => unsubscribe();
     }, [auth, user]);
-
-    async function handleUser (user) {
-        await setUser(user)
-        if (user.uid !== null) {
-            await setUserUID(user.uid)
-            userDB()   
-        }
-    }
 
     async function userDB () {
         try {
