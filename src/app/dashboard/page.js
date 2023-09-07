@@ -63,6 +63,7 @@ export default function Owner() {
     } else if (currentRol === "owner") {
       getSellers();
       getProperties();
+      getPropertiesL();
       getClients();
     }
   }, [user, update, currentRol])
@@ -233,24 +234,26 @@ export default function Owner() {
     setClientes(docSnapshots)
   }
 
-  // Función para obtener propiedades en general y para obtener las propiedades libres
+  // Función para obtener propiedades en general
   async function getProperties() {
     const q = query(collection(db, "propiedades"));
-    //const q = query(collection(db, "propiedades"), where("status_inmueble", "==", "LIBRE"));
     const querysnapshot = await getDocs(q);
     const docSnapshotsProperties = []
     await querysnapshot.forEach((doc) => {
       docSnapshotsProperties.push(doc.data())
     });
     setPropiedades(docSnapshotsProperties)
-    const docsPropsLibres = []
+  }
+
+  // Función para obtener las propiedades libres
+  async function getPropertiesL() {
+    const q = query(collection(db, "propiedades"), where("status", "==", "LIBRE"));
+    const querysnapshot = await getDocs(q);
+    const docSnapshotsPropertiesL = []
     await querysnapshot.forEach((doc) => {
-      const docu = doc.data()
-      if (docu.status == "LIBRE") {
-        docsPropsLibres.push(doc.data())
-      }
-    })
-    let data = await docsPropsLibres.sort(function(a, b) {
+      docSnapshotsPropertiesL.push(doc.data())
+    });
+    const data = await docSnapshotsPropertiesL.sort(function(a, b) {
       let fa = a.folio.toUpperCase()
       let fb = b.folio.toUpperCase()
       if (fa < fb) {
