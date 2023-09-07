@@ -32,9 +32,9 @@ export const AuthContextProvider = ({
                 //userDB()
                 handleUser(user)
                 
-            } else {
-                setUser(null);
-            }
+            } //else {
+                //setUser(null);
+            //}
             setLoading(false);
         });
         return () => unsubscribe();
