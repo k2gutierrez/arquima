@@ -11,6 +11,15 @@ export default function User() {
     const router= useRouter();
     const { user, currentRol } = useAuthContext();
 
+    if (router.isFallback) {
+        return (
+          <>
+            <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
+            <p>Loading...</p>
+          </>
+        )
+      }
+
     useEffect(() => {
         //userDB();
         switch (currentRol) {
@@ -24,7 +33,11 @@ export default function User() {
                 router.push("/dashboard")
                 break
             case "" || null:
-                router.push("/")
+                router.push("/login")
+                break
+            case undefined:
+                router.push("/login")
+                break
             default:
                 router.push("/user-validation")
                 break

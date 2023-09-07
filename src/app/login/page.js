@@ -20,14 +20,14 @@ export default function Login() {
 
   const handleSignin = async (event) => {
     event.preventDefault()
-
-    const { result, error } = await signIn(email, password);
+    let {result, error} = signIn(email, password);
     if (error) {
-      await setMessage(error)
-      handleShow()
-    } else if (result) {
+      setMessage("Usuario o contraseña incorrectos")
+      handleShow
+    } if (!error) {
       router.push("/user-validation")
     }
+    
   }
 
   return (
@@ -42,7 +42,7 @@ export default function Login() {
       <main className="container-sm col-lg-4 col-12 text-center">
         <Signform
           title="Sign In"
-          onSubmit={handleSignin}
+          onClick={handleSignin}
           setEmail={(e) => setEmail(e.target.value)}
           setPassword={(e) => setPassword(e.target.value)}
         />
