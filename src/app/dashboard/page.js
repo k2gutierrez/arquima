@@ -20,6 +20,7 @@ import DbUpload from '@/DbUpload'
 import { currencyMXN } from '@/formatCurrencyExample'
 import Docesquema from '@/components/DocEsquema'
 import engrane from '../../../public/engranes.gif'
+import DashboardCard from '@/components/DashboardCard'
 
 
 export default function Owner() {
@@ -53,6 +54,10 @@ export default function Owner() {
   const [vendedores, setVendedores] = useState([{id: "none", nombre: "none"}])
   const [clientes, setClientes] = useState(null)
   const [esquemaLength, setEsquemaLength] = useState(20)
+  const [entrega, setEntrega] = useState(0)
+  const [libre, setLibre] = useState(0)
+  const [total, setTotal] = useState(0)
+  const [sProject, setSproject] = useState('COTO CIELO')
 
   // Arranque inicial y con cada update para llamar a los vendedores, propiedades y clientes, o sino te saca del panel
   useEffect(() => {
@@ -127,7 +132,8 @@ export default function Owner() {
         }
       })
       let setOutput = new Set(output)
-      setProyectos(setOutput)
+      let ar = Array.from(setOutput)
+      setProyectos(ar)
       }
   }, [propiedades, menu])
 
@@ -203,6 +209,35 @@ export default function Owner() {
         break
     }
   }, [compra])
+
+  // Para mandar llamar infomación del proyecto seleccionado
+
+  useEffect(() => {
+    if (propiedades != null) {
+      let arr = []
+      let arrLibre = []
+      let arrE = []
+      for (let i = 0; i<propiedades.length; i++) {
+        if (propiedades[i].proyecto == sProject) {
+          arr.push(propiedades[i])
+        }
+        if (propiedades[i].proyecto == sProject && propiedades[i].status == 'LIBRE') {
+          arrLibre.push(propiedades[i])
+        }
+        if (propiedades[i].proyecto == sProject && propiedades[i].status == 'FECHA DE ENTREGA') {
+          arrE.push(propiedades[i])
+        }
+      }
+      let res = arr.length
+      setTotal(res)
+      let res2 = arrLibre.length
+      setLibre(res2)
+      let res3 = arrE.length
+      setEntrega(res3)
+
+    }
+    
+  }, [sProject, propiedades])
 
   // Función para obtener a los vendedores y empleados
   async function getSellers() {
@@ -566,8 +601,45 @@ export default function Owner() {
       <div className='container-fluid text-center'>
         {menu == '' || menu == 'inicio' ? 
         (
-          <div className='row justify-content-center'>
-            <DbUpload />
+          <div className='container-sm my-4'>
+            {/*<DbUpload />*/}
+            <div className='col-md-3 col-12'>
+              <select onChange={(e) => setSproject(e.target.value)} class="form-select form-select-lg mb-3" aria-label="Large select example">
+                {/*<option selected value="COTO CIELO">COTO CIELO</option>*/}
+                { proyectos.map((r, k) => {
+                  return (
+                    <option key={k} value={r}>{r}</option>
+                  )
+                })
+                }
+              </select>
+            </div>
+            <div className='row'>
+              <div className='col-md-4 col-12 my-5'>
+               <DashboardCard 
+                variant='primary'
+                header={sProject}
+                title='Total: '
+                title2={total == undefined ? '0' : total.toString()}
+               />
+              </div>
+              <div className='col-md-4 col-12 my-5'>
+                <DashboardCard 
+                  variant='secondary'
+                  header={sProject}
+                  title='Libres: '
+                  title2={libre == undefined ? '0' : libre.toString()}
+                />
+              </div>
+              <div className='col-md-4 col-12 my-5'>
+                <DashboardCard 
+                  variant='success'
+                  header={sProject}
+                  title='Con fecha de entrega: '
+                  title2={entrega == undefined ? '0' : entrega.toString()}
+                />
+              </div>
+            </div>
           </div>
         ) : (<></>)
 

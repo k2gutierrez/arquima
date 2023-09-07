@@ -12,4 +12,3 @@ export const statusOpciones = [
     "PAGADO, PROGRAMACION DE ENTREGA",
     "FECHA DE ENTREGA"
 ]
-
