@@ -30,17 +30,19 @@ export const AuthContextProvider = ({
         const unsubscribe = onAuthStateChanged(auth, async (user) => {  
             if (user) {
                 await setUser(user);
-                console.log(user)
+                console.log("User: ", user)
                 await setUserUID(user.uid)
-                console.log(user.uid)
+                console.log("userID: ", user.uid)
                 await userDB(); 
+                console.log("CurrentRol: ", currentRol)
+                
             } else {
                 setUser(null);
             }
             setLoading(false);
         });
         return () => unsubscribe();
-    }, []);
+    }, [user]);
 
     async function userDB () {
         try {
