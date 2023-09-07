@@ -29,6 +29,8 @@ export default function Login() {
     }
     
   }
+  console.log("emal: ", email)
+  console.log("password: ", password)
 
   return (
     <>
