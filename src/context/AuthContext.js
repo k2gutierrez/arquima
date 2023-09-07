@@ -30,7 +30,7 @@ export const AuthContextProvider = ({
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user !== null) {
                 await setUser(user);
-                if (user.uid !=== null) {
+                if (user.uid !== null) {
                     await setUserUID(user.uid)
                     userDB();   
                 }
