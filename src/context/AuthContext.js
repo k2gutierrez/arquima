@@ -6,6 +6,7 @@ import firebase_app from "@/firebase/config";
 import logo from '../../public/ArquimaLogo.png';
 import engrane from '../../public/engranes.gif';
 import Image from "next/image";
+import { useRouter } from 'next/navigation'
 
 const auth = getAuth(firebase_app);
 
@@ -24,6 +25,7 @@ export const AuthContextProvider = ({
     const [rol, setRol] = React.useState('');
     const [currentRol, setCurrentRol] = React.useState(null);
     const [currentName, setCurrentName] = React.useState(null);
+    const router = useRouter();
 
     React.useEffect(() => {
         console.log('useEffect de context')
@@ -35,7 +37,7 @@ export const AuthContextProvider = ({
                 console.log("userID: ", user.uid)
                 await userDB(); 
                 console.log("CurrentRol: ", currentRol)
-                
+                router.push("/user-validation")
             } else {
                 setUser(null);
             }
