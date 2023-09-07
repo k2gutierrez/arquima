@@ -28,8 +28,9 @@ export const AuthContextProvider = ({
         console.log('useEffect de context')
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-                setUser(user)
-                userDB()
+                //setUser(user)
+                //userDB()
+                handleUser(user)
                 
             } else {
                 setUser(null);
@@ -38,6 +39,11 @@ export const AuthContextProvider = ({
         });
         return () => unsubscribe();
     }, [auth, user]);
+
+    async function handleUser (user) {
+        await setUser(user)
+        userDB()
+    }
 
     async function userDB () {
         try {
