@@ -27,14 +27,13 @@ export const AuthContextProvider = ({
 
     React.useEffect(() => {
         console.log('useEffect de context')
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            await setUser(user);
-            console.log(user)
-            if (user.uid !== null) {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {  
+            if (user) {
+                await setUser(user);
+                console.log(user)
                 await setUserUID(user.uid)
                 console.log(user.uid)
-                await userDB();   
-                }
+                await userDB(); 
             } else {
                 setUser(null);
             }
