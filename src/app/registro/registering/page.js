@@ -41,7 +41,7 @@ export default function Registering() {
         register();
         handleShow();
         console.log("useEffect register")
-    },[user])
+    }, [])
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
