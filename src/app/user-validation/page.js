@@ -11,15 +11,6 @@ export default function User() {
     const router= useRouter();
     const { user, currentRol } = useAuthContext();
 
-    if (router.isFallback) {
-        return (
-          <>
-            <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
-            <p>Loading...</p>
-          </>
-        )
-      }
-
     useEffect(() => {
         //userDB();
         switch (currentRol) {
@@ -43,7 +34,15 @@ export default function User() {
                 break
         }
     },[user, currentRol])
-    console.log(user)
+
+    if (router.isFallback) {
+        return (
+          <>
+            <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
+            <p>Loading...</p>
+          </>
+        )
+      }
 
     return (
     <div className='container-sm text-center align-items-center my-5'>
