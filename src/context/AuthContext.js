@@ -27,7 +27,7 @@ export const AuthContextProvider = ({
     React.useEffect(() => {
         console.log('useEffect de context')
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
+            if (user !== null) {
                 //setUser(user)
                 //userDB()
                 handleUser(user)
