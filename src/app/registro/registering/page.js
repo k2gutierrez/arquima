@@ -17,6 +17,15 @@ export default function Registering() {
     const router = useRouter();
     const [show, setShow] = useState(false)
 
+    if (router.isFallback) {
+        return (
+          <>
+            <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
+            <p>Loading...</p>
+          </>
+        )
+    }
+
     function register () {
         let data = {
             id: user.uid,
@@ -31,8 +40,8 @@ export default function Registering() {
     useEffect(() => {
         register();
         handleShow();
-
-    },[])
+        console.log("useEffect register")
+    },[user])
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -51,7 +60,7 @@ export default function Registering() {
                 </div>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={() => {router.push("/registro")}}>
+                <Button variant="secondary" onClick={() => {router.push("/login")}}>
                     Aceptar
                 </Button>
                 </Modal.Footer>

@@ -106,9 +106,9 @@ export default function Registro() {
                 <div className="input-group mb-5">
                   
                   <input required type={type} aria-describedby="button-addon2" onChange={(e) => setPassword(e.target.value)} name='password' className="form-control" id="password" placeholder="password" />
-                  <button class="btn btn-outline-transparent" type="button" id="button-addon2">
-                    <span class="flex justify-around items-center" id='password' onClick={handleToggle}>
-                      <Icon class="absolute mr-10" icon={icon} size={25}/>
+                  <button className="btn btn-outline-transparent" type="button" id="button-addon2">
+                    <span className="flex justify-around items-center" id='password' onClick={handleToggle}>
+                      <Icon className="absolute mr-10" icon={icon} size={25}/>
                     </span>
                   </button>
                   

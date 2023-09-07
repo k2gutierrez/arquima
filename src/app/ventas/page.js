@@ -110,31 +110,31 @@ export default function Ventas() {
         setTipoDocEsquema("CURP_DATA")
         setEsquemaLength(18)
         break
-      case "INFOVANIT-tradicional":
+      case "INFONAVIT-tradicional":
         setTipoDocEsquema("NSS")
         setEsquemaLength(11)
         break
-      case "INFOVANIT-unamos-creditos":
+      case "INFONAVIT-unamos-creditos":
         setTipoDocEsquema("NSS")
         setEsquemaLength(11)
         break
-      case "INFOVANIT-conyugal":
+      case "INFONAVIT-conyugal":
         setTipoDocEsquema("NSS")
         setEsquemaLength(11)
         break
-      case "INFOVANIT-infonavit-fovissste":
+      case "INFONAVIT-infonavit-fovissste":
         setTipoDocEsquema("NSS")
         setEsquemaLength(11)
         break
-      case "INFOVANIT-crediterreno":
+      case "INFONAVIT-crediterreno":
         setTipoDocEsquema("NSS")
         setEsquemaLength(11)
         break
-      case "INFOVANIT-segundo-credito":
+      case "INFONAVIT-segundo-credito":
         setTipoDocEsquema("NSS")
         setEsquemaLength(11)
         break
-      case "INFOVANIT-cofinativ":
+      case "INFONAVIT-cofinativ":
         setTipoDocEsquema("NSS")
         setEsquemaLength(11)
         break
@@ -147,11 +147,11 @@ export default function Ventas() {
       case "IPEJAL-conyugal":
         setTipoDocEsquema("N_Afiliado")
         break
-      case "BANCARIO-terreno":
+      case "BANCARIO / caja popular -terreno":
         setTipoDocEsquema("CURP_DATA")
         setEsquemaLength(18)
         break
-      case "BANCARIO-casa":
+      case "BANCARIO / caja popular -casa":
         setTipoDocEsquema("CURP_DATA")
         setEsquemaLength(18)
         break
@@ -491,8 +491,7 @@ export default function Ventas() {
                   />
                 ) : (
                   <>
-                    <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
-                    <p>Loading...</p>
+                    <h2>No se tienen registros...</h2>
                   </>
                 )
               }
