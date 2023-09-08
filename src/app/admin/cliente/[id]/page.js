@@ -31,6 +31,9 @@ import IPEJALSoltero from '@/components/documentos/IPEJALSoltero'
 import ModalBaja from '@/components/modalBaja'
 import engrane from '../../../../../public/engranes.gif'
 import ModalG from '@/components/ModalG'
+import INFONAVITUnamosCreditos2 from '@/components/documentos/INFONAVITUnamosCreditos2'
+import INFONAVITUnamosCreditos3 from '@/components/documentos/INFONAVITUnamosCreditos3'
+import INFONAVITUnamosCreditos4 from '@/components/documentos/INFONAVITUnamosCreditos4'
 
 export default function Page({ params }) {
 
@@ -3201,6 +3204,45 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                 />
+                ) : (<></>)
+                }
+                { docu.regimen_patrimonial == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '2' ? (
+                  <INFONAVITUnamosCreditos2 
+                    id={docu.id}
+                    currentUser={currentName} 
+                    civil={docu.civil}
+                    regimen_patrimonial={docu.regimen_patrimonial}
+                    civil2={docu.civil2 == undefined || docu.civil2 == null ? ('') : (docu.civil2)}
+                    regimen_patrimonial2={docu.regimen_patrimonial2 == undefined || docu.regimen_patrimonial2 == null ? ('') : (docu.regimen_patrimonial2)}
+                  />
+                ) : (<></>)
+                }
+                { docu.regimen_patrimonial == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '3' ? (
+                  <INFONAVITUnamosCreditos3 
+                    id={docu.id}
+                    currentUser={currentName}
+                    civil={docu.civil}
+                    regimen_patrimonial={docu.regimen_patrimonial}
+                    civil2={docu.civil2 == undefined || docu.civil2 == null ? ('') : (docu.civil2)}
+                    regimen_patrimonial2={docu.regimen_patrimonial2 == undefined || docu.regimen_patrimonial2 == null ? ('') : (docu.regimen_patrimonial2)}
+                    civil3={docu.civil3 == undefined || docu.civil3 == null ? ('') : (docu.civil3)}
+                    regimen_patrimonial3={docu.regimen_patrimonial3 == undefined || docu.regimen_patrimonial3 == null ? ('') : (docu.regimen_patrimonial3)}
+                  />
+                ) : (<></>)
+                }
+                { docu.regimen_patrimonial == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '4' ? (
+                  <INFONAVITUnamosCreditos4
+                    id={docu.id}
+                    currentUser={currentName} 
+                    civil={docu.civil}
+                    regimen_patrimonial={docu.regimen_patrimonial}
+                    civil2={docu.civil2 == undefined || docu.civil2 == null ? ('') : (docu.civil2)}
+                    regimen_patrimonial2={docu.regimen_patrimonial2 == undefined || docu.regimen_patrimonial2 == null ? ('') : (docu.regimen_patrimonial2)}
+                    civil3={docu.civil3 == undefined || docu.civil3 == null ? ('') : (docu.civil3)}
+                    regimen_patrimonial3={docu.regimen_patrimonial3 == undefined || docu.regimen_patrimonial3 == null ? ('') : (docu.regimen_patrimonial3)}
+                    civil4={docu.civil4 == undefined || docu.civil4 == null ? ('') : (docu.civil4)}
+                    regimen_patrimonial4={docu.regimen_patrimonial4 == undefined || docu.regimen_patrimonial4 == null ? ('') : (docu.regimen_patrimonial4)}
+                  />
                 ) : (<></>)
                 }
               </>

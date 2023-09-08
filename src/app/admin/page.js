@@ -34,8 +34,25 @@ export default function Admin() {
   const [newPassword, setNewPassword] = useState('')
 
   const [nombre, setNombre] = useState('')
+  const [nombre2, setNombre2] = useState('')
+  const [nombre3, setNombre3] = useState('')
+  const [nombre4, setNombre4] = useState('')
+
   const [email, setEmail] = useState('')
+  const [email2, setEmail2] = useState('')
+  const [email3, setEmail3] = useState('')
+  const [email4, setEmail4] = useState('')
+
   const [cel, setCel] = useState('')
+  const [cel2, setCel2] = useState('')
+  const [cel3, setCel3] = useState('')
+  const [cel4, setCel4] = useState('')
+
+  const [NSS, setNSS] = useState('')
+  const [NSS2, setNSS2] = useState('')
+  const [NSS3, setNSS3] = useState('')
+  const [NSS4, setNSS4] = useState('')
+
   const [pago, setPago] = useState('')
   const [folio, setFolio] = useState('')
   const [asesor, setAsesor] = useState(undefined)
@@ -45,14 +62,34 @@ export default function Admin() {
 
   const [tipoDocEsquema, setTipoDocEsquema] = useState('')
   const [docEsquema, setDocEsquema] = useState('')
+
   const [civil, setCivil] = useState('SOLTERO')
+  const [civil2, setCivil2] = useState('SOLTERO')
+  const [civil3, setCivil3] = useState('SOLTERO')
+  const [civil4, setCivil4] = useState('SOLTERO')
+
   const [tipoMatrimonio, setTipoMatrimonio] = useState('NA')
+  const [tipoMatrimonio2, setTipoMatrimonio2] = useState('NA')
+  const [tipoMatrimonio3, setTipoMatrimonio3] = useState('NA')
+  const [tipoMatrimonio4, setTipoMatrimonio4] = useState('NA')
 
   const [propiedades, setPropiedades] = useState(null)
   const [propiedadesL, setPropiedadesL] = useState(null)
   const [vendedores, setVendedores] = useState([{id: "none", nombre: "none"}])
   const [clientes, setClientes] = useState(null)
   const [esquemaLength, setEsquemaLength] = useState(20)
+
+  const [apellidoP, setApellidoP] = useState('')
+  const [apellidoP2, setApellidoP2] = useState('')
+  const [apellidoP3, setApellidoP3] = useState('')
+  const [apellidoP4, setApellidoP4] = useState('')
+
+  const [apellidoM, setApellidoM] = useState('')
+  const [apellidoM2, setApellidoM2] = useState('')
+  const [apellidoM3, setApellidoM3] = useState('')
+  const [apellidoM4, setApellidoM4] = useState('')
+  
+  const [n_creditos, setN_creditos] = useState('2')
 
   // Arranque inicial y con cada update para llamar a los vendedores, propiedades y clientes, o sino te saca del panel
   useEffect(() => {
@@ -253,53 +290,255 @@ export default function Admin() {
 
   // Función para registrar clientes
   async function registerClient () {
-    try {
-      const data = {
-        nombre: nombre,
-        email: email,
-        cel: cel,
-        pago: currencyMXN(pago),
-        status: "ARMADO DE EXPEDIENTE",
-        esquema: compra,
-        [tipoDocEsquema]: docEsquema,
-        civil: civil,
-        regimen_patrimonial: tipoMatrimonio,
-        folio: folio,
-        propiedadID: propiedadID,
-        asesor: asesor,
-        asesorID: asesorID,
-        terminos: false,
-        fecha_entrega: "TBD",
-        historial: [
-          {
-            registrado: currentName,
-            fecha: Timestamp.fromDate(new Date()),
-            comentario: "Registrado como cliente"
-          }
-        ]
+    if (compra === "INFONAVIT-unamos-creditos" && n_creditos == '2'){
+      try {
+        const data = {
+          nombre: nombre,
+          apellidoP: apellidoP,
+          apellidoM: apellidoM,
+          email: email,
+          cel: cel,
+          pago: currencyMXN(pago),
+          status: "ARMADO DE EXPEDIENTE",
+          esquema: compra,
+          [tipoDocEsquema]: docEsquema,
+          civil: civil,
+          regimen_patrimonial: tipoMatrimonio,
+          nombre2: nombre2,
+          apellidoP2: apellidoP2,
+          apellidoM2: apellidoM2,
+          email2: email2,
+          cel2: cel2,
+          civil2: civil2,
+          regimen_patrimonial2: tipoMatrimonio2,
+          n_creditos: n_creditos,
+          folio: folio,
+          propiedadID: propiedadID,
+          asesor: asesor,
+          asesorID: asesorID,
+          terminos: false,
+          fecha_entrega: "TBD",
+          historial: [
+            {
+              registrado: currentName,
+              fecha: Timestamp.fromDate(new Date()),
+              comentario: "Registrado como cliente"
+            }
+          ]
+        }
+        const usersRef = collection(db, "clientes")
+        const userRef = new doc(usersRef)
+        const id = userRef.id
+        const userData = {id: id, ...data}
+        const docRef = await setDoc(userRef, userData);
+  
+        const Ref = doc(db, 'propiedades', propiedadID)
+        await updateDoc(Ref, {
+          status: "ARMADO DE EXPEDIENTE",
+          status_interno: "ARMADO DE EXPEDIENTE",
+          asesor: asesor,
+          nombre: nombre,
+          esquema: compra
+        })
+  
+        setMessagem("Registro exitoso") //poner un modal bonito para indicar que el registro fue exitoso!
+        handleShow()
+        setUpdate(!update)
+        setMenu('inicio')
+      } catch (e) {
+        setMessagem(e)
+        handleShow()
       }
-      const usersRef = collection(db, "clientes")
-      const userRef = new doc(usersRef)
-      const id = userRef.id
-      const userData = {id: id, ...data}
-      const docRef = await setDoc(userRef, userData);
-
-      const Ref = doc(db, 'propiedades', propiedadID)
-      await updateDoc(Ref, {
-        status: "ARMADO DE EXPEDIENTE",
-        status_interno: "ARMADO DE EXPEDIENTE",
-        asesor: asesor,
-        nombre: nombre,
-        esquema: compra
-      })
-
-      setMessagem("Registro exitoso") //poner un modal bonito para indicar que el registro fue exitoso!
-      handleShow()
-      setUpdate(!update)
-      setMenu('inicio')
-    } catch (e) {
-      setMessagem(e)
-      handleShow()
+    } else if (compra === "INFONAVIT-unamos-creditos" && n_creditos == '3'){
+      try {
+        const data = {
+          nombre: nombre,
+          apellidoP: apellidoP,
+          apellidoM: apellidoM,
+          email: email,
+          cel: cel,
+          pago: currencyMXN(pago),
+          status: "ARMADO DE EXPEDIENTE",
+          esquema: compra,
+          [tipoDocEsquema]: docEsquema,
+          civil: civil,
+          regimen_patrimonial: tipoMatrimonio,
+          nombre2: nombre2,
+          apellidoP2: apellidoP2,
+          apellidoM2: apellidoM2,
+          email2: email2,
+          cel2: cel2,
+          civil2: civil2,
+          regimen_patrimonial2: tipoMatrimonio2,
+          nombre3: nombre3,
+          apellidoP3: apellidoP3,
+          apellidoM3: apellidoM3,
+          email3: email3,
+          cel3: cel3,
+          civil3: civil3,
+          regimen_patrimonial3: tipoMatrimonio3,
+          n_creditos: n_creditos,
+          folio: folio,
+          propiedadID: propiedadID,
+          asesor: asesor,
+          asesorID: asesorID,
+          terminos: false,
+          fecha_entrega: "TBD",
+          historial: [
+            {
+              registrado: currentName,
+              fecha: Timestamp.fromDate(new Date()),
+              comentario: "Registrado como cliente"
+            }
+          ]
+        }
+        const usersRef = collection(db, "clientes")
+        const userRef = new doc(usersRef)
+        const id = userRef.id
+        const userData = {id: id, ...data}
+        const docRef = await setDoc(userRef, userData);
+  
+        const Ref = doc(db, 'propiedades', propiedadID)
+        await updateDoc(Ref, {
+          status: "ARMADO DE EXPEDIENTE",
+          status_interno: "ARMADO DE EXPEDIENTE",
+          asesor: asesor,
+          nombre: nombre,
+          esquema: compra
+        })
+  
+        setMessagem("Registro exitoso") //poner un modal bonito para indicar que el registro fue exitoso!
+        handleShow()
+        setUpdate(!update)
+        setMenu('inicio')
+      } catch (e) {
+        setMessagem(e)
+        handleShow()
+      }
+    } else if (compra === "INFONAVIT-unamos-creditos" && n_creditos == '4'){
+      try {
+        const data = {
+          nombre: nombre,
+          apellidoP: apellidoP,
+          apellidoM: apellidoM,
+          email: email,
+          cel: cel,
+          pago: currencyMXN(pago),
+          status: "ARMADO DE EXPEDIENTE",
+          esquema: compra,
+          [tipoDocEsquema]: docEsquema,
+          civil: civil,
+          regimen_patrimonial: tipoMatrimonio,
+          nombre2: nombre2,
+          apellidoP2: apellidoP2,
+          apellidoM2: apellidoM2,
+          email2: email2,
+          cel2: cel2,
+          civil2: civil2,
+          regimen_patrimonial2: tipoMatrimonio2,
+          nombre3: nombre3,
+          apellidoP3: apellidoP3,
+          apellidoM3: apellidoM3,
+          email3: email3,
+          cel3: cel3,
+          civil3: civil3,
+          regimen_patrimonial3: tipoMatrimonio3,
+          nombre4: nombre4,
+          apellidoP4: apellidoP4,
+          apellidoM4: apellidoM4,
+          email4: email4,
+          cel4: cel4,
+          civil4: civil4,
+          regimen_patrimonial4: tipoMatrimonio4,
+          n_creditos: n_creditos,
+          folio: folio,
+          propiedadID: propiedadID,
+          asesor: asesor,
+          asesorID: asesorID,
+          terminos: false,
+          fecha_entrega: "TBD",
+          historial: [
+            {
+              registrado: currentName,
+              fecha: Timestamp.fromDate(new Date()),
+              comentario: "Registrado como cliente"
+            }
+          ]
+        }
+        const usersRef = collection(db, "clientes")
+        const userRef = new doc(usersRef)
+        const id = userRef.id
+        const userData = {id: id, ...data}
+        const docRef = await setDoc(userRef, userData);
+  
+        const Ref = doc(db, 'propiedades', propiedadID)
+        await updateDoc(Ref, {
+          status: "ARMADO DE EXPEDIENTE",
+          status_interno: "ARMADO DE EXPEDIENTE",
+          asesor: asesor,
+          nombre: nombre,
+          esquema: compra
+        })
+  
+        setMessagem("Registro exitoso") //poner un modal bonito para indicar que el registro fue exitoso!
+        handleShow()
+        setUpdate(!update)
+        setMenu('inicio')
+      } catch (e) {
+        setMessagem(e)
+        handleShow()
+      }
+    } else {
+      try {
+        const data = {
+          nombre: nombre,
+          apellidoP: apellidoP,
+          apellidoM: apellidoM,
+          email: email,
+          cel: cel,
+          pago: currencyMXN(pago),
+          status: "ARMADO DE EXPEDIENTE",
+          esquema: compra,
+          [tipoDocEsquema]: docEsquema,
+          civil: civil,
+          regimen_patrimonial: tipoMatrimonio,
+          folio: folio,
+          propiedadID: propiedadID,
+          asesor: asesor,
+          asesorID: asesorID,
+          terminos: false,
+          fecha_entrega: "TBD",
+          historial: [
+            {
+              registrado: currentName,
+              fecha: Timestamp.fromDate(new Date()),
+              comentario: "Registrado como cliente"
+            }
+          ]
+        }
+        const usersRef = collection(db, "clientes")
+        const userRef = new doc(usersRef)
+        const id = userRef.id
+        const userData = {id: id, ...data}
+        const docRef = await setDoc(userRef, userData);
+  
+        const Ref = doc(db, 'propiedades', propiedadID)
+        await updateDoc(Ref, {
+          status: "ARMADO DE EXPEDIENTE",
+          status_interno: "ARMADO DE EXPEDIENTE",
+          asesor: asesor,
+          nombre: nombre,
+          esquema: compra
+        })
+  
+        setMessagem("Registro exitoso") //poner un modal bonito para indicar que el registro fue exitoso!
+        handleShow()
+        setUpdate(!update)
+        setMenu('inicio')
+      } catch (e) {
+        setMessagem(e)
+        handleShow()
+      }
     }
   }
 
@@ -523,8 +762,18 @@ export default function Admin() {
               <form className="form">
                   {/* revisar si está igual en dashboard, admin y ventas */}
                   <div className="mb-3 mx-5">
-                    <label htmlFor="nombre" className="form-label">Nombre completo</label>
-                    <input required type="text" onChange={(e) => setNombre(e.target.value.toUpperCase())} value={nombre} name='nombre' className="form-control" id="nombre" placeholder="Nombre Completo" />
+                    <label htmlFor="nombre" className="form-label">Nombre(s)</label>
+                    <input required type="text" onChange={(e) => setNombre(e.target.value.toUpperCase())} value={nombre} name='nombre' className="form-control" id="nombre" placeholder="Nombre(s)" />
+                  </div>
+
+                  <div className="mb-3 mx-5">
+                    <label htmlFor="apellidoP" className="form-label">Apellido Paterno</label>
+                    <input required type="text" onChange={(e) => setApellidoP(e.target.value.toUpperCase())} value={apellidoP} name='apellidoP' className="form-control" id="apellidoP" placeholder="Apellido Paterno" />
+                  </div>
+
+                  <div className="mb-3 mx-5">
+                    <label htmlFor="apellidoM" className="form-label">Apellido Materno</label>
+                    <input required type="text" onChange={(e) => setApellidoM(e.target.value.toUpperCase())} value={apellidoM} name='apellidoM' className="form-control" id="apellidoM" placeholder="Apellido Materno" />
                   </div>
                   
                   <div className="mb-3 mx-5">
@@ -577,7 +826,358 @@ export default function Admin() {
                       })}
                     </select>
                   </div>
-                  { compra != '' ? (
+
+                  { compra != "INFONAVIT-unamos-creditos" ? (<></>) : (
+                    <>
+                      <div className='mb-3 mx-5'> 
+                        <p>Número de clientes que uniran el crédito: </p>
+                        <select className="form-select" onChange={(e) => setN_creditos(e.target.value)}  aria-label="Default select example">
+                          <option value="2" selected >Selecciona una opción</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                        </select>
+                      </div>
+                      <div className="mb-3 mx-5">
+                        <label htmlFor="NSS" className="form-label">NSS del primer cliente registrado anteriormente: </label>
+                        <input maxLength={11} required type="text" onChange={(e) => setNSS(e.target.value)} value={NSS} name='NSS1' className="form-control" id="NSS1" placeholder="NSS" />
+                      </div>
+                      <div className='mb-3 mx-5'> 
+                        <p>Estado Civil del primer cliente: </p>
+                        <select className="form-select" onChange={(e) => setCivil(e.target.value)}  aria-label="Default select example">
+                          <option value="">Selecciona una opción</option>
+                          <option value="SOLTERO">SOLTERO</option>
+                          <option value="CASADO">CASADO</option>
+                        </select>
+                      </div>
+                      { civil !='SOLTERO' ? (
+                        <div className='mb-3 mx-5'> 
+                          <p>Régimen Patrimonial del primer cliente: </p>
+                          <select className="form-select" onChange={(e) => setTipoMatrimonio(e.target.value)}  aria-label="Default select example">
+                            <option value="">Selecciona una opción</option>
+                            <option value="SOCIEDAD LEGAL / MANCOMUNADO">Sociedad legal / Mancomunado</option>
+                            <option value="BIENES SEPARADOS">Bienes separados</option>
+                          </select>
+                        </div>
+                      ) : (<></>)
+
+                      }
+                      { n_creditos == '2' ? (
+                        <>
+                         <div className="mb-3 mx-5">
+                            <label htmlFor="nombre2" className="form-label">Nombre(s) segundo cliente: </label>
+                            <input required type="text" onChange={(e) => setNombre2(e.target.value.toUpperCase())} value={nombre2} name='nombre2' className="form-control" id="nombre2" placeholder="Nombre(s)" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="apellidoP2" className="form-label">Apellido Paterno segundo cliente: </label>
+                            <input required type="text" onChange={(e) => setApellidoP2(e.target.value.toUpperCase())} value={apellidoP2} name='apellidoP2' className="form-control" id="apellidoP2" placeholder="Apellido Paterno" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="apellidoM2" className="form-label">Apellido Materno segundo cliente: </label>
+                            <input required type="text" onChange={(e) => setApellidoM2(e.target.value.toUpperCase())} value={apellidoM2} name='apellidoM2' className="form-control" id="apellidoM2" placeholder="Apellido Materno" />
+                          </div>
+                          
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="email2" className="form-label">Email segundo cliente: </label>
+                            <input required type="email" onChange={(e) => setEmail2(e.target.value)} value={email2} name='email2' className="form-control" id="email2" placeholder="name@example.com" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="cel2" className="form-label">Celular - 10 digitos segundo cliente: </label>
+                            <input required type="text" maxLength={10} onChange={(e) => setCel2(e.target.value)} value={cel2} name='cel2' className="form-control" id="cel2" placeholder="Celular: 3312345678" />
+                          </div>
+
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="NSS2" className="form-label">NSS del segundo cliente: </label>
+                            <input maxLength={11} required type="text" onChange={(e) => setNSS2(e.target.value)} value={NSS2} name='NSS2' className="form-control" id="NSS2" placeholder="NSS" />
+                          </div>
+                          <div className='mb-3 mx-5'> 
+                            <p>Estado Civil del segundo cliente: </p>
+                            <select className="form-select" onChange={(e) => setCivil2(e.target.value)}  aria-label="Default select example">
+                              <option value="">Selecciona una opción</option>
+                              <option value="SOLTERO">SOLTERO</option>
+                              <option value="CASADO">CASADO</option>
+                            </select>
+                          </div>
+                          { civil2 !='SOLTERO' ? (
+                            <div className='mb-3 mx-5'> 
+                              <p>Régimen Patrimonial del segundo cliente: </p>
+                              <select className="form-select" onChange={(e) => setTipoMatrimonio2(e.target.value)}  aria-label="Default select example">
+                                <option value="">Selecciona una opción</option>
+                                <option value="SOCIEDAD LEGAL / MANCOMUNADO">Sociedad legal / Mancomunado</option>
+                                <option value="BIENES SEPARADOS">Bienes separados</option>
+                              </select>
+                            </div>
+                          ) : (<></>)
+                          }
+
+                        </>
+                      ) : (<></>)
+
+                      }
+                      { n_creditos == '3' ? (
+                        <>
+                         <div className="mb-3 mx-5">
+                            <label htmlFor="nombre2" className="form-label">Nombre(s) segundo cliente: </label>
+                            <input required type="text" onChange={(e) => setNombre2(e.target.value.toUpperCase())} value={nombre2} name='nombre2' className="form-control" id="nombre2" placeholder="Nombre(s)" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="apellidoP2" className="form-label">Apellido Paterno segundo cliente: </label>
+                            <input required type="text" onChange={(e) => setApellidoP2(e.target.value.toUpperCase())} value={apellidoP2} name='apellidoP2' className="form-control" id="apellidoP2" placeholder="Apellido Paterno" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="apellidoM2" className="form-label">Apellido Materno segundo cliente: </label>
+                            <input required type="text" onChange={(e) => setApellidoM2(e.target.value.toUpperCase())} value={apellidoM2} name='apellidoM2' className="form-control" id="apellidoM2" placeholder="Apellido Materno" />
+                          </div>
+                          
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="email2" className="form-label">Email segundo cliente: </label>
+                            <input required type="email" onChange={(e) => setEmail2(e.target.value)} value={email2} name='email2' className="form-control" id="email2" placeholder="name@example.com" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="cel2" className="form-label">Celular - 10 digitos segundo cliente: </label>
+                            <input required type="text" maxLength={10} onChange={(e) => setCel2(e.target.value)} value={cel2} name='cel2' className="form-control" id="cel2" placeholder="Celular: 3312345678" />
+                          </div>
+
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="NSS2" className="form-label">NSS del segundo cliente: </label>
+                            <input maxLength={11} required type="text" onChange={(e) => setNSS2(e.target.value)} value={NSS2} name='NSS2' className="form-control" id="NSS2" placeholder="NSS" />
+                          </div>
+                          <div className='mb-3 mx-5'> 
+                            <p>Estado Civil del segundo cliente: </p>
+                            <select className="form-select" onChange={(e) => setCivil2(e.target.value)}  aria-label="Default select example">
+                              <option value="">Selecciona una opción</option>
+                              <option value="SOLTERO">SOLTERO</option>
+                              <option value="CASADO">CASADO</option>
+                            </select>
+                          </div>
+                          { civil2 !='SOLTERO' ? (
+                            <div className='mb-3 mx-5'> 
+                              <p>Régimen Patrimonial del segundo cliente: </p>
+                              <select className="form-select" onChange={(e) => setTipoMatrimonio2(e.target.value)}  aria-label="Default select example">
+                                <option value="">Selecciona una opción</option>
+                                <option value="SOCIEDAD LEGAL / MANCOMUNADO">Sociedad legal / Mancomunado</option>
+                                <option value="BIENES SEPARADOS">Bienes separados</option>
+                              </select>
+                            </div>
+                          ) : (<></>)
+                          }
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="nombre3" className="form-label">Nombre(s) tercer cliente: </label>
+                            <input required type="text" onChange={(e) => setNombre3(e.target.value.toUpperCase())} value={nombre3} name='nombre3' className="form-control" id="nombre3" placeholder="Nombre(s)" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="apellidoP3" className="form-label">Apellido Paterno tercer cliente: </label>
+                            <input required type="text" onChange={(e) => setApellidoP3(e.target.value.toUpperCase())} value={apellidoP3} name='apellidoP3' className="form-control" id="apellidoP3" placeholder="Apellido Paterno" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="apellidoM3" className="form-label">Apellido Materno tercer cliente: </label>
+                            <input required type="text" onChange={(e) => setApellidoM3(e.target.value.toUpperCase())} value={apellidoM3} name='apellidoM3' className="form-control" id="apellidoM3" placeholder="Apellido Materno" />
+                          </div>
+                          
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="email3" className="form-label">Email tercer cliente: </label>
+                            <input required type="email" onChange={(e) => setEmail3(e.target.value)} value={email3} name='email3' className="form-control" id="email3" placeholder="name@example.com" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="cel3" className="form-label">Celular - 10 digitos tercer cliente: </label>
+                            <input required type="text" maxLength={10} onChange={(e) => setCel3(e.target.value)} value={cel3} name='cel3' className="form-control" id="cel3" placeholder="Celular: 3312345678" />
+                          </div>
+
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="NSS3" className="form-label">NSS del tercer cliente: </label>
+                            <input maxLength={11} required type="text" onChange={(e) => setNSS3(e.target.value)} value={NSS3} name='NSS3' className="form-control" id="NSS3" placeholder="NSS" />
+                          </div>
+                          <div className='mb-3 mx-5'> 
+                            <p>Estado Civil del tercer cliente: </p>
+                            <select className="form-select" onChange={(e) => setCivil3(e.target.value)}  aria-label="Default select example">
+                              <option value="">Selecciona una opción</option>
+                              <option value="SOLTERO">SOLTERO</option>
+                              <option value="CASADO">CASADO</option>
+                            </select>
+                          </div>
+                          { civil3 !='SOLTERO' ? (
+                            <div className='mb-3 mx-5'> 
+                              <p>Régimen Patrimonial del tercer cliente: </p>
+                              <select className="form-select" onChange={(e) => setTipoMatrimonio3(e.target.value)}  aria-label="Default select example">
+                                <option value="">Selecciona una opción</option>
+                                <option value="SOCIEDAD LEGAL / MANCOMUNADO">Sociedad legal / Mancomunado</option>
+                                <option value="BIENES SEPARADOS">Bienes separados</option>
+                              </select>
+                            </div>
+                          ) : (<></>)
+                          }
+
+                        </>
+                      ) : (<></>)
+
+                      }
+                      { n_creditos == '4' ? (
+                        <>
+                         <div className="mb-3 mx-5">
+                            <label htmlFor="nombre2" className="form-label">Nombre(s) segundo cliente: </label>
+                            <input required type="text" onChange={(e) => setNombre2(e.target.value.toUpperCase())} value={nombre2} name='nombre2' className="form-control" id="nombre2" placeholder="Nombre(s)" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="apellidoP2" className="form-label">Apellido Paterno segundo cliente: </label>
+                            <input required type="text" onChange={(e) => setApellidoP2(e.target.value.toUpperCase())} value={apellidoP2} name='apellidoP2' className="form-control" id="apellidoP2" placeholder="Apellido Paterno" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="apellidoM2" className="form-label">Apellido Materno segundo cliente: </label>
+                            <input required type="text" onChange={(e) => setApellidoM2(e.target.value.toUpperCase())} value={apellidoM2} name='apellidoM2' className="form-control" id="apellidoM2" placeholder="Apellido Materno" />
+                          </div>
+                          
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="email2" className="form-label">Email segundo cliente: </label>
+                            <input required type="email" onChange={(e) => setEmail2(e.target.value)} value={email2} name='email2' className="form-control" id="email2" placeholder="name@example.com" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="cel2" className="form-label">Celular - 10 digitos segundo cliente: </label>
+                            <input required type="text" maxLength={10} onChange={(e) => setCel2(e.target.value)} value={cel2} name='cel2' className="form-control" id="cel2" placeholder="Celular: 3312345678" />
+                          </div>
+
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="NSS2" className="form-label">NSS del segundo cliente: </label>
+                            <input maxLength={11} required type="text" onChange={(e) => setNSS2(e.target.value)} value={NSS2} name='NSS2' className="form-control" id="NSS2" placeholder="NSS" />
+                          </div>
+                          <div className='mb-3 mx-5'> 
+                            <p>Estado Civil del segundo cliente: </p>
+                            <select className="form-select" onChange={(e) => setCivil2(e.target.value)}  aria-label="Default select example">
+                              <option value="">Selecciona una opción</option>
+                              <option value="SOLTERO">SOLTERO</option>
+                              <option value="CASADO">CASADO</option>
+                            </select>
+                          </div>
+                          { civil2 !='SOLTERO' ? (
+                            <div className='mb-3 mx-5'> 
+                              <p>Régimen Patrimonial del segundo cliente: </p>
+                              <select className="form-select" onChange={(e) => setTipoMatrimonio2(e.target.value)}  aria-label="Default select example">
+                                <option value="">Selecciona una opción</option>
+                                <option value="SOCIEDAD LEGAL / MANCOMUNADO">Sociedad legal / Mancomunado</option>
+                                <option value="BIENES SEPARADOS">Bienes separados</option>
+                              </select>
+                            </div>
+                          ) : (<></>)
+                          }
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="nombre3" className="form-label">Nombre(s) tercer cliente: </label>
+                            <input required type="text" onChange={(e) => setNombre3(e.target.value.toUpperCase())} value={nombre3} name='nombre3' className="form-control" id="nombre3" placeholder="Nombre(s)" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="apellidoP3" className="form-label">Apellido Paterno tercer cliente: </label>
+                            <input required type="text" onChange={(e) => setApellidoP3(e.target.value.toUpperCase())} value={apellidoP3} name='apellidoP3' className="form-control" id="apellidoP3" placeholder="Apellido Paterno" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="apellidoM3" className="form-label">Apellido Materno tercer cliente: </label>
+                            <input required type="text" onChange={(e) => setApellidoM3(e.target.value.toUpperCase())} value={apellidoM3} name='apellidoM3' className="form-control" id="apellidoM3" placeholder="Apellido Materno" />
+                          </div>
+                          
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="email3" className="form-label">Email tercer cliente: </label>
+                            <input required type="email" onChange={(e) => setEmail3(e.target.value)} value={email3} name='email3' className="form-control" id="email3" placeholder="name@example.com" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="cel3" className="form-label">Celular - 10 digitos tercer cliente: </label>
+                            <input required type="text" maxLength={10} onChange={(e) => setCel3(e.target.value)} value={cel3} name='cel3' className="form-control" id="cel3" placeholder="Celular: 3312345678" />
+                          </div>
+
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="NSS3" className="form-label">NSS del tercer cliente: </label>
+                            <input maxLength={11} required type="text" onChange={(e) => setNSS3(e.target.value)} value={NSS3} name='NSS3' className="form-control" id="NSS3" placeholder="NSS" />
+                          </div>
+                          <div className='mb-3 mx-5'> 
+                            <p>Estado Civil del tercer cliente: </p>
+                            <select className="form-select" onChange={(e) => setCivil3(e.target.value)}  aria-label="Default select example">
+                              <option value="">Selecciona una opción</option>
+                              <option value="SOLTERO">SOLTERO</option>
+                              <option value="CASADO">CASADO</option>
+                            </select>
+                          </div>
+                          { civil3 !='SOLTERO' ? (
+                            <div className='mb-3 mx-5'> 
+                              <p>Régimen Patrimonial del tercer cliente: </p>
+                              <select className="form-select" onChange={(e) => setTipoMatrimonio3(e.target.value)}  aria-label="Default select example">
+                                <option value="">Selecciona una opción</option>
+                                <option value="SOCIEDAD LEGAL / MANCOMUNADO">Sociedad legal / Mancomunado</option>
+                                <option value="BIENES SEPARADOS">Bienes separados</option>
+                              </select>
+                            </div>
+                          ) : (<></>)
+                          }
+
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="nombre4" className="form-label">Nombre(s) cuarto cliente: </label>
+                            <input required type="text" onChange={(e) => setNombre4(e.target.value.toUpperCase())} value={nombre4} name='nombre4' className="form-control" id="nombre4" placeholder="Nombre(s)" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="apellidoP4" className="form-label">Apellido Paterno cuarto cliente: </label>
+                            <input required type="text" onChange={(e) => setApellidoP4(e.target.value.toUpperCase())} value={apellidoP4} name='apellidoP4' className="form-control" id="apellidoP4" placeholder="Apellido Paterno" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="apellidoM4" className="form-label">Apellido Materno cuarto cliente: </label>
+                            <input required type="text" onChange={(e) => setApellidoM4(e.target.value.toUpperCase())} value={apellidoM4} name='apellidoM4' className="form-control" id="apellidoM4" placeholder="Apellido Materno" />
+                          </div>
+                          
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="email4" className="form-label">Email cuarto cliente: </label>
+                            <input required type="email" onChange={(e) => setEmail4(e.target.value)} value={email4} name='email4' className="form-control" id="email4" placeholder="name@example.com" />
+                          </div>
+        
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="cel4" className="form-label">Celular - 10 digitos cuarto cliente: </label>
+                            <input required type="text" maxLength={10} onChange={(e) => setCel4(e.target.value)} value={cel4} name='cel4' className="form-control" id="cel4" placeholder="Celular: 3312345678" />
+                          </div>
+
+                          <div className="mb-3 mx-5">
+                            <label htmlFor="NSS4" className="form-label">NSS del cuarto cliente: </label>
+                            <input maxLength={11} required type="text" onChange={(e) => setNSS4(e.target.value)} value={NSS4} name='NSS4' className="form-control" id="NSS4" placeholder="NSS" />
+                          </div>
+                          <div className='mb-3 mx-5'> 
+                            <p>Estado Civil del cuarto cliente: </p>
+                            <select className="form-select" onChange={(e) => setCivil4(e.target.value)}  aria-label="Default select example">
+                              <option value="">Selecciona una opción</option>
+                              <option value="SOLTERO">SOLTERO</option>
+                              <option value="CASADO">CASADO</option>
+                            </select>
+                          </div>
+                          { civil4 !='SOLTERO' ? (
+                            <div className='mb-3 mx-5'> 
+                              <p>Régimen Patrimonial del cuarto cliente: </p>
+                              <select className="form-select" onChange={(e) => setTipoMatrimonio4(e.target.value)}  aria-label="Default select example">
+                                <option value="">Selecciona una opción</option>
+                                <option value="SOCIEDAD LEGAL / MANCOMUNADO">Sociedad legal / Mancomunado</option>
+                                <option value="BIENES SEPARADOS">Bienes separados</option>
+                              </select>
+                            </div>
+                          ) : (<></>)
+                          }
+
+                        </>
+                      ) : (<></>)
+
+                      }
+                    </>
+                  )
+
+                  }
+
+                  { compra != '' && compra != "INFONAVIT-unamos-creditos" ? (
                     <>
                       <Docesquema 
                         tipo={tipoDocEsquema}
@@ -599,7 +1199,7 @@ export default function Admin() {
 
                   }
 
-                  { civil !='SOLTERO' ? (
+                  { civil !='SOLTERO' && compra != "INFONAVIT-unamos-creditos" ? (
                     <div className='mb-3 mx-5'> 
                       <p>Régimen Patrimonial</p>
                       <select className="form-select" onChange={(e) => setTipoMatrimonio(e.target.value)}  aria-label="Default select example">
