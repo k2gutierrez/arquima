@@ -735,7 +735,59 @@ export default function INFONAVITCasadoBM(props) {
         historial: arrayUnion({
           registrado: props.currentUser,
           fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube el documento de los recibos de luz del dueño de la propiedad"
+          comentario: "Se sube el pimer recibo de luz del dueño de la propiedad"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const handleLuz2 = async () => {
+    if (currentfile == null) return;
+    try {
+      const Ref = ref(storage, `${props.id}/Recibos_Luz2_Vendedor_${currentfile.name}`)
+      const carg = await uploadBytes(Ref, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        RecibosLuzV2: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se sube el segundo recibo de luz del dueño de la propiedad"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const handleLuz3 = async () => {
+    if (currentfile == null) return;
+    try {
+      const Ref = ref(storage, `${props.id}/Recibos_Luz3_Vendedor_${currentfile.name}`)
+      const carg = await uploadBytes(Ref, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        RecibosLuzV3: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se sube el tercer recibo de luz del dueño de la propiedad"
         })
       })
       setShow(true)
@@ -1123,11 +1175,26 @@ export default function INFONAVITCasadoBM(props) {
             </div>
           </form>
 
+          <p>3 últimos recibos de luz: </p>
           <form >
             <div className="mb-3">
-              <label for="luz" className="form-label">3 últimos recibos de luz (1 archivo)</label>
+              <label for="luz" className="form-label">Recibo de Luz 1</label>
               <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="luz" />
               <button type='button' onClick={handleLuz} className='btn btn-secondary my-3' >Subir archivo</button>
+            </div>
+          </form>
+          <form >
+            <div className="mb-3">
+              <label for="luz2" className="form-label">Recibo de Luz 2</label>
+              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="luz2" />
+              <button type='button' onClick={handleLuz2} className='btn btn-secondary my-3' >Subir archivo</button>
+            </div>
+          </form>
+          <form >
+            <div className="mb-3">
+              <label for="luz3" className="form-label">Recibo de Luz 3</label>
+              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="luz3" />
+              <button type='button' onClick={handleLuz3} className='btn btn-secondary my-3' >Subir archivo</button>
             </div>
           </form>
 

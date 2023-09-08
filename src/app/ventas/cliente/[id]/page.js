@@ -787,9 +787,23 @@ export default function Page({ params }) {
                             }
                             </div></div></li>
 
-                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Talones de pago</div><div className='col-6 text-end'>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Talon de pago 1</div><div className='col-6 text-end'>
                             { docu.TalonesPagoCliente != undefined ?
-                              (<button type='button' onClick={() => {downloadFrom(docu.TalonesPagoCliente.url, "talones de pago")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button type='button' onClick={() => {downloadFrom(docu.TalonesPagoCliente.url, "talon de pago")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Talon de pago 2</div><div className='col-6 text-end'>
+                            { docu.TalonesPagoCliente2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.TalonesPagoCliente2.url, "talon de pago2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Talon de pago 3</div><div className='col-6 text-end'>
+                            { docu.TalonesPagoCliente3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.TalonesPagoCliente3.url, "talon de pago3")}} className='btn btn-primary' >Descargar</button>) : 
                               (<button className='btn btn-danger' disabled >Pendiente</button>)
                             }
                             </div></div></li>
@@ -922,9 +936,23 @@ export default function Page({ params }) {
                             }
                             </div></div></li>
 
-                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz</div><div className='col-6 text-end'>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 1</div><div className='col-6 text-end'>
                             { docu.RecibosLuzV != undefined ?
                               (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV.url, "recibo de luz")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 2</div><div className='col-6 text-end'>
+                            { docu.RecibosLuzV2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV2.url, "recibo de luz2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 3</div><div className='col-6 text-end'>
+                            { docu.RecibosLuzV3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV3.url, "recibo de luz3")}} className='btn btn-primary' >Descargar</button>) : 
                               (<button className='btn btn-danger' disabled >Pendiente</button>)
                             }
                             </div></div></li>
@@ -1010,9 +1038,23 @@ export default function Page({ params }) {
                             }
                             </div></div></li>
 
-                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Talones de pago</div><div className='col-6 text-end'>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Talon de pago 1</div><div className='col-6 text-end'>
                             { docu.TalonesPagoCliente != undefined ?
-                              (<button type='button' onClick={() => {downloadFrom(docu.TalonesPagoCliente.url, "talones de pago")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button type='button' onClick={() => {downloadFrom(docu.TalonesPagoCliente.url, "talon de pago")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Talon de pago 2</div><div className='col-6 text-end'>
+                            { docu.TalonesPagoCliente2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.TalonesPagoCliente2.url, "talon de pago2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Talon de pago 3</div><div className='col-6 text-end'>
+                            { docu.TalonesPagoCliente3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.TalonesPagoCliente3.url, "talon de pago3")}} className='btn btn-primary' >Descargar</button>) : 
                               (<button className='btn btn-danger' disabled >Pendiente</button>)
                             }
                             </div></div></li>
@@ -1115,9 +1157,23 @@ export default function Page({ params }) {
                             }
                             </div></div></li>
 
-                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz</div><div className='col-6 text-end'>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 1</div><div className='col-6 text-end'>
                             { docu.RecibosLuzV != undefined ?
                               (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV.url, "recibo de luz")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 2</div><div className='col-6 text-end'>
+                            { docu.RecibosLuzV2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV2.url, "recibo de luz2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 3</div><div className='col-6 text-end'>
+                            { docu.RecibosLuzV3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV3.url, "recibo de luz3")}} className='btn btn-primary' >Descargar</button>) : 
                               (<button className='btn btn-danger' disabled >Pendiente</button>)
                             }
                             </div></div></li>
@@ -1203,9 +1259,23 @@ export default function Page({ params }) {
                             }
                             </div></div></li>
 
-                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Talones de pago</div><div className='col-6 text-end'>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Talon de pago 1</div><div className='col-6 text-end'>
                             { docu.TalonesPagoCliente != undefined ?
-                              (<button type='button' onClick={() => {downloadFrom(docu.TalonesPagoCliente.url, "talones de pago")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button type='button' onClick={() => {downloadFrom(docu.TalonesPagoCliente.url, "talon de pago")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Talon de pago 2</div><div className='col-6 text-end'>
+                            { docu.TalonesPagoCliente2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.TalonesPagoCliente2.url, "talon de pago2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Talon de pago 3</div><div className='col-6 text-end'>
+                            { docu.TalonesPagoCliente3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.TalonesPagoCliente3.url, "talon de pago3")}} className='btn btn-primary' >Descargar</button>) : 
                               (<button className='btn btn-danger' disabled >Pendiente</button>)
                             }
                             </div></div></li>
@@ -1301,9 +1371,23 @@ export default function Page({ params }) {
                             }
                             </div></div></li>
 
-                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz</div><div className='col-6 text-end'>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 1</div><div className='col-6 text-end'>
                             { docu.RecibosLuzV != undefined ?
                               (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV.url, "recibo de luz")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 2</div><div className='col-6 text-end'>
+                            { docu.RecibosLuzV2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV2.url, "recibo de luz2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 3</div><div className='col-6 text-end'>
+                            { docu.RecibosLuzV3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV3.url, "recibo de luz3")}} className='btn btn-primary' >Descargar</button>) : 
                               (<button className='btn btn-danger' disabled >Pendiente</button>)
                             }
                             </div></div></li>
@@ -1538,9 +1622,23 @@ export default function Page({ params }) {
                             }
                             </div></div></li>
 
-                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz</div><div className='col-6 text-end'>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 1</div><div className='col-6 text-end'>
                             { docu.RecibosLuzV != undefined ?
                               (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV.url, "recibo de luz")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 2</div><div className='col-6 text-end'>
+                            { docu.RecibosLuzV2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV2.url, "recibo de luz2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 3</div><div className='col-6 text-end'>
+                            { docu.RecibosLuzV3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV3.url, "recibo de luz3")}} className='btn btn-primary' >Descargar</button>) : 
                               (<button className='btn btn-danger' disabled >Pendiente</button>)
                             }
                             </div></div></li>
@@ -1745,9 +1843,23 @@ export default function Page({ params }) {
                             }
                             </div></div></li>
 
-                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz</div><div className='col-6 text-end'>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 1</div><div className='col-6 text-end'>
                             { docu.RecibosLuzV != undefined ?
                               (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV.url, "recibo de luz")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 2</div><div className='col-6 text-end'>
+                            { docu.RecibosLuzV2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV2.url, "recibo de luz2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 3</div><div className='col-6 text-end'>
+                            { docu.RecibosLuzV3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV3.url, "recibo de luz3")}} className='btn btn-primary' >Descargar</button>) : 
                               (<button className='btn btn-danger' disabled >Pendiente</button>)
                             }
                             </div></div></li>
@@ -1945,9 +2057,23 @@ export default function Page({ params }) {
                             }
                             </div></div></li>
 
-                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz</div><div className='col-6 text-end'>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 1</div><div className='col-6 text-end'>
                             { docu.RecibosLuzV != undefined ?
                               (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV.url, "recibo de luz")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 2</div><div className='col-6 text-end'>
+                            { docu.RecibosLuzV2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV2.url, "recibo de luz2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 3</div><div className='col-6 text-end'>
+                            { docu.RecibosLuzV3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV3.url, "recibo de luz3")}} className='btn btn-primary' >Descargar</button>) : 
                               (<button className='btn btn-danger' disabled >Pendiente</button>)
                             }
                             </div></div></li>
