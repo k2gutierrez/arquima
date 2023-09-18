@@ -110,6 +110,8 @@ export default function Page({ params }) {
     }
   }, [docu])
 
+  console.log('Infonavir Soltero: ', infonavitSoltero)
+
   useEffect(() => {
     if (menu == "inicio") {
       getInfo();
