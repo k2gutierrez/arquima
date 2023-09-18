@@ -12,11 +12,15 @@
 }
 
 .formatoBg {
-  background-image: url("../../../../../public/formatos/Membrete_coto_cielo.png");
+  background: url("../../../../../public/formatos/Membrete_coto_cielo.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  /*background-image: url("../../../../../public/formatos/Membrete_coto_cielo.png");*/
   background-color: white;  /*Used if the image is unavailable */
   height: 100%; /*You must set a specified height */
   width: 100%;
   /*background-position: center;  Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
+  /*background-repeat: no-repeat;  Do not repeat the image */
   background-size: cover;  /*Resize the background image to cover the entire container */
 }
