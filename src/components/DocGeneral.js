@@ -6,7 +6,8 @@ import jsPDF from 'jspdf'
 function DocGeneral(props) {
     
     const createPDF = async () => {
-        const pdf = new jsPDF("portrait", "pt", "a4");
+        const pdf = new jsPDF('l','mm',[297, 210]);
+        /*const pdf = new jsPDF("portrait", "pt", "a4");*/
         const data = document.getElementById('pdf');
         const d = await html2canvas(data);
         const img = d.toDataURL("image/png");
