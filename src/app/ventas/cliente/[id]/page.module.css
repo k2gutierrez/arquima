@@ -13,14 +13,14 @@
 
 .formatoBg {
   background: url("../../../../../public/formatos/Membrete_coto_cielo.png") no-repeat; /* fixed */
-  background-size: 100% 100%;  /*cover Resize the background image to cover the entire container */
+  background-size: cover;  /*cover Resize the background image to cover the entire container */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   /*background-image: url("../../../../../public/formatos/Membrete_coto_cielo.png");*/
   background-color: white;  /*Used if the image is unavailable */
-  height: 100%; /*You must set a specified height */ 
-  width: 100%;
+  /*height: 100%; You must set a specified height 
+  width: 100%;*/ 
   /*background-position: center;  Center the image */
  /* background-repeat: no-repeat;  Do not repeat the image */
 }

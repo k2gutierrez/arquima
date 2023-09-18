@@ -77,7 +77,7 @@ export default function Page({ params }) {
       const ipejal = Boolean(docu.esquema == "IPEJAL-tradicional" || docu.esquema == "IPEJAL-terreno" || docu.esquema == "IPEJAL-conyugal")
 
       const infonavit = Boolean(docu.esquema == "INFONAVIT-tradicional" || docu.esquema == "INFONAVIT-conyugal" || docu.esquema == "INFONAVIT-infonavit-fovissste" || docu.esquema == "INFONAVIT-crediterreno" || docu.esquema == "INFONAVIT-segundo-credito" || docu.esquema == "INFONAVIT-cofinativ")
-
+      console.log('revisar de infonavit: ' + infonavit)
       const bancoSoltero = Boolean(docu.civil == 'SOLTERO' && banco == true)
       setBancoSoltero(bancoSoltero)
       const bancoCasado = Boolean(docu.civil == 'CASADO' && banco == true)
@@ -101,6 +101,7 @@ export default function Page({ params }) {
       const ipejalCasadoBM = Boolean(docu.civil == 'CASADO' && ipejal == true && docu.regimen_patrimonial == "SOCIEDAD LEGAL / MANCOMUNADO")
       setIpejalCasadoBM(ipejalCasadoBM)
       const infonavitSoltero = Boolean(docu.civil == 'SOLTERO' && infonavit == true)
+      console.log('revisar de infonavit soltero: ' + infonavitSoltero)
       setInfonavitSoltero(infonavitSoltero)
       const infonavitCasadoBS = Boolean(docu.civil == 'CASADO' && infonavit == true && docu.regimen_patrimonial == "BIENES SEPARADOS")
       setInfonavitCasadoBS(infonavitCasadoBS)
@@ -237,7 +238,7 @@ export default function Page({ params }) {
           {menu == "formato" ?
             (
               <DocGeneral 
-                className={cls(styles.formatoBg, "container-fluid")}
+                className={cls(styles.formatoBg, "container-fluid row")}
                 nombre={'Carlos Enrique Gutiérrez Chimal'}
                 nss={'12345678901'}
                 rfc={'gucc871030ca7'}
