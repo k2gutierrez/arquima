@@ -32,6 +32,7 @@ import engrane from '../../../../../public/engranes.gif'
 import INFONAVITUnamosCreditos2 from '@/components/documentos/INFONAVITUnamosCreditos2'
 import INFONAVITUnamosCreditos3 from '@/components/documentos/INFONAVITUnamosCreditos3'
 import INFONAVITUnamosCreditos4 from '@/components/documentos/INFONAVITUnamosCreditos4'
+import DocGeneral from '@/components/DocGeneral'
 
 export default function Page({ params }) {
 
@@ -228,7 +229,44 @@ export default function Page({ params }) {
             <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("historial")} >Historial</button>
             </li>
+            <li className="nav-item">
+              <button className="nav-link" onClick={() => setMenu("formato")} >Formato</button>
+            </li>
           </ul>
+          
+          {menu == "formato" ?
+            (
+              <DocGeneral 
+                className={cls(styles.formatoBg, "container-fluid")}
+                nombre={'Carlos Enrique Gutiérrez Chimal'}
+                nss={'12345678901'}
+                rfc={'gucc871030ca7'}
+                identificacion={'INE'}
+                nIdentificacion={'123456789012'}
+                domicilio={'Isla Zante 3464, col. jardines del sur C.P 44950'}
+                cel={3318930280}
+                email={'cchimal.gutierrez@gmail.com'}
+                tel={3318930280}
+                nombre2={'Carlos Enrique Gutiérrez Chimal'}
+                nss2={'12345678901'}
+                RFC2={'gucc871030ca7'}
+                identificacion2={'INE'}
+                nIdentificacion2={'123456789012'}
+                domicilio2={'Isla Zante 3464, col. jardines del sur C.P 44950'}
+                cel2={3318930280}
+                email2={'cchimal.gutierrez@gmail.com'}
+                tel2={3318930280}
+                direccion={'calle los otates'}
+                numero_ext={'2892'}
+                lte={'21'}
+                mz={'F'}
+                proyecto={'COTO CIELO'}
+                precio={'$500,000.00'}
+              />
+            )
+            :
+            (<></>)
+          }
 
           { menu == "inicio" || menu == "" ?
             (
