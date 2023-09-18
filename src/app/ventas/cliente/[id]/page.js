@@ -76,7 +76,7 @@ export default function Page({ params }) {
 
       const ipejal = Boolean(docu.esquema == "IPEJAL-tradicional" || docu.esquema == "IPEJAL-terreno" || docu.esquema == "IPEJAL-conyugal")
 
-      const infonavit = Boolean(docu.esquema == "INFOVANIT-tradicional" || docu.esquema == "INFOVANIT-conyugal" || docu.esquema == "INFOVANIT-infonavit-fovissste" || docu.esquema == "INFOVANIT-crediterreno" || docu.esquema == "INFOVANIT-segundo-credito" || docu.esquema == "INFOVANIT-cofinativ")
+      const infonavit = Boolean(docu.esquema == "INFONAVIT-tradicional" || docu.esquema == "INFONAVIT-conyugal" || docu.esquema == "INFONAVIT-infonavit-fovissste" || docu.esquema == "INFONAVIT-crediterreno" || docu.esquema == "INFONAVIT-segundo-credito" || docu.esquema == "INFONAVIT-cofinativ")
 
       const bancoSoltero = Boolean(docu.civil == 'SOLTERO' && banco == true)
       setBancoSoltero(bancoSoltero)
