@@ -12,7 +12,7 @@
 }
 
 .formatoBg {
-  background: url("../../../../../public/formatos/Membrete_coto_cielo.png") no-repeat center center fixed;
+  background: url("../../../../../public/formatos/Membrete_coto_cielo.png") no-repeat fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
