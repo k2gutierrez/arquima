@@ -4363,7 +4363,7 @@ export default function Page({ params }) {
                 />
                 ) : (<></>)
                 }
-                { infonavitSoltero ? (
+                { infonavitSoltero == true ? (
                   <INFONAVITSoltero
                     id={docu.id}
                     currentUser={currentName} 
