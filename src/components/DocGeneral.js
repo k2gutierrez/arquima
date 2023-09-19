@@ -29,9 +29,9 @@ function DocGeneral(props) {
                     <div>
                         <h1 className='py-5'>OFERTA DE COMPRA</h1>
                     </div>
-                    <div className='row mt-2 mb-5 justify-content-end align-items-center'>
+                    <div className='row mb-5 justify-content-end align-items-center'>
                         <div className=' text-start mb-5'>
-                            <div className='mt-3 mb-5'><strong>CLAUSULA PRIMERA: DE "EL OFERENTE"</strong></div>
+                            <div className='mt-1 mb-3'><strong>CLAUSULA PRIMERA: DE "EL OFERENTE"</strong></div>
                             <div className=''>
                                 <p className='mb-4'>
                                     Nombre: <u>{props.nombre}</u><br/>
@@ -95,6 +95,24 @@ function DocGeneral(props) {
                                     de Juárez, estado de México. Representado en este caso or el Lic. José Antonio Aguilar Martínez. <br />
                                     Firmando de conformidad de 2 tantos en la ciudad de Tlajomulco de Zuñiga , Jal. El Día_____ de _________________ del 2023.
                                 </p>
+                                <div className='row mt-5'>
+                                    <div className='col-6'>
+                                        <p className='mb-5'>
+                                            _________________________________________________ <br />
+                                            Firma de "EL OFERENTE".
+                                        </p>
+                                        <p>
+                                            _________________________________________________ <br />
+                                                Firma de "EL OFERENTE 2".
+                                            </p>
+                                    </div>
+                                    <div className='col-6'>
+                                        <p>
+                                            _________________________________________________ <br />
+                                                Firma del asesor.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
