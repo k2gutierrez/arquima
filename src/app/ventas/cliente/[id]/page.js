@@ -229,9 +229,9 @@ export default function Page({ params }) {
             <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("historial")} >Historial</button>
             </li>
-            {/*<li className="nav-item">
+            <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("formato")} >Formato</button>
-            </li>*/}
+            </li>
           </ul>
           
           {menu == "formato" ?

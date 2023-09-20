@@ -103,7 +103,6 @@ export default function Ventas() {
 
   // Use efecto con la función getPropiedadFolio para revisar cambios en el estado y declarar el ID de la propiedad para el registro del cliente
   useEffect(() => {
-    console.log('useEffect para obtener propiedad')
     if (propiedadID == '') {
       getPropiedadFolio()
     } else {
@@ -126,7 +125,6 @@ export default function Ventas() {
 
   // Use efecto con el tipo de compra para el registro del cliente, este manda llamar opciones al momento de registro
   useEffect(() => {
-    console.log('useEffect de switch para designar tipo de esquema')
     switch (compra) {
       case "CONTADO":
         setTipoDocEsquema("CURP_DATA")

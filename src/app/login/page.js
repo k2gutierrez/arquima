@@ -21,8 +21,6 @@ export default function Login() {
   const handleSignin = async (event) => {
     event.preventDefault()
     let {result, error} = signIn(email, password);
-    console.log("emal: ", email)
-    console.log("password: ", password)
     if (error) {
       setMessage("Usuario o contraseña incorrectos")
       handleShow
@@ -33,7 +31,7 @@ export default function Login() {
   }
 
   return (
-    <>
+    <div>
       <ModalG
           show={show}
           onHide={handleHide}
@@ -49,6 +47,6 @@ export default function Login() {
           setPassword={(e) => setPassword(e.target.value)}
         />
       </main>
-    </>
+    </div>
   )
 }

@@ -31,15 +31,14 @@ export default function Registering() {
     useEffect(() => {
         register();
         handleShow();
-        console.log("useEffect register")
     }, [])
 
     if (router.isFallback) {
         return (
-          <>
+          <div>
             <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
             <p>Loading...</p>
-          </>
+          </div>
         )
     }
 
@@ -47,7 +46,7 @@ export default function Registering() {
     const handleShow = () => setShow(true);
 
     return (
-        <>
+        <div>
             <Modal centered={true} show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                 <Modal.Title>
@@ -70,6 +69,6 @@ export default function Registering() {
                 <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
                 <p>Registrando cuenta en base de datos...</p>
             </div>
-        </>
+        </div>
     )
 }

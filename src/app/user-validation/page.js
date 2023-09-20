@@ -37,22 +37,22 @@ export default function User() {
 
     if (router.isFallback) {
         return (
-          <>
+          <div>
             <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
             <p>Loading...</p>
-          </>
+          </div>
         )
       }
 
     return (
-    <div className='container-sm text-center align-items-center my-5'>
-        <div>
-            <Image className='img-fluid' alt='logo' src={logo} width={600} height={460} />
+        <div className='container-sm text-center align-items-center my-5'>
+            <div>
+                <Image className='img-fluid' alt='logo' src={logo} width={600} height={460} />
+            </div>
+            <div>
+                <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
+                <p>Loading...</p>
+            </div>
         </div>
-        <div>
-            <Image className="img-fluid" alt='engrane' src={engrane} width={350} height={210} />
-            <p>Loading...</p>
-        </div>
-    </div>
     )
 }
