@@ -229,9 +229,9 @@ export default function Page({ params }) {
             <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("historial")} >Historial</button>
             </li>
-            <li className="nav-item">
+            {/*<li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("formato")} >Formato</button>
-            </li>
+            </li>*/}
           </ul>
           
           {menu == "formato" ?
@@ -2813,7 +2813,7 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
-                  { docu.regimen_patrimonial == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '4' ? (
+                  { docu.esquema == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '4' && docu.status != 'BAJA' ? (
 
                     <div className='row justify-content-center'>
                       <ul className="list-group w-75">
@@ -2896,7 +2896,7 @@ export default function Page({ params }) {
                             </div></div></li>
                             )
                           }
-                          { docu.regimen_patrimonial == "BIENES SEPARADOS" ? (<></>) : (
+                          { docu.regimen_patrimonial == "BIENES SEPARADOS" || docu.regimen_patrimonial == 'NA' ? (<></>) : (
                             <>
                               <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
                               { docu.IneConyugeCliente != undefined ?
@@ -3007,7 +3007,7 @@ export default function Page({ params }) {
                               </div></div></li>
                               )
                             }
-                            { docu.regimen_patrimonial2 == "BIENES SEPARADOS" ? (<></>) : (
+                            { docu.regimen_patrimonial2 == "BIENES SEPARADOS" || docu.regimen_patrimonial2 == 'NA' ? (<></>) : (
                               <>
                                 <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
                                 { docu.IneConyugeCliente2 != undefined ?
@@ -3118,7 +3118,7 @@ export default function Page({ params }) {
                                 </div></div></li>
                                 )
                               }
-                              { docu.regimen_patrimonial3 == "BIENES SEPARADOS" ? (<></>) : (
+                              { docu.regimen_patrimonial3 == "BIENES SEPARADOS" || docu.regimen_patrimonial3 == 'NA' ? (<></>) : (
                                 <>
                                   <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
                                   { docu.IneConyugeCliente3 != undefined ?
@@ -3229,7 +3229,7 @@ export default function Page({ params }) {
                                   </div></div></li>
                                   )
                                 }
-                                { docu.regimen_patrimonial4 == "BIENES SEPARADOS" ? (<></>) : (
+                                { docu.regimen_patrimonial4 == "BIENES SEPARADOS" || docu.regimen_patrimonial4 == 'NA' ? (<></>) : (
                                   <>
                                     <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
                                     { docu.IneConyugeCliente4 != undefined ?
@@ -3412,7 +3412,7 @@ export default function Page({ params }) {
                     ) : (<></>)
                   }
 
-                  { docu.regimen_patrimonial == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '3' ? (
+                  { docu.esquema == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '3'  && docu.status != 'BAJA' ? (
 
                   <div className='row justify-content-center'>
                     <ul className="list-group w-75">
@@ -3495,7 +3495,7 @@ export default function Page({ params }) {
                           </div></div></li>
                           )
                         }
-                        { docu.regimen_patrimonial == "BIENES SEPARADOS" ? (<></>) : (
+                        { docu.regimen_patrimonial == "BIENES SEPARADOS" || docu.regimen_patrimonial == 'NA' ? (<></>) : (
                           <>
                             <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
                             { docu.IneConyugeCliente != undefined ?
@@ -3606,7 +3606,7 @@ export default function Page({ params }) {
                             </div></div></li>
                             )
                           }
-                          { docu.regimen_patrimonial2 == "BIENES SEPARADOS" ? (<></>) : (
+                          { docu.regimen_patrimonial2 == "BIENES SEPARADOS" || docu.regimen_patrimonial2 == 'NA' ? (<></>) : (
                             <>
                               <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
                               { docu.IneConyugeCliente2 != undefined ?
@@ -3717,7 +3717,7 @@ export default function Page({ params }) {
                               </div></div></li>
                               )
                             }
-                            { docu.regimen_patrimonial3 == "BIENES SEPARADOS" ? (<></>) : (
+                            { docu.regimen_patrimonial3 == "BIENES SEPARADOS" || docu.regimen_patrimonial3 == 'NA' ? (<></>) : (
                               <>
                                 <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
                                 { docu.IneConyugeCliente3 != undefined ?
@@ -3901,7 +3901,7 @@ export default function Page({ params }) {
                   }
 
 
-                  { docu.regimen_patrimonial == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '2' ? (
+                  { docu.esquema == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '2' && docu.status != 'BAJA' ? (
 
                   <div className='row justify-content-center'>
                     <ul className="list-group w-75">
@@ -3984,7 +3984,7 @@ export default function Page({ params }) {
                           </div></div></li>
                           )
                         }
-                        { docu.regimen_patrimonial == "BIENES SEPARADOS" ? (<></>) : (
+                        { docu.regimen_patrimonial == "BIENES SEPARADOS" || docu.regimen_patrimonial == 'NA' ? (<></>) : (
                           <>
                             <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
                             { docu.IneConyugeCliente != undefined ?
@@ -4095,7 +4095,7 @@ export default function Page({ params }) {
                             </div></div></li>
                             )
                           }
-                          { docu.regimen_patrimonial2 == "BIENES SEPARADOS" ? (<></>) : (
+                          { docu.regimen_patrimonial2 == "BIENES SEPARADOS" || docu.regimen_patrimonial2 == 'NA' ? (<></>) : (
                             <>
                               <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
                               { docu.IneConyugeCliente2 != undefined ?
@@ -4384,7 +4384,7 @@ export default function Page({ params }) {
                 />
                 ) : (<></>)
                 }
-                { docu.regimen_patrimonial == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '2' ? (
+                { docu.esquema == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '2' ? (
                   <INFONAVITUnamosCreditos2 
                     id={docu.id}
                     currentUser={currentName} 
@@ -4395,7 +4395,7 @@ export default function Page({ params }) {
                   />
                 ) : (<></>)
                 }
-                { docu.regimen_patrimonial == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '3' ? (
+                { docu.esquema == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '3' ? (
                   <INFONAVITUnamosCreditos3 
                     id={docu.id}
                     currentUser={currentName}
@@ -4408,7 +4408,7 @@ export default function Page({ params }) {
                   />
                 ) : (<></>)
                 }
-                { docu.regimen_patrimonial == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '4' ? (
+                { docu.esquema == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '4' ? (
                   <INFONAVITUnamosCreditos4
                     id={docu.id}
                     currentUser={currentName} 

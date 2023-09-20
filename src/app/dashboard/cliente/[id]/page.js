@@ -3102,6 +3102,1473 @@ export default function Page({ params }) {
                       </div>
                     ) : (<></>)
                   }
+
+                  {/* Unamos Créditos */}
+                  { docu.esquema == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '4' && docu.status != 'BAJA' ? (
+
+                    <div className='row justify-content-center'>
+                      <ul className="list-group w-75">
+
+                        {/* Cliente 1 */}
+
+                        <li className="list-group-item">Cliente 1: {docu.nombre}</li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Ine</div><div className='col-6 text-end'>
+                          { docu.INE != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.INE.url, "INE")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP</div><div className='col-6 text-end'>
+                          { docu.CURP != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.CURP.url, "CURP")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC</div><div className='col-6 text-end'>
+                          { docu.RFC != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.RFC.url, "RFC")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Comprobante de domicilio</div><div className='col-6 text-end'>
+                          { docu.CompDom != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.CompDom.url, "COMPDOM")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento</div><div className='col-6 text-end'>
+                          { docu.ActNac != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.ActNac.url, "ACTANAC")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                          
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Formato General</div><div className='col-6 text-end'>
+                          { docu.FormatoG != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.FormatoG.url, "formato general")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Taller saber para decidir</div><div className='col-6 text-end'>
+                          { docu.TallerSaberCliente != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.TallerSaberCliente.url, "taller saber para decidir")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Precalificación</div><div className='col-6 text-end'>
+                          { docu.PrecalificacionCliente != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.PrecalificacionCliente.url, "precalificacion infonavit")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Solicitud de crédito</div><div className='col-6 text-end'>
+                          { docu.SolicitudCreditoCliente != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.SolicitudCreditoCliente.url, "solicitud de credito")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>SIC</div><div className='col-6 text-end'>
+                          { docu.SIC != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.SIC.url, "SIC")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                          
+                          { docu.civil == 'SOLTERO' ? (<></>) : (
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de matrimonio del cliente</div><div className='col-6 text-end'>
+                            { docu.ActaMatrimonioCliente != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.ActaMatrimonioCliente.url, "Acta de matrimonio")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                            )
+                          }
+                          { docu.regimen_patrimonial == "BIENES SEPARADOS" || docu.regimen_patrimonial == 'NA' ? (<></>) : (
+                            <>
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
+                              { docu.IneConyugeCliente != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.IneConyugeCliente.url, "INE conyugue cliente")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del conyuge del cliente</div><div className='col-6 text-end'>
+                              { docu.RfcConyugeCliente != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.RfcConyugeCliente.url, "RFC conyugue cliente")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del conyuge del cliente</div><div className='col-6 text-end'>
+                              { docu.ActNacConyugeCliente != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.ActNacConyugeCliente.url, "Acta de nacimiento del conyugue cliente")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del conyuge del cliente</div><div className='col-6 text-end'>
+                              { docu.CurpConyugeCliente != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.CurpConyugeCliente.url, "CURP del conyugue cliente")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+                            </>
+                            )
+                          }
+
+                          {/* Cliente 2 */}
+
+                          <li className="list-group-item">Cliente 2: {docu.nombre2}</li>
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE</div><div className='col-6 text-end'>
+                            { docu.INE2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.INE2.url, "INE2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP</div><div className='col-6 text-end'>
+                            { docu.CURP2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.CURP2.url, "CURP2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC</div><div className='col-6 text-end'>
+                            { docu.RFC2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RFC2.url, "RFC2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Comprobante de domicilio</div><div className='col-6 text-end'>
+                            { docu.CompDom2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.CompDom2.url, "COMPDOM2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento</div><div className='col-6 text-end'>
+                            { docu.ActNac2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.ActNac2.url, "ACTANAC2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                            
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Formato General</div><div className='col-6 text-end'>
+                            { docu.FormatoG2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.FormatoG2.url, "formato general2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Taller saber para decidir</div><div className='col-6 text-end'>
+                            { docu.TallerSaberCliente2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.TallerSaberCliente2.url, "taller saber para decidir2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Precalificación</div><div className='col-6 text-end'>
+                            { docu.PrecalificacionCliente2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.PrecalificacionCliente2.url, "precalificacion infonavit2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Solicitud de crédito</div><div className='col-6 text-end'>
+                            { docu.SolicitudCreditoCliente2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.SolicitudCreditoCliente2.url, "solicitud de credito2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>SIC</div><div className='col-6 text-end'>
+                            { docu.SIC2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.SIC2.url, "SIC2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                            
+                            { docu.civil2 == 'SOLTERO' ? (<></>) : (
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de matrimonio del cliente</div><div className='col-6 text-end'>
+                              { docu.ActaMatrimonioCliente2 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.ActaMatrimonioCliente2.url, "Acta de matrimonio2")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+                              )
+                            }
+                            { docu.regimen_patrimonial2 == "BIENES SEPARADOS" || docu.regimen_patrimonial2 == 'NA' ? (<></>) : (
+                              <>
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
+                                { docu.IneConyugeCliente2 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.IneConyugeCliente2.url, "INE conyugue cliente2")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del conyuge del cliente</div><div className='col-6 text-end'>
+                                { docu.RfcConyugeCliente2 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.RfcConyugeCliente2.url, "RFC conyugue cliente2")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del conyuge del cliente</div><div className='col-6 text-end'>
+                                { docu.ActNacConyugeCliente2 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.ActNacConyugeCliente2.url, "Acta de nacimiento del conyugue cliente2")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del conyuge del cliente</div><div className='col-6 text-end'>
+                                { docu.CurpConyugeCliente2 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.CurpConyugeCliente2.url, "CURP del conyugue cliente2")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+                              </>
+                              )
+                            }
+                          
+                            {/* Cliente 3 */}
+
+                            <li className="list-group-item">Cliente 3: {docu.nombre3}</li>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE</div><div className='col-6 text-end'>
+                              { docu.INE3 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.INE3.url, "INE3")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP</div><div className='col-6 text-end'>
+                              { docu.CURP3 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.CURP3.url, "CURP3")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC</div><div className='col-6 text-end'>
+                              { docu.RFC3 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.RFC3.url, "RFC3")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Comprobante de domicilio</div><div className='col-6 text-end'>
+                              { docu.CompDom3 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.CompDom3.url, "COMPDOM3")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento</div><div className='col-6 text-end'>
+                              { docu.ActNac3 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.ActNac3.url, "ACTANAC3")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+                              
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Formato General</div><div className='col-6 text-end'>
+                              { docu.FormatoG3 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.FormatoG3.url, "formato general3")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Taller saber para decidir</div><div className='col-6 text-end'>
+                              { docu.TallerSaberCliente3 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.TallerSaberCliente3.url, "taller saber para decidir3")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Precalificación</div><div className='col-6 text-end'>
+                              { docu.PrecalificacionCliente3 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.PrecalificacionCliente3.url, "precalificacion infonavit3")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Solicitud de crédito</div><div className='col-6 text-end'>
+                              { docu.SolicitudCreditoCliente3 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.SolicitudCreditoCliente3.url, "solicitud de credito3")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>SIC</div><div className='col-6 text-end'>
+                              { docu.SIC3 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.SIC3.url, "SIC3")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+                              
+                              { docu.civil3 == 'SOLTERO' ? (<></>) : (
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de matrimonio del cliente</div><div className='col-6 text-end'>
+                                { docu.ActaMatrimonioCliente3 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.ActaMatrimonioCliente3.url, "Acta de matrimonio3")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+                                )
+                              }
+                              { docu.regimen_patrimonial3 == "BIENES SEPARADOS" || docu.regimen_patrimonial3 == 'NA' ? (<></>) : (
+                                <>
+                                  <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
+                                  { docu.IneConyugeCliente3 != undefined ?
+                                    (<button type='button' onClick={() => {downloadFrom(docu.IneConyugeCliente3.url, "INE conyugue cliente3")}} className='btn btn-primary' >Descargar</button>) : 
+                                    (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                  }
+                                  </div></div></li>
+
+                                  <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del conyuge del cliente</div><div className='col-6 text-end'>
+                                  { docu.RfcConyugeCliente3 != undefined ?
+                                    (<button type='button' onClick={() => {downloadFrom(docu.RfcConyugeCliente3.url, "RFC conyugue cliente3")}} className='btn btn-primary' >Descargar</button>) : 
+                                    (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                  }
+                                  </div></div></li>
+
+                                  <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del conyuge del cliente</div><div className='col-6 text-end'>
+                                  { docu.ActNacConyugeCliente3 != undefined ?
+                                    (<button type='button' onClick={() => {downloadFrom(docu.ActNacConyugeCliente3.url, "Acta de nacimiento del conyugue cliente3")}} className='btn btn-primary' >Descargar</button>) : 
+                                    (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                  }
+                                  </div></div></li>
+
+                                  <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del conyuge del cliente</div><div className='col-6 text-end'>
+                                  { docu.CurpConyugeCliente3 != undefined ?
+                                    (<button type='button' onClick={() => {downloadFrom(docu.CurpConyugeCliente3.url, "CURP del conyugue cliente3")}} className='btn btn-primary' >Descargar</button>) : 
+                                    (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                  }
+                                  </div></div></li>
+                                </>
+                                )
+                              }
+
+                              {/* Cliente 4 */}
+
+                              <li className="list-group-item">Cliente 4: {docu.nombre4}</li>
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE</div><div className='col-6 text-end'>
+                                { docu.INE4 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.INE4.url, "INE4")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP</div><div className='col-6 text-end'>
+                                { docu.CURP4 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.CURP4.url, "CURP4")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC</div><div className='col-6 text-end'>
+                                { docu.RFC4 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.RFC4.url, "RFC4")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Comprobante de domicilio</div><div className='col-6 text-end'>
+                                { docu.CompDom4 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.CompDom4.url, "COMPDOM4")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento</div><div className='col-6 text-end'>
+                                { docu.ActNac4 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.ActNac4.url, "ACTANAC4")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+                                
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Formato General</div><div className='col-6 text-end'>
+                                { docu.FormatoG4 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.FormatoG4.url, "formato general4")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Taller saber para decidir</div><div className='col-6 text-end'>
+                                { docu.TallerSaberCliente4 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.TallerSaberCliente4.url, "taller saber para decidir4")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Precalificación</div><div className='col-6 text-end'>
+                                { docu.PrecalificacionCliente4 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.PrecalificacionCliente4.url, "precalificacion infonavit4")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Solicitud de crédito</div><div className='col-6 text-end'>
+                                { docu.SolicitudCreditoCliente4 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.SolicitudCreditoCliente4.url, "solicitud de credito4")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>SIC</div><div className='col-6 text-end'>
+                                { docu.SIC4 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.SIC4.url, "SIC4")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+                                
+                                { docu.civil4 == 'SOLTERO' ? (<></>) : (
+                                  <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de matrimonio del cliente</div><div className='col-6 text-end'>
+                                  { docu.ActaMatrimonioCliente4 != undefined ?
+                                    (<button type='button' onClick={() => {downloadFrom(docu.ActaMatrimonioCliente4.url, "Acta de matrimonio4")}} className='btn btn-primary' >Descargar</button>) : 
+                                    (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                  }
+                                  </div></div></li>
+                                  )
+                                }
+                                { docu.regimen_patrimonial4 == "BIENES SEPARADOS" || docu.regimen_patrimonial4 == 'NA' ? (<></>) : (
+                                  <>
+                                    <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
+                                    { docu.IneConyugeCliente4 != undefined ?
+                                      (<button type='button' onClick={() => {downloadFrom(docu.IneConyugeCliente4.url, "INE conyugue cliente4")}} className='btn btn-primary' >Descargar</button>) : 
+                                      (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                    }
+                                    </div></div></li>
+
+                                    <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del conyuge del cliente</div><div className='col-6 text-end'>
+                                    { docu.RfcConyugeCliente4 != undefined ?
+                                      (<button type='button' onClick={() => {downloadFrom(docu.RfcConyugeCliente4.url, "RFC conyugue cliente4")}} className='btn btn-primary' >Descargar</button>) : 
+                                      (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                    }
+                                    </div></div></li>
+
+                                    <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del conyuge del cliente</div><div className='col-6 text-end'>
+                                    { docu.ActNacConyugeCliente4 != undefined ?
+                                      (<button type='button' onClick={() => {downloadFrom(docu.ActNacConyugeCliente4.url, "Acta de nacimiento del conyugue cliente4")}} className='btn btn-primary' >Descargar</button>) : 
+                                      (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                    }
+                                    </div></div></li>
+
+                                    <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del conyuge del cliente</div><div className='col-6 text-end'>
+                                    { docu.CurpConyugeCliente4 != undefined ?
+                                      (<button type='button' onClick={() => {downloadFrom(docu.CurpConyugeCliente4.url, "CURP del conyugue cliente4")}} className='btn btn-primary' >Descargar</button>) : 
+                                      (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                    }
+                                    </div></div></li>
+                                  </>
+                                  )
+                                }
+
+                          {/* Documentos del Vendedor */}
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del vendedor</div><div className='col-6 text-end'>
+                          { docu.INEV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.INEV.url, "INEV")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del vendedor</div><div className='col-6 text-end'>
+                          { docu.CURPV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.CURPV.url, "CURPV")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del vendedor</div><div className='col-6 text-end'>
+                          { docu.RFCV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.RFCV.url, "RFCV")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del vendedor</div><div className='col-6 text-end'>
+                          { docu.ActNacV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.ActNacV.url, "ActNacV")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Escrituras del vendedor</div><div className='col-6 text-end'>
+                          { docu.EscrituraV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.EscrituraV.url, "EscrituraV")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Predial del vendedor</div><div className='col-6 text-end'>
+                          { docu.PredialV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.PredialV.url, "PredialV")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Comprobante de agua del vendedor</div><div className='col-6 text-end'>
+                          { docu.AguaV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.AguaV.url, "AguaV")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Estado de cuenta del vendedor</div><div className='col-6 text-end'>
+                          { docu.EstadoCtaV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.EstadoCtaV.url, "EstadoCtaV")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta Constitutiva del vendedor</div><div className='col-6 text-end'>
+                          { docu.ActaConstitutivaV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.ActaConstitutivaV.url, "acta constitutiva")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Memoria descriptiva</div><div className='col-6 text-end'>
+                          { docu.MemoriaDescriptivaV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.MemoriaDescriptivaV.url, "memoria descriptiva")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Plano arquitectónico</div><div className='col-6 text-end'>
+                          { docu.PlanoArqV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.PlanoArqV.url, "plano arquitectonico")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Estudio de habitabilidad</div><div className='col-6 text-end'>
+                          { docu.HabitabilidadV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.HabitabilidadV.url, "habitabilidad")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 1</div><div className='col-6 text-end'>
+                          { docu.RecibosLuzV != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV.url, "recibo de luz")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 2</div><div className='col-6 text-end'>
+                          { docu.RecibosLuzV2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV2.url, "recibo de luz2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 3</div><div className='col-6 text-end'>
+                          { docu.RecibosLuzV3 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV3.url, "recibo de luz3")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de matrimonio del vendedor</div><div className='col-6 text-end'>
+                          { docu.ActaMatrimonioVendedor != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.ActaMatrimonioVendedor.url, "acta matrimonio vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del vendedor</div><div className='col-6 text-end'>
+                          { docu.IneConyugeVendedor != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.IneConyugeVendedor.url, "INE del conyuge del vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del conyuge del vendedor</div><div className='col-6 text-end'>
+                          { docu.RfcConyugeVendedor != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.RfcConyugeVendedor.url, "RFC del conyuge del vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del conyuge del vendedor</div><div className='col-6 text-end'>
+                          { docu.ActNacConyugeVendedor != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.ActNacConyugeVendedor.url, "acta de nacimiento del conyuge del vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del conyuge del vendedor</div><div className='col-6 text-end'>
+                          { docu.CURPConyugeVendedor != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.CURPConyugeVendedor.url, "CURP del conyuge del vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                      </ul>
+                    </div>
+
+                    ) : (<></>)
+                    }
+
+                    { docu.esquema == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '3'  && docu.status != 'BAJA' ? (
+
+                    <div className='row justify-content-center'>
+                    <ul className="list-group w-75">
+
+                      {/* Cliente 1 */}
+
+                      <li className="list-group-item">Cliente 1: {docu.nombre}</li>
+                      <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Ine</div><div className='col-6 text-end'>
+                        { docu.INE != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.INE.url, "INE")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+                      <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP</div><div className='col-6 text-end'>
+                        { docu.CURP != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.CURP.url, "CURP")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+                      <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC</div><div className='col-6 text-end'>
+                        { docu.RFC != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.RFC.url, "RFC")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+                      <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Comprobante de domicilio</div><div className='col-6 text-end'>
+                        { docu.CompDom != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.CompDom.url, "COMPDOM")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+                      <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento</div><div className='col-6 text-end'>
+                        { docu.ActNac != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.ActNac.url, "ACTANAC")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+                        
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Formato General</div><div className='col-6 text-end'>
+                        { docu.FormatoG != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.FormatoG.url, "formato general")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Taller saber para decidir</div><div className='col-6 text-end'>
+                        { docu.TallerSaberCliente != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.TallerSaberCliente.url, "taller saber para decidir")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Precalificación</div><div className='col-6 text-end'>
+                        { docu.PrecalificacionCliente != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.PrecalificacionCliente.url, "precalificacion infonavit")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Solicitud de crédito</div><div className='col-6 text-end'>
+                        { docu.SolicitudCreditoCliente != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.SolicitudCreditoCliente.url, "solicitud de credito")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>SIC</div><div className='col-6 text-end'>
+                        { docu.SIC != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.SIC.url, "SIC")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+                        
+                        { docu.civil == 'SOLTERO' ? (<></>) : (
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de matrimonio del cliente</div><div className='col-6 text-end'>
+                          { docu.ActaMatrimonioCliente != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.ActaMatrimonioCliente.url, "Acta de matrimonio")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                          )
+                        }
+                        { docu.regimen_patrimonial == "BIENES SEPARADOS" || docu.regimen_patrimonial == 'NA' ? (<></>) : (
+                          <>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
+                            { docu.IneConyugeCliente != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.IneConyugeCliente.url, "INE conyugue cliente")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del conyuge del cliente</div><div className='col-6 text-end'>
+                            { docu.RfcConyugeCliente != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RfcConyugeCliente.url, "RFC conyugue cliente")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del conyuge del cliente</div><div className='col-6 text-end'>
+                            { docu.ActNacConyugeCliente != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.ActNacConyugeCliente.url, "Acta de nacimiento del conyugue cliente")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del conyuge del cliente</div><div className='col-6 text-end'>
+                            { docu.CurpConyugeCliente != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.CurpConyugeCliente.url, "CURP del conyugue cliente")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                          </>
+                          )
+                        }
+
+                        {/* Cliente 2 */}
+
+                        <li className="list-group-item">Cliente 2: {docu.nombre2}</li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE</div><div className='col-6 text-end'>
+                          { docu.INE2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.INE2.url, "INE2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP</div><div className='col-6 text-end'>
+                          { docu.CURP2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.CURP2.url, "CURP2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC</div><div className='col-6 text-end'>
+                          { docu.RFC2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.RFC2.url, "RFC2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Comprobante de domicilio</div><div className='col-6 text-end'>
+                          { docu.CompDom2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.CompDom2.url, "COMPDOM2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento</div><div className='col-6 text-end'>
+                          { docu.ActNac2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.ActNac2.url, "ACTANAC2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                          
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Formato General</div><div className='col-6 text-end'>
+                          { docu.FormatoG2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.FormatoG2.url, "formato general2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Taller saber para decidir</div><div className='col-6 text-end'>
+                          { docu.TallerSaberCliente2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.TallerSaberCliente2.url, "taller saber para decidir2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Precalificación</div><div className='col-6 text-end'>
+                          { docu.PrecalificacionCliente2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.PrecalificacionCliente2.url, "precalificacion infonavit2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Solicitud de crédito</div><div className='col-6 text-end'>
+                          { docu.SolicitudCreditoCliente2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.SolicitudCreditoCliente2.url, "solicitud de credito2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>SIC</div><div className='col-6 text-end'>
+                          { docu.SIC2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.SIC2.url, "SIC2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                          
+                          { docu.civil2 == 'SOLTERO' ? (<></>) : (
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de matrimonio del cliente</div><div className='col-6 text-end'>
+                            { docu.ActaMatrimonioCliente2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.ActaMatrimonioCliente2.url, "Acta de matrimonio2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                            )
+                          }
+                          { docu.regimen_patrimonial2 == "BIENES SEPARADOS" || docu.regimen_patrimonial2 == 'NA' ? (<></>) : (
+                            <>
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
+                              { docu.IneConyugeCliente2 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.IneConyugeCliente2.url, "INE conyugue cliente2")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del conyuge del cliente</div><div className='col-6 text-end'>
+                              { docu.RfcConyugeCliente2 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.RfcConyugeCliente2.url, "RFC conyugue cliente2")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del conyuge del cliente</div><div className='col-6 text-end'>
+                              { docu.ActNacConyugeCliente2 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.ActNacConyugeCliente2.url, "Acta de nacimiento del conyugue cliente2")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del conyuge del cliente</div><div className='col-6 text-end'>
+                              { docu.CurpConyugeCliente2 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.CurpConyugeCliente2.url, "CURP del conyugue cliente2")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+                            </>
+                            )
+                          }
+                        
+                          {/* Cliente 3 */}
+
+                          <li className="list-group-item">Cliente 3: {docu.nombre3}</li>
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE</div><div className='col-6 text-end'>
+                            { docu.INE3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.INE3.url, "INE3")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP</div><div className='col-6 text-end'>
+                            { docu.CURP3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.CURP3.url, "CURP3")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC</div><div className='col-6 text-end'>
+                            { docu.RFC3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RFC3.url, "RFC3")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Comprobante de domicilio</div><div className='col-6 text-end'>
+                            { docu.CompDom3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.CompDom3.url, "COMPDOM3")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento</div><div className='col-6 text-end'>
+                            { docu.ActNac3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.ActNac3.url, "ACTANAC3")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                            
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Formato General</div><div className='col-6 text-end'>
+                            { docu.FormatoG3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.FormatoG3.url, "formato general3")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Taller saber para decidir</div><div className='col-6 text-end'>
+                            { docu.TallerSaberCliente3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.TallerSaberCliente3.url, "taller saber para decidir3")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Precalificación</div><div className='col-6 text-end'>
+                            { docu.PrecalificacionCliente3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.PrecalificacionCliente3.url, "precalificacion infonavit3")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Solicitud de crédito</div><div className='col-6 text-end'>
+                            { docu.SolicitudCreditoCliente3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.SolicitudCreditoCliente3.url, "solicitud de credito3")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>SIC</div><div className='col-6 text-end'>
+                            { docu.SIC3 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.SIC3.url, "SIC3")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                            
+                            { docu.civil3 == 'SOLTERO' ? (<></>) : (
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de matrimonio del cliente</div><div className='col-6 text-end'>
+                              { docu.ActaMatrimonioCliente3 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.ActaMatrimonioCliente3.url, "Acta de matrimonio3")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+                              )
+                            }
+                            { docu.regimen_patrimonial3 == "BIENES SEPARADOS" || docu.regimen_patrimonial3 == 'NA' ? (<></>) : (
+                              <>
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
+                                { docu.IneConyugeCliente3 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.IneConyugeCliente3.url, "INE conyugue cliente3")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del conyuge del cliente</div><div className='col-6 text-end'>
+                                { docu.RfcConyugeCliente3 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.RfcConyugeCliente3.url, "RFC conyugue cliente3")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del conyuge del cliente</div><div className='col-6 text-end'>
+                                { docu.ActNacConyugeCliente3 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.ActNacConyugeCliente3.url, "Acta de nacimiento del conyugue cliente3")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+
+                                <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del conyuge del cliente</div><div className='col-6 text-end'>
+                                { docu.CurpConyugeCliente3 != undefined ?
+                                  (<button type='button' onClick={() => {downloadFrom(docu.CurpConyugeCliente3.url, "CURP del conyugue cliente3")}} className='btn btn-primary' >Descargar</button>) : 
+                                  (<button className='btn btn-danger' disabled >Pendiente</button>)
+                                }
+                                </div></div></li>
+                              </>
+                              )
+                            }
+
+                        {/* Documentos del Vendedor */}
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del vendedor</div><div className='col-6 text-end'>
+                        { docu.INEV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.INEV.url, "INEV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del vendedor</div><div className='col-6 text-end'>
+                        { docu.CURPV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.CURPV.url, "CURPV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del vendedor</div><div className='col-6 text-end'>
+                        { docu.RFCV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.RFCV.url, "RFCV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del vendedor</div><div className='col-6 text-end'>
+                        { docu.ActNacV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.ActNacV.url, "ActNacV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Escrituras del vendedor</div><div className='col-6 text-end'>
+                        { docu.EscrituraV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.EscrituraV.url, "EscrituraV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Predial del vendedor</div><div className='col-6 text-end'>
+                        { docu.PredialV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.PredialV.url, "PredialV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Comprobante de agua del vendedor</div><div className='col-6 text-end'>
+                        { docu.AguaV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.AguaV.url, "AguaV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Estado de cuenta del vendedor</div><div className='col-6 text-end'>
+                        { docu.EstadoCtaV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.EstadoCtaV.url, "EstadoCtaV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta Constitutiva del vendedor</div><div className='col-6 text-end'>
+                        { docu.ActaConstitutivaV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.ActaConstitutivaV.url, "acta constitutiva")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Memoria descriptiva</div><div className='col-6 text-end'>
+                        { docu.MemoriaDescriptivaV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.MemoriaDescriptivaV.url, "memoria descriptiva")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Plano arquitectónico</div><div className='col-6 text-end'>
+                        { docu.PlanoArqV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.PlanoArqV.url, "plano arquitectonico")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Estudio de habitabilidad</div><div className='col-6 text-end'>
+                        { docu.HabitabilidadV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.HabitabilidadV.url, "habitabilidad")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 1</div><div className='col-6 text-end'>
+                        { docu.RecibosLuzV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV.url, "recibo de luz")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 2</div><div className='col-6 text-end'>
+                        { docu.RecibosLuzV2 != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV2.url, "recibo de luz2")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 3</div><div className='col-6 text-end'>
+                        { docu.RecibosLuzV3 != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV3.url, "recibo de luz3")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de matrimonio del vendedor</div><div className='col-6 text-end'>
+                        { docu.ActaMatrimonioVendedor != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.ActaMatrimonioVendedor.url, "acta matrimonio vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del vendedor</div><div className='col-6 text-end'>
+                        { docu.IneConyugeVendedor != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.IneConyugeVendedor.url, "INE del conyuge del vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del conyuge del vendedor</div><div className='col-6 text-end'>
+                        { docu.RfcConyugeVendedor != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.RfcConyugeVendedor.url, "RFC del conyuge del vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del conyuge del vendedor</div><div className='col-6 text-end'>
+                        { docu.ActNacConyugeVendedor != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.ActNacConyugeVendedor.url, "acta de nacimiento del conyuge del vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del conyuge del vendedor</div><div className='col-6 text-end'>
+                        { docu.CURPConyugeVendedor != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.CURPConyugeVendedor.url, "CURP del conyuge del vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                    </ul>
+                    </div>
+
+                    ) : (<></>)
+                    }
+
+
+                    { docu.esquema == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '2' && docu.status != 'BAJA' ? (
+
+                    <div className='row justify-content-center'>
+                    <ul className="list-group w-75">
+
+                      {/* Cliente 1 */}
+
+                      <li className="list-group-item">Cliente 1: {docu.nombre}</li>
+                      <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Ine</div><div className='col-6 text-end'>
+                        { docu.INE != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.INE.url, "INE")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+                      <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP</div><div className='col-6 text-end'>
+                        { docu.CURP != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.CURP.url, "CURP")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+                      <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC</div><div className='col-6 text-end'>
+                        { docu.RFC != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.RFC.url, "RFC")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+                      <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Comprobante de domicilio</div><div className='col-6 text-end'>
+                        { docu.CompDom != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.CompDom.url, "COMPDOM")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+                      <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento</div><div className='col-6 text-end'>
+                        { docu.ActNac != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.ActNac.url, "ACTANAC")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+                        
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Formato General</div><div className='col-6 text-end'>
+                        { docu.FormatoG != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.FormatoG.url, "formato general")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Taller saber para decidir</div><div className='col-6 text-end'>
+                        { docu.TallerSaberCliente != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.TallerSaberCliente.url, "taller saber para decidir")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Precalificación</div><div className='col-6 text-end'>
+                        { docu.PrecalificacionCliente != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.PrecalificacionCliente.url, "precalificacion infonavit")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Solicitud de crédito</div><div className='col-6 text-end'>
+                        { docu.SolicitudCreditoCliente != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.SolicitudCreditoCliente.url, "solicitud de credito")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>SIC</div><div className='col-6 text-end'>
+                        { docu.SIC != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.SIC.url, "SIC")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+                        
+                        { docu.civil == 'SOLTERO' ? (<></>) : (
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de matrimonio del cliente</div><div className='col-6 text-end'>
+                          { docu.ActaMatrimonioCliente != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.ActaMatrimonioCliente.url, "Acta de matrimonio")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                          )
+                        }
+                        { docu.regimen_patrimonial == "BIENES SEPARADOS" || docu.regimen_patrimonial == 'NA' ? (<></>) : (
+                          <>
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
+                            { docu.IneConyugeCliente != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.IneConyugeCliente.url, "INE conyugue cliente")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del conyuge del cliente</div><div className='col-6 text-end'>
+                            { docu.RfcConyugeCliente != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.RfcConyugeCliente.url, "RFC conyugue cliente")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del conyuge del cliente</div><div className='col-6 text-end'>
+                            { docu.ActNacConyugeCliente != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.ActNacConyugeCliente.url, "Acta de nacimiento del conyugue cliente")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del conyuge del cliente</div><div className='col-6 text-end'>
+                            { docu.CurpConyugeCliente != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.CurpConyugeCliente.url, "CURP del conyugue cliente")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                          </>
+                          )
+                        }
+
+                        {/* Cliente 2 */}
+
+                        <li className="list-group-item">Cliente 2: {docu.nombre2}</li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE</div><div className='col-6 text-end'>
+                          { docu.INE2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.INE2.url, "INE2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP</div><div className='col-6 text-end'>
+                          { docu.CURP2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.CURP2.url, "CURP2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC</div><div className='col-6 text-end'>
+                          { docu.RFC2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.RFC2.url, "RFC2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Comprobante de domicilio</div><div className='col-6 text-end'>
+                          { docu.CompDom2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.CompDom2.url, "COMPDOM2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento</div><div className='col-6 text-end'>
+                          { docu.ActNac2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.ActNac2.url, "ACTANAC2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                          
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Formato General</div><div className='col-6 text-end'>
+                          { docu.FormatoG2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.FormatoG2.url, "formato general2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Taller saber para decidir</div><div className='col-6 text-end'>
+                          { docu.TallerSaberCliente2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.TallerSaberCliente2.url, "taller saber para decidir2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Precalificación</div><div className='col-6 text-end'>
+                          { docu.PrecalificacionCliente2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.PrecalificacionCliente2.url, "precalificacion infonavit2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Solicitud de crédito</div><div className='col-6 text-end'>
+                          { docu.SolicitudCreditoCliente2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.SolicitudCreditoCliente2.url, "solicitud de credito2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+
+                          <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>SIC</div><div className='col-6 text-end'>
+                          { docu.SIC2 != undefined ?
+                            (<button type='button' onClick={() => {downloadFrom(docu.SIC2.url, "SIC2")}} className='btn btn-primary' >Descargar</button>) : 
+                            (<button className='btn btn-danger' disabled >Pendiente</button>)
+                          }
+                          </div></div></li>
+                          
+                          { docu.civil2 == 'SOLTERO' ? (<></>) : (
+                            <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de matrimonio del cliente</div><div className='col-6 text-end'>
+                            { docu.ActaMatrimonioCliente2 != undefined ?
+                              (<button type='button' onClick={() => {downloadFrom(docu.ActaMatrimonioCliente2.url, "Acta de matrimonio2")}} className='btn btn-primary' >Descargar</button>) : 
+                              (<button className='btn btn-danger' disabled >Pendiente</button>)
+                            }
+                            </div></div></li>
+                            )
+                          }
+                          { docu.regimen_patrimonial2 == "BIENES SEPARADOS" || docu.regimen_patrimonial2 == 'NA' ? (<></>) : (
+                            <>
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del cliente</div><div className='col-6 text-end'>
+                              { docu.IneConyugeCliente2 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.IneConyugeCliente2.url, "INE conyugue cliente2")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del conyuge del cliente</div><div className='col-6 text-end'>
+                              { docu.RfcConyugeCliente2 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.RfcConyugeCliente2.url, "RFC conyugue cliente2")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del conyuge del cliente</div><div className='col-6 text-end'>
+                              { docu.ActNacConyugeCliente2 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.ActNacConyugeCliente2.url, "Acta de nacimiento del conyugue cliente2")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+
+                              <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del conyuge del cliente</div><div className='col-6 text-end'>
+                              { docu.CurpConyugeCliente2 != undefined ?
+                                (<button type='button' onClick={() => {downloadFrom(docu.CurpConyugeCliente2.url, "CURP del conyugue cliente2")}} className='btn btn-primary' >Descargar</button>) : 
+                                (<button className='btn btn-danger' disabled >Pendiente</button>)
+                              }
+                              </div></div></li>
+                            </>
+                            )
+                          }
+
+                        {/* Documentos del Vendedor */}
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del vendedor</div><div className='col-6 text-end'>
+                        { docu.INEV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.INEV.url, "INEV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del vendedor</div><div className='col-6 text-end'>
+                        { docu.CURPV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.CURPV.url, "CURPV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del vendedor</div><div className='col-6 text-end'>
+                        { docu.RFCV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.RFCV.url, "RFCV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del vendedor</div><div className='col-6 text-end'>
+                        { docu.ActNacV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.ActNacV.url, "ActNacV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Escrituras del vendedor</div><div className='col-6 text-end'>
+                        { docu.EscrituraV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.EscrituraV.url, "EscrituraV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Predial del vendedor</div><div className='col-6 text-end'>
+                        { docu.PredialV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.PredialV.url, "PredialV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Comprobante de agua del vendedor</div><div className='col-6 text-end'>
+                        { docu.AguaV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.AguaV.url, "AguaV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Estado de cuenta del vendedor</div><div className='col-6 text-end'>
+                        { docu.EstadoCtaV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.EstadoCtaV.url, "EstadoCtaV")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta Constitutiva del vendedor</div><div className='col-6 text-end'>
+                        { docu.ActaConstitutivaV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.ActaConstitutivaV.url, "acta constitutiva")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Memoria descriptiva</div><div className='col-6 text-end'>
+                        { docu.MemoriaDescriptivaV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.MemoriaDescriptivaV.url, "memoria descriptiva")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Plano arquitectónico</div><div className='col-6 text-end'>
+                        { docu.PlanoArqV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.PlanoArqV.url, "plano arquitectonico")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Estudio de habitabilidad</div><div className='col-6 text-end'>
+                        { docu.HabitabilidadV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.HabitabilidadV.url, "habitabilidad")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 1</div><div className='col-6 text-end'>
+                        { docu.RecibosLuzV != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV.url, "recibo de luz")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 2</div><div className='col-6 text-end'>
+                        { docu.RecibosLuzV2 != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV2.url, "recibo de luz2")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Recibo de luz 3</div><div className='col-6 text-end'>
+                        { docu.RecibosLuzV3 != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.RecibosLuzV3.url, "recibo de luz3")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de matrimonio del vendedor</div><div className='col-6 text-end'>
+                        { docu.ActaMatrimonioVendedor != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.ActaMatrimonioVendedor.url, "acta matrimonio vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>INE del conyuge del vendedor</div><div className='col-6 text-end'>
+                        { docu.IneConyugeVendedor != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.IneConyugeVendedor.url, "INE del conyuge del vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>RFC del conyuge del vendedor</div><div className='col-6 text-end'>
+                        { docu.RfcConyugeVendedor != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.RfcConyugeVendedor.url, "RFC del conyuge del vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>Acta de nacimiento del conyuge del vendedor</div><div className='col-6 text-end'>
+                        { docu.ActNacConyugeVendedor != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.ActNacConyugeVendedor.url, "acta de nacimiento del conyuge del vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                        <li className="list-group-item"><div className='row align-items-center'><div className='col-6 text-start'>CURP del conyuge del vendedor</div><div className='col-6 text-end'>
+                        { docu.CURPConyugeVendedor != undefined ?
+                          (<button type='button' onClick={() => {downloadFrom(docu.CURPConyugeVendedor.url, "CURP del conyuge del vendedor")}} className='btn btn-primary' >Descargar</button>) : 
+                          (<button className='btn btn-danger' disabled >Pendiente</button>)
+                        }
+                        </div></div></li>
+
+                    </ul>
+                    </div>
+
+                    ) : (<></>)
+                    }
+                  {/* Termina unamos créditos */}
                   
                 </div>
               </div>
@@ -3209,7 +4676,7 @@ export default function Page({ params }) {
                 />
                 ) : (<></>)
                 }
-                { docu.regimen_patrimonial == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '2' ? (
+                { docu.esquema == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '2' ? (
                   <INFONAVITUnamosCreditos2 
                     id={docu.id}
                     currentUser={currentName} 
@@ -3220,7 +4687,7 @@ export default function Page({ params }) {
                   />
                 ) : (<></>)
                 }
-                { docu.regimen_patrimonial == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '3' ? (
+                { docu.esquema == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '3' ? (
                   <INFONAVITUnamosCreditos3 
                     id={docu.id}
                     currentUser={currentName}
@@ -3233,7 +4700,7 @@ export default function Page({ params }) {
                   />
                 ) : (<></>)
                 }
-                { docu.regimen_patrimonial == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '4' ? (
+                { docu.esquema == 'INFONAVIT-unamos-creditos' && docu.n_creditos == '4' ? (
                   <INFONAVITUnamosCreditos4
                     id={docu.id}
                     currentUser={currentName} 

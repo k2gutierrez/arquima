@@ -446,7 +446,7 @@ export default function Ventas() {
         handleShow()
       }
 
-    } else {
+    } else if (compra !== "INFONAVIT-unamos-creditos") {
 
       try {
         const data = {

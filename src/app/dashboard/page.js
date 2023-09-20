@@ -539,7 +539,7 @@ export default function Owner() {
         setMessagem(e)
         handleShow()
       }
-    } else {
+    } else if (compra !== "INFONAVIT-unamos-creditos") {
       try {
         const data = {
           nombre: nombre,
@@ -618,7 +618,7 @@ export default function Owner() {
       sort: true
     },
     {
-      dataField: "numero_ext.",
+      dataField: "numero_ext",
       text: "Número Ext.",
       sort: true,
     },
