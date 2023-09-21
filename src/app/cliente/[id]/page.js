@@ -110,7 +110,7 @@ export default function Page({ params }) {
 
           </div>
           <div className='col-md-5 col-12 text-end'>
-          <button type="button" onClick={() => window.alert("Aquí va para poder mandar un mensaje")} className="btn"><a>¿Tienes dudas? Manda mensaje a tu asesor</a></button>
+            <button type="button" onClick={() => window.alert("Aquí va para poder mandar un mensaje")} className="btn"><a>¿Tienes dudas? Manda mensaje a tu asesor</a></button>
           </div>
           <div className='col-md-1'>
             

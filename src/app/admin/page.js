@@ -275,8 +275,8 @@ export default function Admin() {
       }
     })
     let data = await docsPropsLibres.sort(function(a, b) {
-      let fa = a.folio.toUpperCase()
-      let fb = b.folio.toUpperCase()
+      let fa = a.folio.toString().toUpperCase()
+      let fb = b.folio.toString().toUpperCase()
       if (fa < fb) {
         return -1;
       }
