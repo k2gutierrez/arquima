@@ -1288,15 +1288,15 @@ export default function Admin() {
         (
           <div className='align-items-center mb-5'>
             <h3>Cambiar Contraseña</h3>
-            <div class="mb-3">
-              <label for="pass" class="form-label">Nueva contraseña:</label>
-              <input type="password" onChange={(e) => setNewPassword(e.target.value)} class="form-control" id="pass" />
+            <div className="mb-3">
+              <label for="pass" className="form-label">Nueva contraseña:</label>
+              <input type="password" onChange={(e) => setNewPassword(e.target.value)} className="form-control" id="pass" />
             </div>
-            <div class="mb-3">
-              <label for="token" class="form-label">Token:</label>
-              <input type="password" onChange={(e) => setToken(e.target.value)} class="form-control" id="token" />
+            <div className="mb-3">
+              <label for="token" className="form-label">Token:</label>
+              <input type="password" onChange={(e) => setToken(e.target.value)} className="form-control" id="token" />
             </div>
-            <button type="button" onClick={passwordChange} class="btn btn-primary">Cambiar Status Interno</button>
+            <button type="button" onClick={passwordChange} className="btn btn-primary">Cambiar Status Interno</button>
           </div>
         ) : 
         (

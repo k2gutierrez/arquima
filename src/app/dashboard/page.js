@@ -326,8 +326,8 @@ export default function Owner() {
       docSnapshotsPropertiesL.push(doc.data())
     });
     const data = await docSnapshotsPropertiesL.sort(function(a, b) {
-      let fa = a.folio.toUpperCase()
-      let fb = b.folio.toUpperCase()
+      let fa = a.folio.toString().toUpperCase()
+      let fb = b.folio.toString().toUpperCase()
       if (fa < fb) {
         return -1;
       }
@@ -841,9 +841,9 @@ export default function Owner() {
         {menu == '' || menu == 'inicio' ? 
         (
           <div className='container-sm my-4'>
-            {/*<DbUpload />*/}
+            <DbUpload />
             <div className='col-md-3 col-12'>
-              <select onChange={(e) => setSproject(e.target.value)} class="form-select form-select-lg mb-3" aria-label="Large select example">
+              <select onChange={(e) => setSproject(e.target.value)} className="form-select form-select-lg mb-3" aria-label="Large select example">
                 {/*<option selected value="COTO CIELO">COTO CIELO</option>*/}
                 { proyectos.map((r, k) => {
                   return (

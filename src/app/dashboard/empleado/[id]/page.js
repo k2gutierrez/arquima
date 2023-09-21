@@ -89,11 +89,11 @@ export default function Page({ params }) {
 
           <div className='col-md-5 col-12 align-self-center mb-5'>
             <h3>Cambiar de nombre</h3>
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nuevo Nombre:</label>
-              <input type="text" onChange={(e) => setName(e.target.value)} class="form-control" id="nombre" />
+            <div className="mb-3">
+              <label for="nombre" className="form-label">Nuevo Nombre:</label>
+              <input type="text" onChange={(e) => setName(e.target.value)} className="form-control" id="nombre" />
             </div>
-            <button type="button" onClick={changeName} class="btn btn-primary">Cambiar Nombre</button>
+            <button type="button" onClick={changeName} className="btn btn-primary">Cambiar Nombre</button>
           </div>
 
         </div>

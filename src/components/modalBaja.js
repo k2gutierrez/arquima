@@ -17,7 +17,7 @@ function ModalBaja(props) {
         </Modal.Header>
         <Modal.Body>
           <p>Razón para dar de baja:</p>
-          <textarea class="form-control" onChange={props.onChange} id="exampleFormControlTextarea1" rows="4"></textarea>
+          <textarea className="form-control" onChange={props.onChange} id="exampleFormControlTextarea1" rows="4"></textarea>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.onClick}>

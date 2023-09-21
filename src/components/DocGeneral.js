@@ -120,7 +120,7 @@ function DocGeneral(props) {
                 </div>
             </div>
             <div className='my-5'>
-                <button type="button" onClick={createPDF} class="btn btn-primary">Descargar PDF</button>
+                <button type="button" onClick={createPDF} className="btn btn-primary">Descargar PDF</button>
             </div>
         </>
     )

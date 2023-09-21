@@ -189,10 +189,10 @@ export default function Page({ params }) {
 
           { menu == 'obs' ? (
             <>
-              <ul class="list-group list-group-flush">
+              <ul className="list-group list-group-flush">
               { property.observaciones.map((o, k) => {
                 return (
-                    <li key={k} class="list-group-item">{o}</li>
+                    <li key={k} className="list-group-item">{o}</li>
                 )
               })
               }
