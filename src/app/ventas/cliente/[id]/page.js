@@ -229,9 +229,9 @@ export default function Page({ params }) {
             <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("historial")} >Historial</button>
             </li>
-            {/*<li className="nav-item">
+            <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("formato")} >Formato</button>
-            </li>*/}
+            </li>
           </ul>
           
           {menu == "formato" ?
@@ -240,30 +240,30 @@ export default function Page({ params }) {
                 className={cls(styles.containerMain, "")}
                 imgClass={cls(styles.imgC, '')}
                 textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
-                nombre={'Carlos Enrique Gutiérrez Chimal'}
-                nss={'12345678901'}
-                rfc={'gucc871030ca7'}
-                identificacion={'INE'}
-                nIdentificacion={'123456789012'}
-                domicilio={'Isla Zante 3464, col. jardines del sur C.P 44950'}
-                cel={3318930280}
-                email={'cchimal.gutierrez@gmail.com'}
-                tel={3318930280}
-                nombre2={'Carlos Enrique Gutiérrez Chimal'}
-                nss2={'12345678901'}
-                RFC2={'gucc871030ca7'}
-                identificacion2={'INE'}
-                nIdentificacion2={'123456789012'}
-                domicilio2={'Isla Zante 3464, col. jardines del sur C.P 44950'}
-                cel2={3318930280}
-                email2={'cchimal.gutierrez@gmail.com'}
-                tel2={3318930280}
-                direccion={'calle los otates'}
-                numero_ext={'2892'}
-                lte={'21'}
-                mz={'F'}
-                proyecto={'COTO CIELO'}
-                precio={'$500,000.00'}
+                nombre={docu.nombre + ' ' + docu.apellidoM + ' ' + docu.apellidoP}   docu    propiedad
+                nss={docu.NSS != undefined || docu.NSS != null ? docu.NSS : '______________'}
+                rfc={'______________'}
+                identificacion={'________'}
+                nIdentificacion={'______________'}
+                domicilio={'___________________________________________________'}
+                cel={docu.cel}
+                email={docu.email}
+                tel={'______________'}
+                nombre2={'_____________________________'}
+                nss2={'______________'}
+                RFC2={'______________'}
+                identificacion2={'________'}
+                nIdentificacion2={'______________'}
+                domicilio2={'___________________________________________________'}
+                cel2={'____________'}
+                email2={'_________________________'}
+                tel2={'____________'}
+                direccion={'___________________________________________________'}
+                numero_ext={'______'}
+                lte={propiedad.lte}
+                mz={propiedad.mz}
+                proyecto={propiedad.proyecto}
+                precio={propiedad.precio}
               />
             )
             :
