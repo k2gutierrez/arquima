@@ -170,7 +170,7 @@ export default function Ventas() {
         setTipoDocEsquema("NSS")
         setEsquemaLength(11)
         break
-      case "INFONAVIT-cofinativ":
+      case "INFONAVIT-cofinavit":
         setTipoDocEsquema("NSS")
         setEsquemaLength(11)
         break
