@@ -18,14 +18,13 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Next actions
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Define schema and wys to use database for messaging between no auth users (client) and auth users (sellers)
+- Thank you page after sale document
+- Test COTO CIELO format
+- Define how to make a client with "baja" change to "active" again with a seller and a new folio, changes also applied to "propiedades" collection
+- Set the "notarías" with the "notarios" so the admin. and owners can change them for property and the client can see it
 
 ## Deploy on Vercel
 

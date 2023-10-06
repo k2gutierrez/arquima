@@ -221,7 +221,7 @@ export default function Owner() {
         setTipoDocEsquema("NSS")
         setEsquemaLength(11)
         break
-      case "INFONAVIT-cofinativ":
+      case "INFONAVIT-cofinavit":
         setTipoDocEsquema("NSS")
         setEsquemaLength(11)
         break
