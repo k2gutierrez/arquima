@@ -34,6 +34,7 @@ import ModalG from '@/components/ModalG'
 import INFONAVITUnamosCreditos2 from '@/components/documentos/INFONAVITUnamosCreditos2'
 import INFONAVITUnamosCreditos3 from '@/components/documentos/INFONAVITUnamosCreditos3'
 import INFONAVITUnamosCreditos4 from '@/components/documentos/INFONAVITUnamosCreditos4'
+import DocGeneral from '@/components/DocGeneral'
 
 export default function Page({ params }) {
 
@@ -539,7 +540,46 @@ export default function Page({ params }) {
             <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("datos")} >Modificar Datos</button>
             </li>
+            <li className="nav-item">
+              <button className="nav-link" onClick={() => setMenu("formato")} >Formato</button>
+            </li>
           </ul>
+
+          {menu == "formato" ?
+            (
+              <DocGeneral 
+                className={cls(styles.containerMain, "")}
+                imgClass={cls(styles.imgC, '')}
+                textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
+                nombre={docu.nombre + ' ' + docu.apellidoM + ' ' + docu.apellidoP}   docu    propiedad
+                nss={docu.NSS != undefined || docu.NSS != null ? docu.NSS : '______________'}
+                rfc={'______________'}
+                identificacion={'________'}
+                nIdentificacion={'______________'}
+                domicilio={'___________________________________________________'}
+                cel={docu.cel}
+                email={docu.email}
+                tel={'______________'}
+                nombre2={'_____________________________'}
+                nss2={'______________'}
+                RFC2={'______________'}
+                identificacion2={'________'}
+                nIdentificacion2={'______________'}
+                domicilio2={'___________________________________________________'}
+                cel2={'____________'}
+                email2={'_________________________'}
+                tel2={'____________'}
+                direccion={'___________________________________________________'}
+                numero_ext={'______'}
+                lte={propiedad.lte}
+                mz={propiedad.mz}
+                proyecto={propiedad.proyecto}
+                precio={propiedad.precio}
+              /> 
+            )
+            :
+            (<></>)
+          }
 
           { menu == "inicio" || menu == "" ?
             (

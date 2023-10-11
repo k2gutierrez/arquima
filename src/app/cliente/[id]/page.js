@@ -10,6 +10,7 @@ import styles from './page.module.css'
 import cls from 'classnames'
 import { Card } from 'react-bootstrap'
 import ModalTerminos from '@/components/ModalTerminos'
+import ModalMessageClient from '@/components/ModalMessageClient'
 
 export default function Page({ params }) {
 
@@ -110,6 +111,11 @@ export default function Page({ params }) {
 
           </div>
           <div className='col-md-5 col-12 text-end'>
+            <ModalMessageClient 
+              idAsesor={docu.asesorID}
+              mensaje={null}
+              idCliente={docu.id}
+            />
             <button type="button" onClick={() => window.alert("Aquí va para poder mandar un mensaje")} className="btn"><a>¿Tienes dudas? Manda mensaje a tu asesor</a></button>
           </div>
           <div className='col-md-1'>

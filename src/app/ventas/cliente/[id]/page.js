@@ -264,7 +264,7 @@ export default function Page({ params }) {
                 mz={propiedad.mz}
                 proyecto={propiedad.proyecto}
                 precio={propiedad.precio}
-              />
+              /> 
             )
             :
             (<></>)

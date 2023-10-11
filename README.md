@@ -20,7 +20,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Next actions
 
-- Define schema and wys to use database for messaging between no auth users (client) and auth users (sellers)
+- Define schema and way to use database for messaging between no auth users (client) and auth users (sellers)
 - Thank you page after sale document
 - Test COTO CIELO format
 - Define how to make a client with "baja" change to "active" again with a seller and a new folio, changes also applied to "propiedades" collection
