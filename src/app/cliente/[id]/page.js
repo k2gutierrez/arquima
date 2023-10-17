@@ -11,12 +11,15 @@ import cls from 'classnames'
 import { Card } from 'react-bootstrap'
 import ModalTerminos from '@/components/ModalTerminos'
 import ModalMessageClient from '@/components/ModalMessageClient'
+import MessageCard from '@/components/MessageCard'
 
 export default function Page({ params }) {
 
   const [docuProp, setDocuProp] = useState(null)
   const [docu, setDocu] = useState(null)
+  const [docuAsesor, setDocuAsesor] = useState(null)
   const [terms, setTerms] = useState(false)
+  const [mensajes, setMensajes] = useState(null)
 
   const [show, setShow] = useState(false);
 
@@ -28,7 +31,12 @@ export default function Page({ params }) {
     getInfoClient();
     if (docu != null) {
       getInfo(docu.propiedadID);
+      getInfoAsesor(docu.asesorID)
+      if (docu.terminos == false) { 
+        setShow(true);
+      }
     }
+    
     
   }, [docu])
 
@@ -39,6 +47,14 @@ export default function Page({ params }) {
     setDocuProp(docu)
   }
 
+  async function getInfoAsesor (d) {
+    const q = doc(db, "empleados", d)
+    const querySnapshot = await getDoc(q);
+    const docuA = querySnapshot.data()
+    setDocuAsesor(docuA)
+    setMensajes(docuA.mensajes)
+  }
+
   async function getInfoClient () {
     const q = query(collection(db, "clientes"), where("folio", "==", params.id));
     const querySnapshot = await getDocs(q);
@@ -46,9 +62,9 @@ export default function Page({ params }) {
       const docu = (doc.id, " => ", doc.data());
       setDocu(docu)
     });
-    if (docu.terminos == false) {
-      setShow(true);
-    }
+    //if (docu.terminos == false) { 
+      //setShow(true);
+    //}
   }
 
   const terminosAceptados = async () => {
@@ -111,16 +127,33 @@ export default function Page({ params }) {
 
           </div>
           <div className='col-md-5 col-12 text-end'>
-            <ModalMessageClient 
-              idAsesor={docu.asesorID}
-              mensaje={null}
-              idCliente={docu.id}
-            />
-            <button type="button" onClick={() => window.alert("Aquí va para poder mandar un mensaje")} className="btn"><a>¿Tienes dudas? Manda mensaje a tu asesor</a></button>
+            {docuAsesor != null ? (<ModalMessageClient 
+              idAsesor={docu.asesorID.toString()}
+              mensaje={docuAsesor.mensajes}
+              idCliente={docu.id.toString()}
+              nombreCliente={docu.nombre + ' ' + docu.apellidoP}
+              folio={docu.folio}
+            />) : (<></>)}
+            
           </div>
           <div className='col-md-1'>
             
           </div>
+          
+        </div>
+        <div className='col-md-6 col-12 text-start' >
+           { mensajes != null ? (
+           mensajes.map(( v, k) => {
+              if (docu.id == v.cliente) {
+                return (
+                  <MessageCard key={k}
+                    answer={v.respuesta}
+                    question={v.pregunta}
+                  />
+                )
+              }
+            })) : (<></>)
+            }
           
         </div>
 

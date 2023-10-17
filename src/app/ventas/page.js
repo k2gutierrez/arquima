@@ -19,7 +19,8 @@ import ModalG from '@/components/ModalG'
 import { currencyMXN } from '@/formatCurrencyExample'
 import Docesquema from '@/components/DocEsquema'
 import engrane from '../../../public/engranes.gif'
-import { getAuth, updatePassword } from 'firebase/auth'
+import { getAuth, reload, updatePassword } from 'firebase/auth'
+import MessageCardAs from '@/components/MessageCardAs'
 
 
 export default function Ventas() {
@@ -88,6 +89,10 @@ export default function Ventas() {
   
   const [n_creditos, setN_creditos] = useState('2')
 
+  const [asesor, setAsesor] = useState(null)
+  const [asesorM, setAsesorM] = useState([])
+  const [answerAsesor, setAnswerAsesor] = useState("")
+
 
   // Arranque inicial y con cada update para llamar a los clientes, o sino te saca del panel
   useEffect(() => {
@@ -95,7 +100,7 @@ export default function Ventas() {
       router.push("/")
     } else if (currentRol !== "vendedor") {
       router.push("/user-validation")
-    } else if (currentRol === "vendedor") {
+    } else if (currentRol == "vendedor") {
       getClients();
       getProperties();
     }
@@ -105,8 +110,10 @@ export default function Ventas() {
   useEffect(() => {
     if (propiedadID == '') {
       getPropiedadFolio()
+      getInfoAsesor()
     } else {
       getPropiedadFolio()
+      getInfoAsesor()
     }
   }, [propiedadID])
 
@@ -118,10 +125,23 @@ export default function Ventas() {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         let docu = docSnap.data()
-        setFolio(docu.folio)
+        setFolio(docu.folio.type)
       }
     }
   }
+
+  // Función para obtener el info del vendedor
+  async function getInfoAsesor () {
+    const docRef = doc(db, "empleados", user.uid)
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      let docu = docSnap.data()
+      setAsesor(docu)
+
+      setAsesorM(docu.mensajes)
+    }
+    }
+  
 
   // Use efecto con el tipo de compra para el registro del cliente, este manda llamar opciones al momento de registro
   useEffect(() => {
@@ -602,6 +622,9 @@ export default function Ventas() {
                         <Link href=""><button type="button" onClick={() => setMenu('clientes')} className="btn" data-bs-dismiss="offcanvas" >Lista de clientes</button></Link>
                       </li>
                       <li className="nav-item">
+                        <Link href=""><button type="button" onClick={() => setMenu('mensajes')} className="btn" data-bs-dismiss="offcanvas" >Mensajes</button></Link>
+                      </li>
+                      <li className="nav-item">
                         <Link href=""><button type="button" onClick={() => setMenu('password')} className="btn" data-bs-dismiss="offcanvas" >Cambiar contraseña</button></Link>
                       </li>
                       <li className="nav-item" >
@@ -614,6 +637,45 @@ export default function Ventas() {
         </div>
       </nav>
       <div className='container-fluid text-center'>
+        
+          { menu == "mensajes" && asesorM != undefined ? (
+            <div className='row align-items-start my-3'>
+              { asesorM.map(( v, k ) => {
+
+                return (
+                  <div className='text-start col-sm-4 col-12 my-2'>
+                  <MessageCardAs key={k}
+                    answer={v.respuesta}
+                    question={v.pregunta}
+                    name={v.nombreCliente}
+                    folio={v.folio}
+                    onClick={
+                      async ( ) => {
+                        const Ref = doc(db, 'empleados', user.uid)
+                        
+                        if (v.id == k){
+                          asesorM[k].respuesta = answerAsesor
+                        }
+                        
+                        await updateDoc(Ref, {
+                          mensajes: asesorM
+                        })
+                        setAnswerAsesor("")
+                        window.alert("Mensaje eviado exitosamente")
+                        }
+                    }
+                    onChange={(e) => setAnswerAsesor(e.target.value)}
+                  />
+                  </div>
+                )
+                })
+
+                }
+            </div>
+            ) : (<></>)
+          }
+        
+        
         {menu == "registrarC" ? 
         (
           <div className='row justify-content-center text-center'>
