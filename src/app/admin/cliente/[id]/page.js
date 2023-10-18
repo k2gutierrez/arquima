@@ -5090,9 +5090,9 @@ export default function Page({ params }) {
 
                           <select className="form-select" onChange={handleNotaria} aria-label="Default select example">
                             <option selected>Notarías</option>
-                            {notarias.map((t, k) => {
+                            {notarias.map((v, k) => {
                               return (
-                                <option key={ k } value={ t }>{ t }</option>
+                                <option key={ k } value={ v }>{ v }</option>
                               )
                             })
                             }
