@@ -99,9 +99,19 @@ export default function Page({ params }) {
 
   const [escritura, setEscritura] = useState("")
   const [notario, setNotario] = useState("")
+  
+  const [vendedores, setVendedores] = useState([{id: "none", nombre: "none"}])
+  const [asesorID, setAsesorID] = useState("")
+  const [asesor, setAsesor] = useState(undefined)
+  const [propiedadID, setPropiedadID] = useState("")
+  const [folio, setFolio] = useState('')
+  const [propiedadesL, setPropiedadesL] = useState(null)
+  const [propiedades, setPropiedades] = useState(null)
 
   useEffect(() => {
     getInfo();
+    getSellers();
+    getProperties();
     
   }, [])
 
@@ -157,6 +167,35 @@ export default function Page({ params }) {
       setInfonavitCasadoBM(infonavitCasadoBM)
     }
   }, [docu])
+
+  useEffect(() => {
+    if (asesorID == '') {
+      getSellerName()
+    } else {
+      getSellerName()
+    }
+  }, [asesorID])
+
+  // Use efecto con la función getPropiedadFolio para revisar cambios en el estado y declarar el ID de la propiedad para el registro del cliente
+  useEffect(() => {
+    if (propiedadID == '') {
+      getPropiedadFolio()
+    } else {
+      getPropiedadFolio()
+    }
+  }, [propiedadID])
+
+  // Función para obtener el folio de la propiedad seleccionada para el registro del cliente se pone en un useEffect que siga los cambios de propiedadID
+  async function getPropiedadFolio () {
+    if (propiedadID != '') {
+      const docRef = doc(db, "propiedades", propiedadID)
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        let docu = docSnap.data()
+        setFolio(docu.folio)
+      }
+    }
+  }
 
   async function signOut () {
     await signoutfirebase()
@@ -546,9 +585,108 @@ export default function Page({ params }) {
     }
   }
 
+  // Función para obtener a los vendedores
+  async function getSellers() {
+    const q = query(collection(db, "empleados"))
+    const querysnapshot = await getDocs(q);
+    const vend = []
+    await querysnapshot.forEach((doc) => {
+      const docu = doc.data()
+      if (docu.rol == 'vendedor') {
+        vend.push(doc.data())
+      }
+    })
+    setVendedores(vend)
+  }
+
+  // Función para obtener el nombre del Asesor de acuerdo al ID del Asesor
+  async function getSellerName () {
+    if (asesorID != '') {
+      const docRef = doc(db, "empleados", asesorID)
+      const docSnap = await getDoc(docRef)
+      if (docSnap.exists()) {
+        let docu = docSnap.data()
+        setAsesor(docu.nombre)
+      }
+    }
+  }
+
+  // Función para obtener propiedades en general y para obtener las propiedades libres
+  async function getProperties() {
+    const q = query(collection(db, "propiedades"));
+    //const q = query(collection(db, "propiedades"), where("status_inmueble", "==", "LIBRE"));
+    const querysnapshot = await getDocs(q);
+    const docSnapshotsProperties = []
+    await querysnapshot.forEach((doc) => {
+      docSnapshotsProperties.push(doc.data())
+    });
+    setPropiedades(docSnapshotsProperties)
+    let docsPropsLibres = []
+    await querysnapshot.forEach((doc) => {
+      const docu = doc.data()
+      if (docu.status == "LIBRE") {
+        docsPropsLibres.push(doc.data())
+      }
+    })
+    let data = await docsPropsLibres.sort(function(a, b) {
+      let fa = a.folio.toString().toUpperCase()
+      let fb = b.folio.toString().toUpperCase()
+      if (fa < fb) {
+        return -1;
+      }
+      if (fa > fb) {
+        return 1;
+      }
+      return 0;
+    })
+    setPropiedadesL(data)
+  }
+
+  async function RecoverClient () {
+
+    try {
+      const data = {
+        status: "ARMADO DE EXPEDIENTE",
+        folio: folio,
+        propiedadID: propiedadID,
+        asesor: asesor,
+        asesorID: asesorID,
+        terminos: false,
+        fecha_entrega: "TBD",
+        historial: [
+          {
+            registrado: currentName,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Registrado como cliente nuevamente"
+          }
+        ]
+      }
+      const userRef = doc(db, "clientes", params.id)
+      const docRef = await updateDoc(userRef, data)
+
+      const Ref = doc(db, 'propiedades', propiedadID)
+      await updateDoc(Ref, {
+        status: "ARMADO DE EXPEDIENTE",
+        status_interno: "ARMADO DE EXPEDIENTE",
+        asesor: asesor,
+        nombre: docu.nombre + docu.apellidoM + docu.apellidoP,
+        esquema: docu.esquema
+      })
+
+      setMessagem("Registro exitoso") //poner un modal bonito para indicar que el registro fue exitoso!
+      handleShowG()
+      setUpdate(!update)
+      setMenu('inicio')
+    } catch (e) {
+      setMessagem(e)
+      handleShowG()
+    }
+  }
 
   return (
+
     <>
+
       <ModalBaja
         show={show}
         onHide={handleClose}
@@ -5046,7 +5184,36 @@ export default function Page({ params }) {
                     </h2>
                     <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                       <div className="accordion-body">
-                        <strong>Falta actualizar esta parte</strong>
+                        
+                        <div className='mt-3 mb-3 mx-5'>
+                          <p>Selecciona el Folio de la propiedad</p>
+                          <select className="form-select" onChange={(e) => { propiedadID == '' ? (setPropiedadID(e.target.value)):(setPropiedadID(e.target.value))}} aria-label="Default select example">
+                            <option value="" >Folio</option>
+                            {propiedadesL.map((fol) => {
+                              return (
+                                <option key={fol.id} value={fol.id}>{fol.folio}</option>
+                              )
+                            })}
+                          </select>
+                        </div>
+
+                        <div className='mb-3 mx-5'> 
+                          <p>Selecciona al Asesor encargado de este cliente: </p>
+                            <select className="form-select" onChange={(e) => setAsesorID(e.target.value)}  aria-label="Default select example">
+                              <option value="">Asesor</option>
+                              {vendedores.map((vend) => {
+                                return (
+                                  <option key={vend.id} value={vend.id}>{vend.nombre}</option>
+                                )
+                              })}
+                            </select>
+                        </div>
+
+                        <div className='text-start ms-5'>
+                          <button type="button" onClick={RecoverClient} className="btn btn-primary">Actualizar Cliente</button>
+                        </div>
+
+
                       </div>
                     </div>
                   </div>
