@@ -21,7 +21,6 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 ## Next actions
 
 - Define how to make a client with "baja" change to "active" again with a seller and a new folio, changes also applied to "propiedades" collection
-- Set the status drawing for client
 
 ## Deploy on Vercel
 

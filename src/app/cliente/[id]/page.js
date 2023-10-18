@@ -15,6 +15,17 @@ import MessageCard from '@/components/MessageCard'
 import Agradecimiento from '@/components/Agradecimiento'
 import ActaDeEntrega from '@/components/ActaDeEntrega'
 import Poliza from '@/components/Poliza'
+import Status0 from '@/components/Status0'
+import Status1 from '@/components/Status1'
+import Status2 from '@/components/Status2'
+import Status3 from '@/components/Status3'
+import Status4 from '@/components/Status4'
+import Status5 from '@/components/Status5'
+import Status6 from '@/components/Status6'
+import Status7 from '@/components/Status7'
+import Status8 from '@/components/Status8'
+import Status9 from '@/components/Status9'
+import Status10 from '@/components/Status10'
 
 export default function Page({ params }) {
 
@@ -104,7 +115,7 @@ export default function Page({ params }) {
           </div>
         </div>
 
-        <div className='row justify-content-center'>
+        <div className='row justify-content-center mb-5'>
           <ul class="nav nav-tabs">
             <li class="nav-item">
               <button className="nav-link" onClick={() => setMenu("info")} >Infomación general</button>
@@ -123,24 +134,85 @@ export default function Page({ params }) {
 
         { menu == "info" ?
           (<div className='row justify-content-center'>
-          <Card border="light" bg='transparent' style={{ width: '22rem' }}> {/*18*/}
-            <Card.Header>{ docu.nombre }</Card.Header>
-            <Card.Body>
-              <Card.Text>
-                <div className='text-start'>
-                  <p>Folio: { docu.folio }</p>
-                  <p>Asesor: { docu.asesor }</p>
-                  <p>Trámite: { docu.esquema }</p>
-                  <p>Status: { docu.status }</p>
-                  <p>Proyecto: { docuProp == null ? ("") :  (docuProp.proyecto) }</p>
-                  <p>Fecha de entrega: { docu == null || docu.fecha_entrega == undefined || docu.fecha_entrega == null ? ("TBD") :  (docu.fecha_entrega) }</p>
-                  <p>Notaria: {docuProp == null || docuProp.n_notaria == undefined || docuProp.n_notaria == null ? ("TBD") :  (docuProp.n_notaria)}</p>
-                  <p>Notario: {docuProp == null || docuProp.nombre_notario == undefined || docuProp.nombre_notario == null ? ("TBD") :  (docuProp.nombre_notario)}</p>
-                  <p>Número de escritura: {docuProp == null || docuProp.n_escritura == undefined || docuProp.n_escritura == null ? ("TBD") :  (docuProp.n_escritura)}</p>
-                </div>
-              </Card.Text>
-            </Card.Body>
-          </Card>
+            <div className='col-sm-4 col-12 align-self-center'>
+              <Card border="light" bg='transparent' style={{ width: '22rem' }}> {/*18*/}
+                <Card.Header>{ docu.nombre }</Card.Header>
+                <Card.Body>
+                  <Card.Text>
+                    <div className='text-start'>
+                      <p>Folio: { docu.folio }</p>
+                      <p>Asesor: { docu.asesor }</p>
+                      <p>Trámite: { docu.esquema }</p>
+                      <p>Status: { docu.status }</p>
+                      <p>Proyecto: { docuProp == null ? ("") :  (docuProp.proyecto) }</p>
+                      <p>Fecha de entrega: { docu == null || docu.fecha_entrega == undefined || docu.fecha_entrega == null ? ("TBD") :  (docu.fecha_entrega) }</p>
+                      <p>Notaria: {docuProp == null || docuProp.n_notaria == undefined || docuProp.n_notaria == null ? ("TBD") :  (docuProp.n_notaria)}</p>
+                      <p>Notario: {docuProp == null || docuProp.nombre_notario == undefined || docuProp.nombre_notario == null ? ("TBD") :  (docuProp.nombre_notario)}</p>
+                      <p>Número de escritura: {docuProp == null || docuProp.n_escritura == undefined || docuProp.n_escritura == null ? ("TBD") :  (docuProp.n_escritura)}</p>
+                    </div>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+
+            <div className='col-sm-8 col-12 align-self-center'>
+              {docu.status == "LIBRE" ? (
+                <Status0/>
+              ) : (<></>)
+              }
+
+              {docu.status == "ARMADO DE EXPEDIENTE" ? (
+                <Status1/>
+              ) : (<></>)
+              }
+
+              {docu.status == "EN PROCESO AVALUO" ? (
+                <Status2/>
+              ) : (<></>)
+              }
+
+              {docu.status == "EN PROCESO AUTORIZACION" ? (
+                <Status3/>
+              ) : (<></>)
+              }
+
+              {docu.status == "AUTORIZACION" ? (
+                <Status4/>
+              ) : (<></>)
+              }
+
+              {docu.status == "DICTAMINACION" ? (
+                <Status5/>
+              ) : (<></>)
+              }
+
+              {docu.status == "EN PROGRAMACION DE FIRMA" ? (
+                <Status6/>
+              ) : (<></>)
+              }
+
+              {docu.status == "FIRMADO" ? (
+                <Status7/>
+              ) : (<></>)
+              }
+
+              {docu.status == "EN PROCESO DE PAGO INSTITUCION BANCARIA" ? (
+                <Status8/>
+              ) : (<></>)
+              }
+
+              {docu.status == "PAGADO, PROGRAMACION DE ENTREGA" ? (
+                <Status9/>
+              ) : (<></>)
+              }
+
+              {docu.status == "FECHA DE ENTREGA" ? (
+                <Status10/>
+              ) : (<></>)
+              }
+
+            </div>
+
         </div>) : (<></>)
         }
 

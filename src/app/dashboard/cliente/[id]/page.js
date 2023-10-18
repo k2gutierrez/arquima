@@ -41,11 +41,22 @@ import Agradecimiento from '@/components/Agradecimiento'
 import CheckListBancario from '@/components/CheckListBancario'
 import GeneralesComprador from '@/components/GeneralesComprador'
 import { notarias } from '@/notarias'
+import Status0 from '@/components/Status0'
+import Status1 from '@/components/Status1'
+import Status2 from '@/components/Status2'
+import Status3 from '@/components/Status3'
+import Status4 from '@/components/Status4'
+import Status5 from '@/components/Status5'
+import Status6 from '@/components/Status6'
+import Status7 from '@/components/Status7'
+import Status8 from '@/components/Status8'
+import Status9 from '@/components/Status9'
+import Status10 from '@/components/Status10'
 
 export default function Page({ params }) {
 
   const [propiedad, setPropiedad] = useState(null)
-  const [menu, setMenu] = useState("")
+  const [menu, setMenu] = useState("inicio")
   const [docu, setDocu] = useState(null)
   const [history, setHistory] = useState(null)
   const [update, setUpdate] = useState(false)
@@ -773,25 +784,83 @@ export default function Page({ params }) {
                   </div>
                 </div>) : (<></>)}
 
-                <div className='m-5 w-75'>
-                <Card border="light" bg='transparent' > {/*18*/}
-                  <Card.Header>{ docu.nombre }</Card.Header>
-                  <Card.Body>
-                    <Card.Text>
-                      <div className='text-start'>
-                        <p>Folio: { docu.folio }</p>
-                        <p>Proyecto: { propiedad != null ? (propiedad.proyecto) : ('') }</p>
-                        <p>Asesor: { docu.asesor }</p>
-                        <p>Trámite: { docu.esquema }</p>
-                        <p>Status: { docu.status }</p>
-                        <p>Fecha de entrega: { docu == null || docu.fecha_entrega == undefined || docu.fecha_entrega == null ? ("TBD") :  (docu.fecha_entrega) }</p>
-                      </div>
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
+                <div className='col-sm-4 col-12 align-self-center'> {/* m-5 w-75 */}
+                  <Card border="light" bg='transparent' > {/*18*/}
+                    <Card.Header>{ docu.nombre }</Card.Header>
+                    <Card.Body>
+                      <Card.Text>
+                        <div className='text-start'>
+                          <p>Folio: { docu.folio }</p>
+                          <p>Proyecto: { propiedad != null ? (propiedad.proyecto) : ('') }</p>
+                          <p>Asesor: { docu.asesor }</p>
+                          <p>Trámite: { docu.esquema }</p>
+                          <p>Status: { docu.status }</p>
+                          <p>Fecha de entrega: { docu == null || docu.fecha_entrega == undefined || docu.fecha_entrega == null ? ("TBD") :  (docu.fecha_entrega) }</p>
+                        </div>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
                 </div>
 
-                <div className='row mb-5'>
+                <div className='col-sm-8 col-12 align-self-center'>
+                  {docu.status == "LIBRE" ? (
+                    <Status0/>
+                  ) : (<></>)
+                  }
+
+                  {docu.status == "ARMADO DE EXPEDIENTE" ? (
+                    <Status1/>
+                  ) : (<></>)
+                  }
+
+                  {docu.status == "EN PROCESO AVALUO" ? (
+                    <Status2/>
+                  ) : (<></>)
+                  }
+
+                  {docu.status == "EN PROCESO AUTORIZACION" ? (
+                    <Status3/>
+                  ) : (<></>)
+                  }
+
+                  {docu.status == "AUTORIZACION" ? (
+                    <Status4/>
+                  ) : (<></>)
+                  }
+
+                  {docu.status == "DICTAMINACION" ? (
+                    <Status5/>
+                  ) : (<></>)
+                  }
+
+                  {docu.status == "EN PROGRAMACION DE FIRMA" ? (
+                    <Status6/>
+                  ) : (<></>)
+                  }
+
+                  {docu.status == "FIRMADO" ? (
+                    <Status7/>
+                  ) : (<></>)
+                  }
+
+                  {docu.status == "EN PROCESO DE PAGO INSTITUCION BANCARIA" ? (
+                    <Status8/>
+                  ) : (<></>)
+                  }
+
+                  {docu.status == "PAGADO, PROGRAMACION DE ENTREGA" ? (
+                    <Status9/>
+                  ) : (<></>)
+                  }
+
+                  {docu.status == "FECHA DE ENTREGA" ? (
+                    <Status10/>
+                  ) : (<></>)
+                  }
+
+                </div>
+
+                <div className='row mt-5 mb-5'>
                   { contadoSoltero == true  && docu.status != 'BAJA' ? 
                     (
                       <div className='row justify-content-center'>
