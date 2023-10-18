@@ -73,6 +73,7 @@ export default function Page({ params }) {
 
   useEffect(() => {
     getInfo();
+    //getPropiedad()
     if (docu != null) {
       getPropiedad()
       const fov = Boolean(docu.esquema == "FOVISSSTE-infonavit-fovissste" || docu.esquema == "FOVISSSTE-tradicional" || docu.esquema == "FOVISSSTE-conyugal" || docu.esquema == "FOVISSSTE-para-todos")
@@ -234,8 +235,7 @@ export default function Page({ params }) {
             <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("historial")} >Historial</button>
             </li>
-            {propiedad.proyecto == 'COTO CIELO' ? (
-              <>
+
                 <li className="nav-item">
                 <button className="nav-link" onClick={() => setMenu("OfertaCompra")} >Oferta de Compra</button>
                 </li>
@@ -254,9 +254,7 @@ export default function Page({ params }) {
                 <li className="nav-item">
                 <button className="nav-link" onClick={() => setMenu("general")} >General Comprador</button>
                 </li>
-              </>
-            ) : (<></>)
-            }
+
       
           </ul>
 

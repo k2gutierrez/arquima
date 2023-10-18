@@ -643,8 +643,7 @@ export default function Ventas() {
               { asesorM.map(( v, k ) => {
 
                 return (
-                  <div className='text-start col-sm-4 col-12 my-2'>
-                  <MessageCardAs key={k}
+                  <MessageCardAs key={k} 
                     answer={v.respuesta}
                     question={v.pregunta}
                     name={v.nombreCliente}
@@ -666,7 +665,7 @@ export default function Ventas() {
                     }
                     onChange={(e) => setAnswerAsesor(e.target.value)}
                   />
-                  </div>
+                  
                 )
                 })
 

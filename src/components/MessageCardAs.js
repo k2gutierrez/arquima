@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 
 function MessageCardAs(props) {
   return (
+    <div className='text-start col-sm-4 col-12 my-2'>
     <Card style={{ width: '25rem' }}>
         <Card.Body>
         <ListGroup>
@@ -22,6 +23,7 @@ function MessageCardAs(props) {
         </Form>
         </Card.Body>
     </Card>
+    </div>
   );
 }
 

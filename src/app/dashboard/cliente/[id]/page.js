@@ -87,7 +87,6 @@ export default function Page({ params }) {
 
   useEffect(() => {
     getInfo();
-    
   }, [])
 
   useEffect(() => {
@@ -465,7 +464,7 @@ export default function Page({ params }) {
    
 
   return (
-    <>
+    <div>
       <ModalBaja
         show={show}
         onHide={handleClose}
@@ -505,7 +504,7 @@ export default function Page({ params }) {
                   <div className="offcanvas-body">
                       <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li className="nav-item">
-                            <Link href="/dashboard"><button type='button' className="btn" data-bs-dismiss="offcanvas" >Volver al dashboard</button></Link>
+                          <Link href="/dashboard"><button type='button' className="btn" data-bs-dismiss="offcanvas" >Volver al dashboard</button></Link>
                         </li>
                       </ul>
                       
@@ -545,8 +544,7 @@ export default function Page({ params }) {
             <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("datos")} >Modificar Datos</button>
             </li>
-            {propiedad.proyecto != 'COTO CIELO' ? (
-              <>
+
                 <li className="nav-item">
                 <button className="nav-link" onClick={() => setMenu("OfertaCompra")} >Oferta de Compra</button>
                 </li>
@@ -565,9 +563,7 @@ export default function Page({ params }) {
                 <li className="nav-item">
                 <button className="nav-link" onClick={() => setMenu("general")} >General Comprador</button>
                 </li>
-              </>
-            ) : (<></>)
-            }
+              
           </ul>
 
           {menu == "general" ? (
@@ -5023,6 +5019,6 @@ export default function Page({ params }) {
         </div>
         )
       }
-    </>
+    </div>
   )
 }

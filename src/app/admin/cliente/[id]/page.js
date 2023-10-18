@@ -542,8 +542,7 @@ export default function Page({ params }) {
             <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("datos")} >Modificar Datos</button>
             </li>
-            {propiedad.proyecto == 'COTO CIELO' ? (
-              <>
+
                 <li className="nav-item">
                 <button className="nav-link" onClick={() => setMenu("OfertaCompra")} >Oferta de Compra</button>
                 </li>
@@ -562,9 +561,7 @@ export default function Page({ params }) {
                 <li className="nav-item">
                 <button className="nav-link" onClick={() => setMenu("general")} >General Comprador</button>
                 </li>
-              </>
-            ) : (<></>)
-            }
+
           </ul>
 
           
