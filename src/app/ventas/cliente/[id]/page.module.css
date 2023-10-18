@@ -33,6 +33,30 @@
   background-color: white;
 }
 
+.containerMain2 {
+  position: relative;
+  /*text-align: center;*/
+  /*color: white;*/
+  font-size: 14pt;
+  background-color: white;
+}
+
+.square {
+  font-size: 28pt;
+}
+
+.containerMain3 {
+  position: relative;
+  /*text-align: center;*/
+  /*color: white;*/
+  font-size: 10.5pt;
+  background-color: white;
+}
+
+.folio {
+  font-size: 11pt;
+}
+
 
 .imgC {
   height: 100%;

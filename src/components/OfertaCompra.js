@@ -5,7 +5,7 @@ import jsPDF from 'jspdf'
 import Image from 'next/image';
 import imageCotoCielo from '../../public/formatos/Membrete_coto_cielo.png'
 
-function DocGeneral(props) {
+function OfertaCompra(props) {
     
     const createPDF = async () => {
         /*const pdf = new jsPDF('p','mm',[297, 210]);*/
@@ -126,4 +126,4 @@ function DocGeneral(props) {
     )
 }
 
-export default DocGeneral
+export default OfertaCompra

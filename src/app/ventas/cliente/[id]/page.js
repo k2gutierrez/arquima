@@ -32,7 +32,12 @@ import engrane from '../../../../../public/engranes.gif'
 import INFONAVITUnamosCreditos2 from '@/components/documentos/INFONAVITUnamosCreditos2'
 import INFONAVITUnamosCreditos3 from '@/components/documentos/INFONAVITUnamosCreditos3'
 import INFONAVITUnamosCreditos4 from '@/components/documentos/INFONAVITUnamosCreditos4'
-import DocGeneral from '@/components/DocGeneral'
+import OfertaCompra from '@/components/OfertaCompra'
+import ActaDeEntrega from '@/components/ActaDeEntrega'
+import Poliza from '@/components/Poliza'
+import Agradecimiento from '@/components/Agradecimiento'
+import CheckListBancario from '@/components/CheckListBancario'
+import GeneralesComprador from '@/components/GeneralesComprador'
 
 export default function Page({ params }) {
 
@@ -229,23 +234,119 @@ export default function Page({ params }) {
             <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("historial")} >Historial</button>
             </li>
-            <li className="nav-item">
-              <button className="nav-link" onClick={() => setMenu("formato")} >Formato</button>
-            </li>
+            {propiedad.proyecto == 'COTO CIELO' ? (
+              <>
+                <li className="nav-item">
+                <button className="nav-link" onClick={() => setMenu("OfertaCompra")} >Oferta de Compra</button>
+                </li>
+                {/*<li className="nav-item">
+                <button className="nav-link" onClick={() => setMenu("actaEntrega")} >Acta de Entrega</button>
+                </li>
+                <li className="nav-item">
+                <button className="nav-link" onClick={() => setMenu("poliza")} >Póliza de Seguro</button>
+                </li>
+                <li className="nav-item">
+                <button className="nav-link" onClick={() => setMenu("agradecimiento")} >Agradecimiento</button>
+                </li>*/}
+                <li className="nav-item">
+                <button className="nav-link" onClick={() => setMenu("checklist")} >Check List Bancario</button>
+                </li>
+                <li className="nav-item">
+                <button className="nav-link" onClick={() => setMenu("general")} >General Comprador</button>
+                </li>
+              </>
+            ) : (<></>)
+            }
+      
           </ul>
-          
-          {menu == "formato" ?
-            (
-              <DocGeneral 
+
+          {menu == "general" ? (
+            <GeneralesComprador 
+                className={cls(styles.containerMain2, "")}
+                imgClass={cls(styles.imgC, '')}
+                textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
+                nombre={docu.nombre}
+                apellidos={docu.apellidoM + ' ' + docu.apellidoP}
+                nss={docu.NSS != undefined || docu.NSS != null ? docu.NSS : '______________'}
+                curp={docu.CURP_DATA != undefined || docu.CURP_DATA != null ? docu.CURP_DATA : '______________'}
+                rfc={'______________'}
+                folio={docu.folio}
+                email={docu.email}
+                cel={docu.cel}
+                domicilio={'____________________'}
+                foliotext={styles.folio}
+                square={styles.square}
+            />
+          ) : (<></>)
+          }
+
+          {menu == "checklist" ? (
+            <CheckListBancario 
+              className={cls(styles.containerMain2, "")}
+              imgClass={cls(styles.imgC, '')}
+              textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
+              folio={docu.folio}
+              foliotext={styles.folio}
+            />
+          ) : (<></>)
+
+          }
+
+          {/*
+            menu == "agradecimiento" ? (
+              <Agradecimiento 
                 className={cls(styles.containerMain, "")}
                 imgClass={cls(styles.imgC, '')}
                 textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
-                nombre={docu.nombre + ' ' + docu.apellidoM + ' ' + docu.apellidoP}   docu    propiedad
+                lte={propiedad.lte}
+                mz={propiedad.mz}
+                domicilio={propiedad.direccion + " " + propiedad.numero_ext}
+                folio={docu.folio}
+                precio={propiedad.precio}
+                credito={docu.esquema}
+              />
+            ) : (<></>)
+          */}
+          
+          {/* menu == "actaEntrega" ? (
+            <ActaDeEntrega 
+              lte={propiedad.lte}
+              mz={propiedad.mz}
+              domicilio={propiedad.direccion + " " + propiedad.numero_ext}
+              folio={docu.folio}
+              textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
+              className={cls(styles.containerMain2, "")}
+              imgClass={cls(styles.imgC, '')}
+              foliotext={styles.folio}
+            />
+          ) : (<></>)
+          */}
+
+          {/* menu == "poliza" ? (
+            <Poliza 
+              lte={propiedad.lte}
+              mz={propiedad.mz}
+              domicilio={propiedad.direccion}
+              folio={docu.folio}
+              className={cls(styles.containerMain3, "")}
+              imgClass={cls(styles.imgC, '')}
+              textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
+            />
+          ) : (<></>)
+          */}
+
+          {menu == "OfertaCompra" ?
+            (
+              <OfertaCompra 
+                className={cls(styles.containerMain, "")}
+                imgClass={cls(styles.imgC, '')}
+                textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
+                nombre={docu.nombre + ' ' + docu.apellidoM + ' ' + docu.apellidoP}
                 nss={docu.NSS != undefined || docu.NSS != null ? docu.NSS : '______________'}
                 rfc={'______________'}
                 identificacion={'________'}
                 nIdentificacion={'______________'}
-                domicilio={'___________________________________________________'}
+                domicilio={propiedad.direccion + " " + propiedad.numero_ext}
                 cel={docu.cel}
                 email={docu.email}
                 tel={'______________'}
