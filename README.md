@@ -21,9 +21,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 ## Next actions
 
 - Define how to make a client with "baja" change to "active" again with a seller and a new folio, changes also applied to "propiedades" collection
-- Set the "notarías" with the "notarios" so the admin. and owners can change them for property and the client can see it
 - Set the status drawing for client
-- Set thank you page and poliza for the final status so the client can Print it
 
 ## Deploy on Vercel
 

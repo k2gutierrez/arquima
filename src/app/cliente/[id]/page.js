@@ -12,6 +12,9 @@ import { Card } from 'react-bootstrap'
 import ModalTerminos from '@/components/ModalTerminos'
 import ModalMessageClient from '@/components/ModalMessageClient'
 import MessageCard from '@/components/MessageCard'
+import Agradecimiento from '@/components/Agradecimiento'
+import ActaDeEntrega from '@/components/ActaDeEntrega'
+import Poliza from '@/components/Poliza'
 
 export default function Page({ params }) {
 
@@ -22,6 +25,7 @@ export default function Page({ params }) {
   const [mensajes, setMensajes] = useState(null)
 
   const [show, setShow] = useState(false);
+  const [menu, setMenu] = useState("info")
 
   const handleClose = () => setShow(false);
 
@@ -101,6 +105,24 @@ export default function Page({ params }) {
         </div>
 
         <div className='row justify-content-center'>
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <button className="nav-link" onClick={() => setMenu("info")} >Infomación general</button>
+            </li>
+            <li class="nav-item">
+              <button className="nav-link" onClick={() => setMenu("agradecimiento")} >Agradecimiento</button>
+            </li>
+            <li class="nav-item">
+              <button className="nav-link" onClick={() => setMenu("entrega")} >Acta de entrega</button>
+            </li>
+            <li class="nav-item">
+              <button className="nav-link" onClick={() => setMenu("poliza")} >Póliza</button>
+            </li>
+          </ul>
+        </div>
+
+        { menu == "info" ?
+          (<div className='row justify-content-center'>
           <Card border="light" bg='transparent' style={{ width: '22rem' }}> {/*18*/}
             <Card.Header>{ docu.nombre }</Card.Header>
             <Card.Body>
@@ -112,12 +134,60 @@ export default function Page({ params }) {
                   <p>Status: { docu.status }</p>
                   <p>Proyecto: { docuProp == null ? ("") :  (docuProp.proyecto) }</p>
                   <p>Fecha de entrega: { docu == null || docu.fecha_entrega == undefined || docu.fecha_entrega == null ? ("TBD") :  (docu.fecha_entrega) }</p>
+                  <p>Notaria: {docuProp == null || docuProp.n_notaria == undefined || docuProp.n_notaria == null ? ("TBD") :  (docuProp.n_notaria)}</p>
+                  <p>Notario: {docuProp == null || docuProp.nombre_notario == undefined || docuProp.nombre_notario == null ? ("TBD") :  (docuProp.nombre_notario)}</p>
+                  <p>Número de escritura: {docuProp == null || docuProp.n_escritura == undefined || docuProp.n_escritura == null ? ("TBD") :  (docuProp.n_escritura)}</p>
                 </div>
               </Card.Text>
             </Card.Body>
           </Card>
-        </div>
+        </div>) : (<></>)
+        }
 
+        { menu == "agradecimiento" ?
+          (
+            <Agradecimiento 
+              className={cls(styles.containerMain, "")}
+              imgClass={cls(styles.imgC, '')}
+              textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
+              lte={docuProp.lte}
+              mz={docuProp.mz}
+              domicilio={docuProp.direccion + " " + docuProp.numero_ext}
+              folio={docu.folio}
+              precio={docuProp.precio}
+              credito={docu.esquema}
+            />
+          ) : (<></>)
+        }
+
+        { menu == "entrega" ?
+          (
+            <ActaDeEntrega 
+              lte={docuProp.lte}
+              mz={docuProp.mz}
+              domicilio={docuProp.direccion + " " + docuProp.numero_ext}
+              folio={docu.folio}
+              textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
+              className={cls(styles.containerMain2, "")}
+              imgClass={cls(styles.imgC, '')}
+              foliotext={styles.folio}
+            />
+          ) : (<></>)
+        }
+
+        { menu == "poliza" ?
+          (
+            <Poliza 
+              lte={docuProp.lte}
+              mz={docuProp.mz}
+              domicilio={docuProp.direccion}
+              folio={docu.folio}
+              className={cls(styles.containerMain3, "")}
+              imgClass={cls(styles.imgC, '')}
+              textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
+            />
+          ) : (<></>)
+        }
 
         <div className='row my-5'>
           <div className='col-md-3 col-12'>

@@ -40,7 +40,7 @@ export default function Cliente() {
         </Modal.Header>
         <Modal.Body>
           <div className='text-center'>
-            <p>CURP/folio incorrecto!</p>
+            <p>folio incorrecto!</p>
           </div>
         </Modal.Body>
         <Modal.Footer>

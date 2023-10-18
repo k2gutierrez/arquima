@@ -10,3 +10,61 @@
 .logo {
   opacity: 35%;
 }
+
+/*.formatoBg {
+  background: url("../../../../../public/formatos/Membrete_coto_cielo.png") no-repeat; /* fixed */
+  /*background-size: cover;  cover Resize the background image to cover the entire container */
+  /*-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-image: url("../../../../../public/formatos/Membrete_coto_cielo.png");*/
+  /*background-color: white;  /*Used if the image is unavailable */
+  /*height: 100%; You must set a specified height 
+  width: 100%;*/ 
+  /*background-position: center;  Center the image */
+ /* background-repeat: no-repeat;  Do not repeat the image 
+}*/
+
+.containerMain {
+  position: relative;
+  /*text-align: center;*/
+  /*color: white;*/
+  font-size: 11pt;
+  background-color: white;
+}
+
+.containerMain2 {
+  position: relative;
+  /*text-align: center;*/
+  /*color: white;*/
+  font-size: 14pt;
+  background-color: white;
+}
+
+.square {
+  font-size: 28pt;
+}
+
+.containerMain3 {
+  position: relative;
+  /*text-align: center;*/
+  /*color: white;*/
+  font-size: 10.5pt;
+  background-color: white;
+}
+
+.folio {
+  font-size: 11pt;
+}
+
+
+.imgC {
+  height: 100%;
+  width: 100%;
+}
+
+.textCotoCielo {
+  position: absolute;
+  top: 0%;
+  left: 20%;
+}

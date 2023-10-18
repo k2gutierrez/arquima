@@ -40,6 +40,7 @@ import Poliza from '@/components/Poliza'
 import Agradecimiento from '@/components/Agradecimiento'
 import CheckListBancario from '@/components/CheckListBancario'
 import GeneralesComprador from '@/components/GeneralesComprador'
+import { notarias } from '@/notarias'
 
 export default function Page({ params }) {
 
@@ -84,6 +85,9 @@ export default function Page({ params }) {
   const [infonavitSoltero, setInfonavitSoltero] = useState(false)
   const [infonavitCasadoBS, setInfonavitCasadoBS] = useState(false)
   const [infonavitCasadoBM,setInfonavitCasadoBM ] = useState(false)
+
+  const [escritura, setEscritura] = useState("")
+  const [notario, setNotario] = useState("")
 
   useEffect(() => {
     getInfo();
@@ -460,6 +464,77 @@ export default function Page({ params }) {
       handleShowG()
     }
   }
+
+  const handleEscritura = async () => {
+    
+    try {
+
+      const cRef = doc(db, "propiedades", docu.propiedadID)
+      const clientRef = await updateDoc(cRef, {
+        n_escritura: escritura,
+        historial: arrayUnion({
+          registrado: currentName,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: `Se estableció la escritura de la propiedad`
+        })
+      });
+      setMessagem('Se estableció / cambio la escritura de la propiedad')
+      handleShowG()
+      setUpdate(!update)
+
+    } catch (e) {
+      setMessagem(e)
+      handleShowG()
+    }
+  }
+  
+  const handleNotaria = async (e) => {
+    e.preventDefault()
+    const val = e.target.value
+    try {
+
+      const cRef = doc(db, "propiedades", docu.propiedadID)
+      const clientRef = await updateDoc(cRef, {
+        n_notaria: val,
+        historial: arrayUnion({
+          registrado: currentName,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: `Se estableció la notaria donde se está haciendo el tŕamite de escrituración`
+        })
+      });
+      setMessagem('Se estableció la notaria donde se está haciendo el tŕamite de escrituración')
+      handleShowG()
+      setUpdate(!update)
+
+    } catch (e) {
+      setMessagem(e)
+      handleShowG()
+    }
+  }
+ 
+  const handleNotario = async () => {
+    
+    try {
+
+      const cRef = doc(db, "propiedades", docu.propiedadID)
+      const clientRef = await updateDoc(cRef, {
+        nombre_notario: notario,
+        historial: arrayUnion({
+          registrado: currentName,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: `Se estableció el nombre del notario que está haciendo el trámite de escrituración`
+        })
+      });
+      setMessagem('Se estableció el nombre del notario que está haciendo el trámite de escrituración')
+      handleShowG()
+      setUpdate(!update)
+
+    } catch (e) {
+      setMessagem(e)
+      handleShowG()
+    }
+  }
+
 
   return (
     <>
@@ -4978,11 +5053,11 @@ export default function Page({ params }) {
                   </div>
                   <div className="accordion-item">
                     <h2 className="accordion-header">
-                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                         Establecer fecha de entrega
                       </button>
                     </h2>
-                    <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                       <div className="accordion-body">
                     
                         <div className="mb-3">
@@ -4992,6 +5067,44 @@ export default function Page({ params }) {
 
                         </div>
                           
+                      </div>
+                    </div>
+                  </div>
+                  <div className="accordion-item">
+                    <h2 className="accordion-header">
+                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Información de notaria y escritura
+                      </button>
+                    </h2>
+                    <div id="collapseFour" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div className="accordion-body">
+                        
+                        <div className="mb-3">
+                          <label for="escritura" className="form-label">Número de escritura: </label>
+                          <input type="text" onChange={(e) => setEscritura(e.target.value)} value={escritura} className="form-control mb-3" id="escritura" />
+                          <button type="button" onClick={handleEscritura} className="btn btn-primary">Guardar escritura</button>
+                        </div>
+
+                        <div className="mb-3">
+                          <p >Elige la Notaría: </p>
+
+                          <select className="form-select" onChange={handleNotaria} aria-label="Default select example">
+                            <option selected>Notarías</option>
+                            {notarias.map((t, k) => {
+                              return (
+                                <option key={ k } value={ t }>{ t }</option>
+                              )
+                            })
+                            }
+                          </select>
+                        </div>
+
+                        <div className="mb-3">
+                          <label for="notario" className="form-label">Nombre del notario: </label>
+                          <input type="text" onChange={(e) => setNotario(e.target.value)} value={notario} className="form-control mb-3" id="notario" />
+                          <button type="button" onClick={handleNotario} className="btn btn-primary">Guardar nombre</button>
+                        </div>
+
                       </div>
                     </div>
                   </div>
