@@ -128,7 +128,7 @@ export default function Page({ params }) {
       const hist = docu.historial
       setHistory(hist)
 
-      getPropiedad()
+      getPropiedad();
       const fov = Boolean(docu.esquema == "FOVISSSTE-infonavit-fovissste" || docu.esquema == "FOVISSSTE-tradicional" || docu.esquema == "FOVISSSTE-conyugal" || docu.esquema == "FOVISSSTE-para-todos")
 
       const banco = Boolean(docu.esquema == 'BANCARIO / caja popular -terreno' || docu.esquema == 'BANCARIO / caja popular -casa')
