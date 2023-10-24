@@ -62,7 +62,7 @@ export default function Cliente() {
           <form onSubmit={handleStatus} className="form">
             <div className="mb-4 mx-5">
               <label htmlFor="folio" className="form-label"><h5>Ingresa folio o CURP</h5></label>
-              <input type="text" value={folio.toUpperCase()} onChange={(e) => {setFolio(e.target.value)}} name='folio' className="form-control" id="folio" placeholder="folio / CURP" />
+              <input type="text" value={folio.toUpperCase()} onChange={(e) => {setFolio(e.target.value)}} name='folio' className="form-control" id="folio" placeholder="folio" />
             </div>
             <button type="submit" className="btn btn-secondary mb-3">Revisar mi estatus</button>
           </form>

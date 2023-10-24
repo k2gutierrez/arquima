@@ -22,7 +22,7 @@ function ActaDeEntrega(props) {
       
 
     return (
-        <>
+        <div>
             <div className={props.className} id='pdf' >
                 <Image className={props.imgClass} src={imageCotoCielo} alt='CotoCielo' width={612} height={792} />
                 <div className={props.textCotoCielo}>
@@ -101,7 +101,7 @@ function ActaDeEntrega(props) {
             <div className='my-5'>
                 <button type="button" onClick={createPDF} className="btn btn-primary">Descargar PDF</button>
             </div>
-        </>
+        </div>
     )
 }
 

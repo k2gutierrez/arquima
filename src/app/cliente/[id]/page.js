@@ -29,6 +29,8 @@ import Status10 from '@/components/Status10'
 
 export default function Page({ params }) {
 
+  const [id, setId] = useState("")
+
   const [docuProp, setDocuProp] = useState(null)
   const [docu, setDocu] = useState(null)
   const [docuAsesor, setDocuAsesor] = useState(null)
@@ -43,6 +45,10 @@ export default function Page({ params }) {
   const router = useRouter()
 
   useEffect(() => {
+    setId(params.id)
+  }, [])
+
+  useEffect(() => {
     getInfoClient();
     if (docu != null) {
       getInfo(docu.propiedadID);
@@ -53,7 +59,7 @@ export default function Page({ params }) {
     }
     
     
-  }, [docu])
+  }, [docu, id])
 
   async function getInfo (d) {
     const q = doc(db, "propiedades", d)
@@ -71,7 +77,7 @@ export default function Page({ params }) {
   }
 
   async function getInfoClient () {
-    const q = query(collection(db, "clientes"), where("folio", "==", params.id));
+    const q = query(collection(db, "clientes"), where("folio", "==", id.toString()));
     const querySnapshot = await getDocs(q);
     await querySnapshot.forEach((doc) => {
       const docu = (doc.id, " => ", doc.data());
@@ -116,17 +122,17 @@ export default function Page({ params }) {
         </div>
 
         <div className='row justify-content-center mb-5'>
-          <ul class="nav nav-tabs">
-            <li class="nav-item">
+          <ul className="nav nav-tabs">
+            <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("info")} >Infomación general</button>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("agradecimiento")} >Agradecimiento</button>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("entrega")} >Acta de entrega</button>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <button className="nav-link" onClick={() => setMenu("poliza")} >Póliza</button>
             </li>
           </ul>

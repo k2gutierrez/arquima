@@ -22,7 +22,7 @@ function OfertaCompra(props) {
       
 
     return (
-        <>
+        <div>
             <div className={props.className} id='pdf' >
                 <Image className={props.imgClass} src={imageCotoCielo} alt='CotoCielo' width={612} height={792} />
                 <div className={props.textCotoCielo}>
@@ -51,7 +51,7 @@ function OfertaCompra(props) {
                                 <p className='mb-4'>  
                                     <strong className={props.titles}>CLAUSULA SEGUNDA: DE EL INMUEBLE</strong> <br />
                                     El inmueble objeto de la presente oferta de compra se encuentra ubicado en la {props.direccion} # {props.numero_ext} edificada
-                                    sobre el lote {props.lte} de la manzana {props.mz} del franccionamiento, CAMPO SUR "{props.proyecto}" en el municipio de TLAJOMULCO DE 
+                                    sobre el lote {props.lte} de la manzana {props.mz} del fraccionamiento, CAMPO SUR "{props.proyecto}" en el municipio de TLAJOMULCO DE 
                                     ZUÑIGA del estado de JALISCO, en lo sucesivo denominado <strong>"EL INMUEBLE".</strong> 
                                 </p>
                                 <p className='mb-4'>
@@ -59,7 +59,7 @@ function OfertaCompra(props) {
                                     <strong>"EL OFERENTE"</strong> propone al legítimo propietario de "EL INMUEBLE", en lo sucesivo denominado <strong>"EL PROPIETARIO", </strong>
                                     adquirido en la suma de <u>{props.precio} </u>(________________________________), que pagaré de la siguiente manera: Mediante un crédito 
                                     que en este momento manifiesta <strong>"EL OFERENTE"</strong> tener preautorizado or la institución _____________________, hasta por la cantidad 
-                                    de $____________________(___________________________________) y estando su oferta condicionada a que la institución bancaria, le apruebe 
+                                    de $____________________(_______________________________________________) y estando su oferta condicionada a que la institución bancaria, le apruebe 
                                     de forma definitiva su crédito. <br />
                                     Los gastos que se generen con motivo de la escritura pública de compraventa, será erogados por <strong>"EL OFERENTE"</strong>, asi 
                                     como los impuestos, gastos y honorarios que origine la escrituración de <strong>"EL INMUEBLE", </strong> debiendo correr a cargo de 
@@ -122,7 +122,7 @@ function OfertaCompra(props) {
             <div className='my-5'>
                 <button type="button" onClick={createPDF} className="btn btn-primary">Descargar PDF</button>
             </div>
-        </>
+        </div>
     )
 }
 
