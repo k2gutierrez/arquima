@@ -10,7 +10,12 @@ import { AuthContextProvider } from '@/context/AuthContext'
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" class="notranslate" translate="no">
+      <head>
+        <meta name="google" content="notranslate" />
+        <meta name="robots" content="notranslate" />
+        <meta name="googlebot" content="notranslate" />
+      </head>
       <body>
         <ImportBootstrap />
         <AuthContextProvider>

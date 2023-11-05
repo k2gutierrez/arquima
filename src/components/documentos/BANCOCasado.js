@@ -49,6 +49,7 @@ export default function BANCOCasado(props) {
   const [depParen8, setDepParen8] = useState(null)
 
   const [show, setShow] = useState(false)
+  const [m, setM] = useState("")
 
   const registrarInfoIndispensable = async () => {
 
@@ -382,553 +383,733 @@ export default function BANCOCasado(props) {
 
       const infoDispRef = doc(db, 'clientes', props.id)
       await updateDoc(infoDispRef, data);
-
+      setM("Se registró la información insdispensable del cliente")
       setShow(true)
 
     } catch(e) {
-      window.alert(e)
+      setM(e)
+      setShow(true)
     }
   }
 
   const handleINE = async () => {
-    if (ine == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/INECliente_${ine.name}`)
-      const carg = await uploadBytes(ineRef, ine)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        INE: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube documento de INE"
-        })
-      })
+    if (ine == null) {
+      setM( "No se cargó ningun documento" )
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
+      return;
+    }  else {
+      try {
+        const ineRef = ref(storage, `${props.id}/INECliente_${ine.name}`)
+        const carg = await uploadBytes(ineRef, ine)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          INE: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se sube documento de INE"
+          })
+        })
+        setM("Se sube el INE con éxito!")
+        setShow(true)
+        setIne(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
     }
+    
   }
 
   const handleRFC = async () => {
-    if (rfc == null) return;
-    try {
-      const rfcRef = ref(storage, `${props.id}/RFCCliente_${rfc.name}`)
-      const carg = await uploadBytes(rfcRef, rfc)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        RFC: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube documento de RFC"
-        })
-      })
+    if (rfc == null) {
+      setM("No se cargó ningun documento")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const rfcRef = ref(storage, `${props.id}/RFCCliente_${rfc.name}`)
+        const carg = await uploadBytes(rfcRef, rfc)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          RFC: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se sube documento de RFC"
+          })
+        })
+        setM("Se sube el RFC correctamente!")
+        setShow(true)
+        setRfc(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
+    
   }
 
   const handleCompDom = async () => {
-    if (compDom == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/ComprobanteDomicilioCliente_${compDom.name}`)
-      const carg = await uploadBytes(Ref, compDom)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        CompDom: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube documento de Comprobante de domicilio"
-        })
-      })
+    if (compDom == null) {
+      setM("No se cargó ningun documento")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const Ref = ref(storage, `${props.id}/ComprobanteDomicilioCliente_${compDom.name}`)
+        const carg = await uploadBytes(Ref, compDom)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          CompDom: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se sube documento de Comprobante de domicilio"
+          })
+        })
+        setM("Se cargó el comprobante de domicilio correctamente!")
+        setShow(true)
+        setCompDom(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
+    
   }
 
   const handleCompDom2 = async () => {
-    if (compDom == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/OtroComprobanteDomicilioCliente_${compDom.name}`)
-      const carg = await uploadBytes(Ref, compDom)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        CompDom2: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube el segundo documento de Comprobante de domicilio"
-        })
-      })
+    if (compDom == null) {
+      setM("No se cargó ningun documento")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const Ref = ref(storage, `${props.id}/OtroComprobanteDomicilioCliente_${compDom.name}`)
+        const carg = await uploadBytes(Ref, compDom)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          CompDom2: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se sube el segundo documento de Comprobante de domicilio"
+          })
+        })
+        setM("Se cargó el comprobante de domicilio correctamente!")
+        setShow(true)
+        setCompDom(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
+    
   }
 
   const handleActaNac = async () => {
-    if (actaNac == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/ActaNacimiento_Cliente_${actaNac.name}`)
-      const carg = await uploadBytes(Ref, actaNac)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        ActNac: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube documento de acta de nacimiento del ciente"
-        })
-      })
+    if (actaNac == null) {
+      setM("No se cargó el documento correctamente!")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const Ref = ref(storage, `${props.id}/ActaNacimiento_Cliente_${actaNac.name}`)
+        const carg = await uploadBytes(Ref, actaNac)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          ActNac: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se sube documento de acta de nacimiento del ciente"
+          })
+        })
+          setM("Se cargó el acta de nacimiento correctamente!")
+          setShow(true)
+          setactaNac(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
+    
   }
 
   const handleActaNacConyuge = async () => {
-    if (actaNac == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/ActaNacimiento_Conyuge_${actaNac.name}`)
-      const carg = await uploadBytes(Ref, actaNac)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        ActNacConyuge: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube documento de acta de nacimiento del conyuge"
-        })
-      })
+    if (actaNac == null) {
+      setM("No se cargó el documento correctamente!")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const Ref = ref(storage, `${props.id}/ActaNacimiento_Conyuge_${actaNac.name}`)
+        const carg = await uploadBytes(Ref, actaNac)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          ActNacConyuge: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se sube documento de acta de nacimiento del conyuge"
+          })
+        })
+        setM("Se cargó el acta de nacimiento correctamente!")
+        setShow(true)
+        setactaNac(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
+    
   }
 
   const handleActaNacCoAcreditado = async () => {
-    if (actaNac == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/ActaNacimiento_CoAcreditado_${actaNac.name}`)
-      const carg = await uploadBytes(Ref, actaNac)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        ActNacCoAcreditado: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube documento de acta de nacimiento del coacreditado"
-        })
-      })
+    if (actaNac == null) {
+      setM("No se cargó ningun documento!")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const Ref = ref(storage, `${props.id}/ActaNacimiento_CoAcreditado_${actaNac.name}`)
+        const carg = await uploadBytes(Ref, actaNac)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          ActNacCoAcreditado: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se sube documento de acta de nacimiento del coacreditado"
+          })
+        })
+        setM("Se cargó el acta de nacimiento correctamente!")
+        setShow(true)
+        setactaNac(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
+    
   }
 
-  const handleActaMatrimonioCliente = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Acta_Matrimonio_Cliente_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        ActaMatrimonioCliente: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió el acta de matrimonio del cliente"
-        })
-      })
-      setShow(true)
 
-    } catch(e) {
-      window.alert(e)
-    }
+  const handleActaMatrimonioCliente = async () => {
+    if (currentfile == null) {
+      setM("No se cargó el documento correctamente!")
+      setShow(true)
+      return
+    } else {
+      try {
+        const Ref = ref(storage, `${props.id}/Acta_Matrimonio_Cliente_${currentfile.name}`)
+        const carg = await uploadBytes(Ref, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          ActaMatrimonioCliente: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió el acta de matrimonio del cliente"
+          })
+        })
+        setM("Se subió el acta de matrimonio correctamente!")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
+    
   }
 
   const ReciboNomina1 = async () => {
-    if (currentfile == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/Recibo_Nomina_1_${currentfile.name}`)
-      const carg = await uploadBytes(ineRef, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        Nomina1: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió un recibo de nómina del cliente"
-        })
-      })
+    if (currentfile == null) {
+      setM("No se cargó el documento correctamente!")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
+      return
+    } else {
+      try {
+        const ineRef = ref(storage, `${props.id}/Recibo_Nomina_1_${currentfile.name}`)
+        const carg = await uploadBytes(ineRef, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          Nomina1: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió un recibo de nómina del cliente"
+          })
+        })
+        setM("Se subió el documento correctamente!")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
     }
+    
   }
 
   const ReciboNomina2 = async () => {
-    if (currentfile == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/Recibo_Nomina_2_${currentfile.name}`)
-      const carg = await uploadBytes(ineRef, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        Nomina2: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió un segundo recibo de nómina del cliente"
-        })
-      })
+    if (currentfile == null) {
+      setM("No se cargó el documento correctamente!")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const ineRef = ref(storage, `${props.id}/Recibo_Nomina_2_${currentfile.name}`)
+        const carg = await uploadBytes(ineRef, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          Nomina2: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió un segundo recibo de nómina del cliente"
+          })
+        })
+        setM("Se subió el documento correctamente!")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
   }
 
   const ReciboNomina3 = async () => {
-    if (currentfile == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/Recibo_Nomina_3_${currentfile.name}`)
-      const carg = await uploadBytes(ineRef, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        Nomina3: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió un tercer recibo de nómina del cliente"
-        })
-      })
+    if (currentfile == null) {
+      setM("No se cargó el documento correctamente!")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const ineRef = ref(storage, `${props.id}/Recibo_Nomina_3_${currentfile.name}`)
+        const carg = await uploadBytes(ineRef, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          Nomina3: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió un tercer recibo de nómina del cliente"
+          })
+        })
+        setM("Se subió el documento correctamente!")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
+    
   }
 
   const EstadoCuenta1 = async () => {
-    if (currentfile == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/Estado_Cuenta_1_${currentfile.name}`)
-      const carg = await uploadBytes(ineRef, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        EdoCuenta1: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió un estado de cuenta del cliente"
-        })
-      })
+    if (currentfile == null) {
+      setM("No se cargó ningun documento!")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const ineRef = ref(storage, `${props.id}/Estado_Cuenta_1_${currentfile.name}`)
+        const carg = await uploadBytes(ineRef, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          EdoCuenta1: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió un estado de cuenta del cliente"
+          })
+        })
+        setM("Se subió el documento correctamente!")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
   }
 
   const EstadoCuenta2 = async () => {
-    if (currentfile == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/Estado_Cuenta_2_${currentfile.name}`)
-      const carg = await uploadBytes(ineRef, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        EdoCuenta2: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió un segundo estado de cuenta del cliente"
-        })
-      })
+    if (currentfile == null) {
+      setM("No se cargó ningun documento!")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const ineRef = ref(storage, `${props.id}/Estado_Cuenta_2_${currentfile.name}`)
+        const carg = await uploadBytes(ineRef, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          EdoCuenta2: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió un segundo estado de cuenta del cliente"
+          })
+        })
+        setM("Se subió el documento correctamente!")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
   }
 
   const EstadoCuenta3 = async () => {
-    if (currentfile == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/Estado_Cuenta_3_${currentfile.name}`)
-      const carg = await uploadBytes(ineRef, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        EdoCuenta3: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió un tercer estado de cuenta del cliente"
-        })
-      })
+    if (currentfile == null) {
+      setM("No se cargó ningun documento!")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const ineRef = ref(storage, `${props.id}/Estado_Cuenta_3_${currentfile.name}`)
+        const carg = await uploadBytes(ineRef, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          EdoCuenta3: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió un tercer estado de cuenta del cliente"
+          })
+        })
+        setM("Se subió el documento correctamente!")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
+    
   }
 
   const EstadoCuenta4 = async () => {
-    if (currentfile == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/Estado_Cuenta_4_${currentfile.name}`)
-      const carg = await uploadBytes(ineRef, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        EdoCuenta4: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió un cuarto estado de cuenta del cliente"
-        })
-      })
+    if (currentfile == null) {
+      setM("No se cargó ningun documento!")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const ineRef = ref(storage, `${props.id}/Estado_Cuenta_4_${currentfile.name}`)
+        const carg = await uploadBytes(ineRef, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          EdoCuenta4: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió un cuarto estado de cuenta del cliente"
+          })
+        })
+        setM("Se subió el documento correctamente!")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
   }
 
   const EstadoCuenta5 = async () => {
-    if (currentfile == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/Estado_Cuenta_5_${currentfile.name}`)
-      const carg = await uploadBytes(ineRef, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        EdoCuenta5: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió un quinto estado de cuenta del cliente"
-        })
-      })
+    if (currentfile == null) {
+      setM("No se cargó ningun documento!")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const ineRef = ref(storage, `${props.id}/Estado_Cuenta_5_${currentfile.name}`)
+        const carg = await uploadBytes(ineRef, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          EdoCuenta5: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió un quinto estado de cuenta del cliente"
+          })
+        })
+        setM("Se subió el documento correctamente!")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
   }
 
   const EstadoCuenta6 = async () => {
-    if (currentfile == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/Estado_Cuenta_6_${currentfile.name}`)
-      const carg = await uploadBytes(ineRef, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        EdoCuenta6: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió un sexto estado de cuenta del cliente"
-        })
-      })
+    if (currentfile == null) {
+      setM("No se cargó ningun documento!")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const ineRef = ref(storage, `${props.id}/Estado_Cuenta_6_${currentfile.name}`)
+        const carg = await uploadBytes(ineRef, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          EdoCuenta6: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió un sexto estado de cuenta del cliente"
+          })
+        })
+        setM("Se subió el documento correctamente!")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
   }
 
   const HandlePuesto = async () => {
-    if (puesto == null) return;
-    try {
-
-      const puestoRef = doc(db, 'clientes', props.id)
-      await updateDoc(puestoRef, {
-        puesto: puesto,
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se registró el puesto del cliente"
-        })
-      });
-
+    if (puesto == null) {
+      setM("No se registró ningun puesto")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const puestoRef = doc(db, 'clientes', props.id)
+        await updateDoc(puestoRef, {
+          puesto: puesto,
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se registró el puesto del cliente"
+          })
+        });
+        setM("Se registró el puesto del cliente")
+        setShow(true)
+        setPuesto(null)
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
   }
 
   const HandleAltaHacienda = async () => {
-    if (currentfile == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/Alta_Hacienda_${currentfile.name}`)
-      const carg = await uploadBytes(ineRef, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        AltaHacienda: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió el Alta de Hacienda del cliente"
-        })
-      })
+    if (currentfile == null) {
+      setM("No cargó ningun documento")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const ineRef = ref(storage, `${props.id}/Alta_Hacienda_${currentfile.name}`)
+        const carg = await uploadBytes(ineRef, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          AltaHacienda: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió el Alta de Hacienda del cliente"
+          })
+        })
+        setM("Se subió el documento correctamente!")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
   }
 
   const HandleConstanciaFiscal = async () => {
-    if (currentfile == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/Constancia_situacion_Fiscal_${currentfile.name}`)
-      const carg = await uploadBytes(ineRef, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        ConstanciaSituacionFiscal: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió la constancia de situación fiscal del cliente"
-        })
-      })
+    if (currentfile == null) {
+      setM("No cargó ningun documento")
       setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
+      return
+    } else {
+      try {
+        const ineRef = ref(storage, `${props.id}/Constancia_situacion_Fiscal_${currentfile.name}`)
+        const carg = await uploadBytes(ineRef, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          ConstanciaSituacionFiscal: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió la constancia de situación fiscal del cliente"
+          })
+        })
+        setM("Se subió el documento correctamente!")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        setM(e)
+        setShow(true)
+      }
+    };
   }
 
   const HandleCartaPersonal = async () => {
-    if (currentfile == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/Carta_Personal_${currentfile.name}`)
-      const carg = await uploadBytes(ineRef, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        CartaPersonal: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió la carta a título personal del cliente"
-        })
-      })
+    if (currentfile == null) {
+      setM("No se cargó ningun documento")
       setShow(true)
+      return;
+    } else {
 
-    } catch(e) {
-      window.alert(e)
+      try {
+        const ineRef = ref(storage, `${props.id}/Carta_Personal_${currentfile.name}`)
+        const carg = await uploadBytes(ineRef, currentfile)
+        
+        const enlaceUrl = await getDownloadURL(carg.ref)
+        const docRef = doc(db, 'clientes', props.id)
+        await updateDoc(docRef, {
+          CartaPersonal: {
+            url: enlaceUrl,
+            vendedor: true
+          },
+          historial: arrayUnion({
+            registrado: props.currentUser,
+            fecha: Timestamp.fromDate(new Date()),
+            comentario: "Se subió la carta a título personal del cliente"
+          })
+        })
+        setM("Documento cargado y registro exitoso")
+        setShow(true)
+        setCurrentfile(null)
+  
+      } catch(e) {
+        window.alert(e)
+      }
+
     }
+    
   }
 
   return (
@@ -936,7 +1117,7 @@ export default function BANCOCasado(props) {
       <ModalG
         show={show}
         onHide={() => {setShow(false)}}
-        message={"Documento cargado y registro exitoso"}
+        message={ m }
         onClick={() => {setShow(false)}}
         button={"Aceptar"}
       />

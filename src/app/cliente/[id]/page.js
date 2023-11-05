@@ -241,6 +241,7 @@ export default function Page({ params }) {
         { menu == "entrega" ?
           (
             <ActaDeEntrega 
+              nombre={docu.nombre + ' ' + docu.apellidoP + ' ' + docu.apellidoM}
               lte={docuProp.lte}
               mz={docuProp.mz}
               domicilio={docuProp.direccion + " " + docuProp.numero_ext}

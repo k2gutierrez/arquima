@@ -837,6 +837,7 @@ export default function Page({ params }) {
           
           {menu == "actaEntrega" ? (
             <ActaDeEntrega 
+              nombre={docu.nombre + ' ' + docu.apellidoP + ' ' + docu.apellidoM}
               lte={propiedad.lte}
               mz={propiedad.mz}
               domicilio={propiedad.direccion + " " + propiedad.numero_ext}

@@ -841,6 +841,7 @@ export default function Page({ params }) {
           
           {menu == "actaEntrega" ? (
             <ActaDeEntrega 
+              nombre={docu.nombre + ' ' + docu.apellidoP + ' ' + docu.apellidoM}
               lte={propiedad.lte}
               mz={propiedad.mz}
               domicilio={propiedad.direccion + " " + propiedad.numero_ext}
@@ -875,18 +876,18 @@ export default function Page({ params }) {
                 textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
                 nombre={docu.nombre + ' ' + docu.apellidoM + ' ' + docu.apellidoP}
                 nss={docu.NSS != undefined || docu.NSS != null ? docu.NSS : '______________'}
-                rfc={'______________'}
-                identificacion={'________'}
-                nIdentificacion={'______________'}
+                rfc={'________________'}
+                identificacion={'__________'}
+                nIdentificacion={'________________'}
                 domicilio={propiedad.direccion + " " + propiedad.numero_ext}
                 cel={docu.cel}
                 email={docu.email}
                 tel={'______________'}
                 nombre2={'_____________________________'}
-                nss2={'______________'}
-                RFC2={'______________'}
-                identificacion2={'________'}
-                nIdentificacion2={'______________'}
+                nss2={'________________'}
+                RFC2={'________________'}
+                identificacion2={'__________'}
+                nIdentificacion2={'________________'}
                 domicilio2={'___________________________________________________'}
                 cel2={'____________'}
                 email2={'_________________________'}
