@@ -6,8 +6,11 @@ import ModalG from '../ModalG'
 
 export default function BANCOSoltero(props) {
 
+  const [ine, setIne] = useState(null)
+  const [rfc, setRfc] = useState(null)
+  const [compDom, setCompDom] = useState(null)
+  const [actaNac, setactaNac] = useState(null)
   const [currentfile, setCurrentfile] = useState(null)
-  
   const [puesto, setPuesto] = useState(null)
   const [telOficina, setTelOficina] = useState(null)
   const [telCasa, setTelCasa] = useState(null)
@@ -43,7 +46,6 @@ export default function BANCOSoltero(props) {
   const [depParen8, setDepParen8] = useState(null)
 
   const [show, setShow] = useState(false)
-  const [m, setM] = useState("")
 
   const registrarInfoIndispensable = async () => {
 
@@ -367,134 +369,395 @@ export default function BANCOSoltero(props) {
     }
   }
 
-  let listCliente = [
-    {
-      title: 'INE o pasaporte del cliente',
-      key: 'INE',
-      text: 'INECliente',
-      comment: 'Se sube documento de INE / pasaporte del cliente'
-    },
-    {
-      title: 'RFC del cliente',
-      key: 'RFC',
-      text: 'RFCCliente',
-      comment: 'Se sube documento de RFC del cliente'
-    },
-    {
-      title: 'Comprobante de domicilio del cliente',
-      key: 'CompDom',
-      text: 'ComprobanteDomicilioCliente',
-      comment: 'Se sube documento de Comprobante de domicilio del cliente'
-    },
-    {
-      title: 'Comprobante de domicilio 2 del cliente',
-      key: 'CompDom2',
-      text: 'ComprobanteDomicilio2Cliente',
-      comment: 'Se sube documento de Comprobante de domicilio 2 del cliente'
-    },
-    {
-      title: 'Acta de nacimiento del cliente',
-      key: 'ActNac',
-      text: 'ActaNacimientoCliente',
-      comment: 'Se sube documento de acta de nacimiento del cliente'
-    },
-    {
-      title: 'Acta de nacimiento del Coacreditado (En caso que aplique)',
-      key: 'ActNacCoAcreditado',
-      text: 'ActaNacimiento_CoAcreditado',
-      comment: 'Se sube documento de acta de nacimiento del Coacreditado'
-    },
-  ]
+  const handleINE = async () => {
+    if (ine == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/INECliente_${ine.name}`)
+      const carg = await uploadBytes(ineRef, ine)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        INE: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se sube documento de INE"
+        })
+      })
+      setShow(true)
 
-  let listNomina = [
-    {
-      title: 'Últimos 3 recibos de nómina \n Recibo Nominal 1',
-      key: 'Nomina1',
-      text: 'Recibo_Nomina_1',
-      comment: 'Se subió un recibo de nómina del cliente'
-    },
-    {
-      title: 'Recibo Nominal 2',
-      key: 'Nomina2',
-      text: 'Recibo_Nomina_2',
-      comment: 'Se subió un recibo de nómina del cliente'
-    },
-    {
-      title: 'Recibo Nominal 3',
-      key: 'Nomina3',
-      text: 'Recibo_Nomina_3',
-      comment: 'Se subió un recibo de nómina del cliente'
-    },
-    {
-      title: 'últimos 2 Estados de Cuenta donde depositen la Nómina \n Estado de Cuenta 1',
-      key: 'EdoCuenta1',
-      text: 'Estado_Cuenta_1',
-      comment: 'Se subió un estado de cuenta del cliente'
-    },
-    {
-      title: 'Estado de Cuenta 2',
-      key: 'EdoCuenta2',
-      text: 'Estado_Cuenta_2',
-      comment: 'Se subió un estado de cuenta del cliente'
+    } catch(e) {
+      window.alert(e)
     }
-  ]
+  }
 
-  let listIndependiente = [
-    {
-      title: 'Alta en Hacienda',
-      key: 'AltaHacienda',
-      text: 'Alta_Hacienda',
-      comment: 'Se subió el Alta de Hacienda del cliente'
-    },
-    {
-      title: 'Constancia Fiscal',
-      key: 'ConstanciaSituacionFiscal',
-      text: 'Constancia_situacion_Fiscal',
-      comment: 'Se subió la constancia de situación fiscal del cliente'
-    },
-    {
-      title: 'Carta Personal',
-      key: 'CartaPersonal',
-      text: 'Carta_Personal',
-      comment: 'Se subió la carta a título personal del cliente'
-    },
-    {
-      title: 'últimos 6 meses de Estados de Cuenta completos donde se reflejen mis ingresos \n Estado de Cuenta 1',
-      key: 'EdoCuenta1',
-      text: 'Estado_Cuenta_1',
-      comment: 'Se subió un estado de cuenta del cliente'
-    },
-    {
-      title: 'Estado de Cuenta 2',
-      key: 'EdoCuenta2',
-      text: 'Estado_Cuenta_2',
-      comment: 'Se subió un estado de cuenta del cliente'
-    },
-    {
-      title: 'Estado de Cuenta 3',
-      key: 'EdoCuenta3',
-      text: 'Estado_Cuenta_3',
-      comment: 'Se subió un estado de cuenta del cliente'
-    },
-    {
-      title: 'Estado de Cuenta 4',
-      key: 'EdoCuenta4',
-      text: 'Estado_Cuenta_4',
-      comment: 'Se subió un estado de cuenta del cliente'
-    },
-    {
-      title: 'Estado de Cuenta 5',
-      key: 'EdoCuenta5',
-      text: 'Estado_Cuenta_5',
-      comment: 'Se subió un estado de cuenta del cliente'
-    },
-    {
-      title: 'Estado de Cuenta 6',
-      key: 'EdoCuenta6',
-      text: 'Estado_Cuenta_6',
-      comment: 'Se subió un estado de cuenta del cliente'
+  const handleRFC = async () => {
+    if (rfc == null) return;
+    try {
+      const rfcRef = ref(storage, `${props.id}/RFCCliente_${rfc.name}`)
+      const carg = await uploadBytes(rfcRef, rfc)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        RFC: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se sube documento de RFC"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
     }
-  ]
+  }
+
+  const handleCompDom = async () => {
+    if (compDom == null) return;
+    try {
+      const Ref = ref(storage, `${props.id}/ComprobanteDomicilioCliente_${compDom.name}`)
+      const carg = await uploadBytes(Ref, compDom)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        CompDom: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se sube documento de Comprobante de domicilio"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const handleCompDom2 = async () => {
+    if (compDom == null) return;
+    try {
+      const Ref = ref(storage, `${props.id}/OtroComprobanteDomicilioCliente_${compDom.name}`)
+      const carg = await uploadBytes(Ref, compDom)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        CompDom2: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se sube el segundo documento de Comprobante de domicilio"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const handleActaNac = async () => {
+    if (actaNac == null) return;
+    try {
+      const Ref = ref(storage, `${props.id}/ActaNacimiento_Cliente_${actaNac.name}`)
+      const carg = await uploadBytes(Ref, actaNac)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        ActNac: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se sube documento de acta de nacimiento del ciente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const handleActaNacCoAcreditado = async () => {
+    if (actaNac == null) return;
+    try {
+      const Ref = ref(storage, `${props.id}/ActaNacimiento_CoAcreditado_${actaNac.name}`)
+      const carg = await uploadBytes(Ref, actaNac)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        ActNacCoAcreditado: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se sube documento de acta de nacimiento del coacreditado"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const ReciboNomina1 = async () => {
+    if (currentfile == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/Recibo_Nomina_1_${currentfile.name}`)
+      const carg = await uploadBytes(ineRef, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        Nomina1: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se subió un recibo de nómina del cliente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const ReciboNomina2 = async () => {
+    if (currentfile == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/Recibo_Nomina_2_${currentfile.name}`)
+      const carg = await uploadBytes(ineRef, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        Nomina2: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se subió un segundo recibo de nómina del cliente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const ReciboNomina3 = async () => {
+    if (currentfile == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/Recibo_Nomina_3_${currentfile.name}`)
+      const carg = await uploadBytes(ineRef, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        Nomina3: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se subió un tercer recibo de nómina del cliente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const EstadoCuenta1 = async () => {
+    if (currentfile == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/Estado_Cuenta_1_${currentfile.name}`)
+      const carg = await uploadBytes(ineRef, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        EdoCuenta1: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se subió un estado de cuenta del cliente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const EstadoCuenta2 = async () => {
+    if (currentfile == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/Estado_Cuenta_2_${currentfile.name}`)
+      const carg = await uploadBytes(ineRef, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        EdoCuenta2: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se subió un segundo estado de cuenta del cliente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const EstadoCuenta3 = async () => {
+    if (currentfile == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/Estado_Cuenta_3_${currentfile.name}`)
+      const carg = await uploadBytes(ineRef, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        EdoCuenta3: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se subió un tercer estado de cuenta del cliente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const EstadoCuenta4 = async () => {
+    if (currentfile == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/Estado_Cuenta_4_${currentfile.name}`)
+      const carg = await uploadBytes(ineRef, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        EdoCuenta4: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se subió un cuarto estado de cuenta del cliente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const EstadoCuenta5 = async () => {
+    if (currentfile == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/Estado_Cuenta_5_${currentfile.name}`)
+      const carg = await uploadBytes(ineRef, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        EdoCuenta5: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se subió un quinto estado de cuenta del cliente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const EstadoCuenta6 = async () => {
+    if (currentfile == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/Estado_Cuenta_6_${currentfile.name}`)
+      const carg = await uploadBytes(ineRef, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        EdoCuenta6: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se subió un sexto estado de cuenta del cliente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
 
   const HandlePuesto = async () => {
     if (puesto == null) return;
@@ -517,12 +780,90 @@ export default function BANCOSoltero(props) {
     }
   }
 
+  const HandleAltaHacienda = async () => {
+    if (currentfile == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/Alta_Hacienda_${currentfile.name}`)
+      const carg = await uploadBytes(ineRef, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        AltaHacienda: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se subió el Alta de Hacienda del cliente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const HandleConstanciaFiscal = async () => {
+    if (currentfile == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/Constancia_situacion_Fiscal_${currentfile.name}`)
+      const carg = await uploadBytes(ineRef, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        ConstanciaSituacionFiscal: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se subió la constancia de situación fiscal del cliente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
+  const HandleCartaPersonal = async () => {
+    if (currentfile == null) return;
+    try {
+      const ineRef = ref(storage, `${props.id}/Carta_Personal_${currentfile.name}`)
+      const carg = await uploadBytes(ineRef, currentfile)
+      
+      const enlaceUrl = await getDownloadURL(carg.ref)
+      const docRef = doc(db, 'clientes', props.id)
+      await updateDoc(docRef, {
+        CartaPersonal: {
+          url: enlaceUrl,
+          vendedor: true
+        },
+        historial: arrayUnion({
+          registrado: props.currentUser,
+          fecha: Timestamp.fromDate(new Date()),
+          comentario: "Se subió la carta a título personal del cliente"
+        })
+      })
+      setShow(true)
+
+    } catch(e) {
+      window.alert(e)
+    }
+  }
+
   return (
     <>
       <ModalG
         show={show}
         onHide={() => {setShow(false)}}
-        message={ m }
+        message={"Documento cargado y registro exitoso"}
         onClick={() => {setShow(false)}}
         button={"Aceptar"}
       />
@@ -535,99 +876,57 @@ export default function BANCOSoltero(props) {
             </button>
           </h2>
           <div id="flush-collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-            
             <div className='row text-start mx-5 px-5'>
-              { listCliente.map((v, k) => {
-                return (
-                  <div key={k} >
-                    { props.upload[v.key] != undefined ? (
-                      <div className="mb-3">
-                        <label htmlFor={v.key} className="form-label">{v.title}</label>
-                        <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
-                        <button type='button' onClick={
 
-                            async function handleFile () {
-                              if (currentfile == null) {
-                                return
-                              };
-                              try {
-                                const ineRef = ref(storage, `${props.id}/${v.text}_${currentfile.name}`)
-                                const carg = await uploadBytes(ineRef, currentfile)
-                                
-                                const enlaceUrl = await getDownloadURL(carg.ref)
-                                const docRef = doc(db, 'clientes', props.id)
-                                await updateDoc(docRef, {
-                                  [v.key]: {
-                                    url: enlaceUrl,
-                                    vendedor: true
-                                  },
-                                  historial: arrayUnion({
-                                    registrado: props.currentUser,
-                                    fecha: Timestamp.fromDate(new Date()),
-                                    comentario: v.comment
-                                  })
-                                })
-                                setM(v.comment)
-                                setShow(true)
-                                setCurrentfile(null)
-                              } catch(e) {
-                                setM(e)
-                                setShow(true)
-                                setCurrentfile(null)
-                              }
-                            }
+              <form >
+                <div className="mb-3">
+                  <label for="ine" className="form-label">Identificación oficial vigente: IFE, INE o Pasaporte</label>
+                  <input className="form-control" onChange={(e) => setIne(e.target.files[0])} type="file" id="ine" />
+                  <button type='button' onClick={handleINE} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
-                        } className='btn btn-secondary my-3' id={v.key} disabled={props.disabled} >Subir archivo</button>
-                      </div>
-                    ) : (
-                      <div className="mb-3">
-                        <label htmlFor={k} className="form-label">{v.title}</label>
-                        <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={k} />
-                        <button type='button' onClick={
+              <form >
+                <div className="mb-3">
+                  <label for="rfc" className="form-label">RFC</label>
+                  <input className="form-control" onChange={(e) => setRfc(e.target.files[0])} type="file" id="rfc" />
+                  <button type='button' onClick={handleRFC} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
-                          async function handleFile () {
-                            if (currentfile == null) {
-                              setM('No se ha agregado ningun archivo')
-                              setShow(true)
-                              return
-                            };
-                            try {
-                              const ineRef = ref(storage, `${props.id}/${v.text}_${currentfile.name}`)
-                              const carg = await uploadBytes(ineRef, currentfile)
-                              
-                              const enlaceUrl = await getDownloadURL(carg.ref)
-                              const docRef = doc(db, 'clientes', props.id)
-                              await updateDoc(docRef, {
-                                [v.key]: {
-                                  url: enlaceUrl,
-                                  vendedor: true
-                                },
-                                historial: arrayUnion({
-                                  registrado: props.currentUser,
-                                  fecha: Timestamp.fromDate(new Date()),
-                                  comentario: v.comment
-                                })
-                              })
-                              setM(v.comment)
-                              setShow(true)
-                              setCurrentfile(null)
-                            } catch(e) {
-                              setM(e)
-                              setShow(true)
-                              setCurrentfile(null)
-                            }
-                          }
+              <form >
+                <div className="mb-3">
+                  <label for="compdom" className="form-label">Comprobante de domicilio reciente (agua, luz, predio, cable, gas, cuenta bancaria)</label>
+                  <input className="form-control" onChange={(e) => setCompDom(e.target.files[0])} type="file" id="compdom" />
+                  <button type='button' onClick={handleCompDom} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
-                        } className='btn btn-secondary my-3' >Subir archivo</button>
-                      </div>
-                    )
-                    }
-                  </div>
-                )
-              })
-              }
+              <form >
+                <div className="mb-3">
+                  <label for="compdom" className="form-label">Otro comprobante de domicilio reciente (agua, luz, predio, cable, gas, cuenta bancaria)</label>
+                  <input className="form-control" onChange={(e) => setCompDom(e.target.files[0])} type="file" id="compdom" />
+                  <button type='button' onClick={handleCompDom2} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
+
+              <form >
+                <div className="mb-3">
+                  <label for="actnac" className="form-label">Acta de nacimiento</label>
+                  <input className="form-control" onChange={(e) => setactaNac(e.target.files[0])} type="file" id="actnac" />
+                  <button type='button' onClick={handleActaNac} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
+
+              <form >
+                <div className="mb-3">
+                  <label for="actnac" className="form-label">Acta de nacimiento de coacreditado (en caso que aplique)</label>
+                  <input className="form-control" onChange={(e) => setactaNac(e.target.files[0])} type="file" id="actnac" />
+                  <button type='button' onClick={handleActaNacCoAcreditado} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
+
             </div>
-
           </div>
         </div>
         <div className="accordion-item">
@@ -640,95 +939,48 @@ export default function BANCOSoltero(props) {
           <div id="flush-collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div className='row text-start mx-5 px-5'>
             
-            { listNomina.map((v, k) => {
-                return (
-                  <div key={k} >
-                    { props.upload[v.key] != undefined ? (
-                      <div className="mb-3">
-                        <label htmlFor={v.key} className="form-label">{v.title}</label>
-                        <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
-                        <button type='button' onClick={
+              <p className='mb-3'>últimos 3 recibos de nómina:</p>
+              <form >
+                <div className="mb-3">
+                  <label for="nom1" className="form-label">Recibo de nómina 1:</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="nom1" />
+                  <button type='button' onClick={ReciboNomina1} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
-                            async function handleFile () {
-                              if (currentfile == null) {
-                                return
-                              };
-                              try {
-                                const ineRef = ref(storage, `${props.id}/${v.text}_${currentfile.name}`)
-                                const carg = await uploadBytes(ineRef, currentfile)
-                                
-                                const enlaceUrl = await getDownloadURL(carg.ref)
-                                const docRef = doc(db, 'clientes', props.id)
-                                await updateDoc(docRef, {
-                                  [v.key]: {
-                                    url: enlaceUrl,
-                                    vendedor: true
-                                  },
-                                  historial: arrayUnion({
-                                    registrado: props.currentUser,
-                                    fecha: Timestamp.fromDate(new Date()),
-                                    comentario: v.comment
-                                  })
-                                })
-                                setM(v.comment)
-                                setShow(true)
-                                setCurrentfile(null)
-                              } catch(e) {
-                                setM(e)
-                                setShow(true)
-                                setCurrentfile(null)
-                              }
-                            }
+              <form >
+                <div className="mb-3">
+                  <label for="nom2" className="form-label">Recibo de nómina 2:</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="nom2" />
+                  <button type='button' onClick={ReciboNomina2} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
-                        } className='btn btn-secondary my-3' id={v.key} disabled={props.disabled} >Subir archivo</button>
-                      </div>
-                    ) : (
-                      <div className="mb-3">
-                        <label htmlFor={k} className="form-label">{v.title}</label>
-                        <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={k} />
-                        <button type='button' onClick={
+              <form >
+                <div className="mb-3">
+                  <label for="nom3" className="form-label">Recibo de nómina 3:</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="nom3" />
+                  <button type='button' onClick={ReciboNomina3} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
-                          async function handleFile () {
-                            if (currentfile == null) {
-                              setM('No se ha agregado ningun archivo')
-                              setShow(true)
-                              return
-                            };
-                            try {
-                              const ineRef = ref(storage, `${props.id}/${v.text}_${currentfile.name}`)
-                              const carg = await uploadBytes(ineRef, currentfile)
-                              
-                              const enlaceUrl = await getDownloadURL(carg.ref)
-                              const docRef = doc(db, 'clientes', props.id)
-                              await updateDoc(docRef, {
-                                [v.key]: {
-                                  url: enlaceUrl,
-                                  vendedor: true
-                                },
-                                historial: arrayUnion({
-                                  registrado: props.currentUser,
-                                  fecha: Timestamp.fromDate(new Date()),
-                                  comentario: v.comment
-                                })
-                              })
-                              setM(v.comment)
-                              setShow(true)
-                              setCurrentfile(null)
-                            } catch(e) {
-                              setM(e)
-                              setShow(true)
-                              setCurrentfile(null)
-                            }
-                          }
+              <p className='mb-3'>Últimos 2 meses de estados de cuenta completos, donde depositen la nómina:</p>
+              <form >
+                
+                <div className="mb-3">
+                  <label for="edo1" className="form-label">Estado de cuenta 1</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="edo1" />
+                  <button type='button' onClick={EstadoCuenta1} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
-                        } className='btn btn-secondary my-3' >Subir archivo</button>
-                      </div>
-                    )
-                    }
-                  </div>
-                )
-              })
-              }
+              <form >
+                <div className="mb-3">
+                  <label for="edo2" className="form-label">Estado de cuenta 2</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="edo2" />
+                  <button type='button' onClick={EstadoCuenta2} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
               <div className="input-group mb-3">
                 <span className="input-group-text" id="inputGroup-sizing-default">Puesto</span>
@@ -750,96 +1002,78 @@ export default function BANCOSoltero(props) {
 
             <div className='row text-start mx-5 px-5'>
 
-            { listIndependiente.map((v, k) => {
-                return (
-                  <div key={k} >
-                    { props.upload[v.key] != undefined ? (
-                      <div className="mb-3">
-                        <label htmlFor={v.key} className="form-label">{v.title}</label>
-                        <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
-                        <button type='button' onClick={
+              <form >
+                <div className="mb-3">
+                  <label for="alta" className="form-label">Alta de hacienda</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="alta" />
+                  <button type='button' onClick={HandleAltaHacienda} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
-                            async function handleFile () {
-                              if (currentfile == null) {
-                                return
-                              };
-                              try {
-                                const ineRef = ref(storage, `${props.id}/${v.text}_${currentfile.name}`)
-                                const carg = await uploadBytes(ineRef, currentfile)
-                                
-                                const enlaceUrl = await getDownloadURL(carg.ref)
-                                const docRef = doc(db, 'clientes', props.id)
-                                await updateDoc(docRef, {
-                                  [v.key]: {
-                                    url: enlaceUrl,
-                                    vendedor: true
-                                  },
-                                  historial: arrayUnion({
-                                    registrado: props.currentUser,
-                                    fecha: Timestamp.fromDate(new Date()),
-                                    comentario: v.comment
-                                  })
-                                })
-                                setM(v.comment)
-                                setShow(true)
-                                setCurrentfile(null)
-                              } catch(e) {
-                                setM(e)
-                                setShow(true)
-                                setCurrentfile(null)
-                              }
-                            }
+              <form >
+                <div className="mb-3">
+                  <label for="situacionFiscal" className="form-label">Constancia de situación fiscal con mínimo de 2 años de inicio de operaciones</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="situacionFiscal" />
+                  <button type='button' onClick={HandleConstanciaFiscal} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
-                        } className='btn btn-secondary my-3' id={v.key} disabled={props.disabled} >Subir archivo</button>
-                      </div>
-                    ) : (
-                      <div className="mb-3">
-                        <label htmlFor={k} className="form-label">{v.title}</label>
-                        <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={k} />
-                        <button type='button' onClick={
+              <form >
+                <div className="mb-3">
+                  <label for="cartaPersonal" className="form-label"> Carta a título personal, escrita a mano, donde indique su actividad, tiempo de realizarla e ingresos aproximados</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="cartaPersonal" />
+                  <button type='button' onClick={HandleCartaPersonal} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
-                          async function handleFile () {
-                            if (currentfile == null) {
-                              setM('No se ha agregado ningun archivo')
-                              setShow(true)
-                              return
-                            };
-                            try {
-                              const ineRef = ref(storage, `${props.id}/${v.text}_${currentfile.name}`)
-                              const carg = await uploadBytes(ineRef, currentfile)
-                              
-                              const enlaceUrl = await getDownloadURL(carg.ref)
-                              const docRef = doc(db, 'clientes', props.id)
-                              await updateDoc(docRef, {
-                                [v.key]: {
-                                  url: enlaceUrl,
-                                  vendedor: true
-                                },
-                                historial: arrayUnion({
-                                  registrado: props.currentUser,
-                                  fecha: Timestamp.fromDate(new Date()),
-                                  comentario: v.comment
-                                })
-                              })
-                              setM(v.comment)
-                              setShow(true)
-                              setCurrentfile(null)
-                            } catch(e) {
-                              setM(e)
-                              setShow(true)
-                              setCurrentfile(null)
-                            }
-                          }
+              <p className='mb-3'>Últimos 6 meses de estados de cuenta completos, donde reflejen ingresos mensuales</p>
+              <form >
+                <div className="mb-3">
+                  <label for="estadoCuenta1" className="form-label">Estado de cuenta 1</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="estadoCuenta1" />
+                  <button type='button' onClick={EstadoCuenta1} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
-                        } className='btn btn-secondary my-3' >Subir archivo</button>
-                      </div>
-                    )
-                    }
-                  </div>
-                )
-              })
-              }
+              <form >
+                <div className="mb-3">
+                  <label for="estadoCuenta2" className="form-label">Estado de cuenta 2</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="estadoCuenta2" />
+                  <button type='button' onClick={EstadoCuenta2} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
 
+              <form >
+                <div className="mb-3">
+                  <label for="estadoCuenta3" className="form-label">Estado de cuenta 3</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="estadoCuenta3" />
+                  <button type='button' onClick={EstadoCuenta3} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
+
+              <form >
+                <div className="mb-3">
+                  <label for="estadoCuenta4" className="form-label">Estado de cuenta 4</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="estadoCuenta4" />
+                  <button type='button' onClick={EstadoCuenta4} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
+
+              <form >
+                <div className="mb-3">
+                  <label for="estadoCuenta5" className="form-label">Estado de cuenta 5</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="estadoCuenta5" />
+                  <button type='button' onClick={EstadoCuenta5} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
+
+              <form >
+                <div className="mb-3">
+                  <label for="estadoCuenta6" className="form-label">Estado de cuenta 6</label>
+                  <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="estadoCuenta6" />
+                  <button type='button' onClick={EstadoCuenta6} className='btn btn-secondary my-3' >Subir archivo</button>
+                </div>
+              </form>
             </div>
             
           </div>

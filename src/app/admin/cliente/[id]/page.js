@@ -5003,6 +5003,8 @@ export default function Page({ params }) {
                   <ContadoSoltero
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5010,6 +5012,8 @@ export default function Page({ params }) {
                   <ContadoCasadoBS
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5017,6 +5021,8 @@ export default function Page({ params }) {
                   <ContadoCasadoBM
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5024,6 +5030,8 @@ export default function Page({ params }) {
                   <BANCOSoltero
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5031,6 +5039,8 @@ export default function Page({ params }) {
                   <BANCOCasado
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5038,6 +5048,8 @@ export default function Page({ params }) {
                   <FOVISSSTESoltero
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5045,6 +5057,8 @@ export default function Page({ params }) {
                   <FOVISSSTECasadoBS
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5052,6 +5066,8 @@ export default function Page({ params }) {
                   <FOVISSSTECasadoBM
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5059,6 +5075,8 @@ export default function Page({ params }) {
                   <IPEJALSoltero
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5066,6 +5084,8 @@ export default function Page({ params }) {
                   <IPEJALCasadoBS
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5073,6 +5093,8 @@ export default function Page({ params }) {
                   <IPEJALCasadoBM
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5080,6 +5102,8 @@ export default function Page({ params }) {
                   <INFONAVITSoltero
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5087,6 +5111,8 @@ export default function Page({ params }) {
                   <INFONAVITCasadoBS
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5094,6 +5120,8 @@ export default function Page({ params }) {
                   <INFONAVITCasadoBM
                     id={docu.id}
                     currentUser={currentName} 
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                 />
                 ) : (<></>)
                 }
@@ -5105,6 +5133,8 @@ export default function Page({ params }) {
                     regimen_patrimonial={docu.regimen_patrimonial}
                     civil2={docu.civil2 == undefined || docu.civil2 == null ? ('') : (docu.civil2)}
                     regimen_patrimonial2={docu.regimen_patrimonial2 == undefined || docu.regimen_patrimonial2 == null ? ('') : (docu.regimen_patrimonial2)}
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                   />
                 ) : (<></>)
                 }
@@ -5118,6 +5148,8 @@ export default function Page({ params }) {
                     regimen_patrimonial2={docu.regimen_patrimonial2 == undefined || docu.regimen_patrimonial2 == null ? ('') : (docu.regimen_patrimonial2)}
                     civil3={docu.civil3 == undefined || docu.civil3 == null ? ('') : (docu.civil3)}
                     regimen_patrimonial3={docu.regimen_patrimonial3 == undefined || docu.regimen_patrimonial3 == null ? ('') : (docu.regimen_patrimonial3)}
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                   />
                 ) : (<></>)
                 }
@@ -5133,6 +5165,8 @@ export default function Page({ params }) {
                     regimen_patrimonial3={docu.regimen_patrimonial3 == undefined || docu.regimen_patrimonial3 == null ? ('') : (docu.regimen_patrimonial3)}
                     civil4={docu.civil4 == undefined || docu.civil4 == null ? ('') : (docu.civil4)}
                     regimen_patrimonial4={docu.regimen_patrimonial4 == undefined || docu.regimen_patrimonial4 == null ? ('') : (docu.regimen_patrimonial4)}
+                    upload={docu}
+                    disabled={Boolean(currentRol == 'vendedor')}
                   />
                 ) : (<></>)
                 }
