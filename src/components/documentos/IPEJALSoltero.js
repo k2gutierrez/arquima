@@ -6,652 +6,341 @@ import ModalG from '../ModalG'
 
 export default function IPEJALSoltero(props) {
 
-  const [ine, setIne] = useState(null)
-  const [curp, setCurp] = useState(null)
-  const [actaNac, setactaNac] = useState(null)
+  const [message, setMessage] = useState('')
   const [currentfile, setCurrentfile] = useState(null)
 
   const [show, setShow] = useState(false)
 
-  const handleINE = async () => {
-    if (ine == null) return;
-    try {
-      const ineRef = ref(storage, `${props.id}/INECliente_${ine.name}`)
-      const carg = await uploadBytes(ineRef, ine)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        INE: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube documento de INE"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
+  let listCliente = [
+    {
+      title: 'INE del cliente',
+      key: 'INE',
+      text: 'INECliente',
+      comment: 'Se sube documento de INE del cliente'
+    },
+    {
+      title: 'CURP del cliente',
+      key: 'CURP',
+      text: 'CURPCliente',
+      comment: 'Se sube documento de CURP del cliente'
+    },
+    {
+      title: 'Acta de nacimiento del cliente',
+      key: 'ActNac',
+      text: 'ActaNacimientoCliente',
+      comment: 'Se sube documento de acta de nacimiento del cliente'
     }
-  }
-
-  const handleCURP = async () => {
-    if (curp == null) return;
-    try {
-      const curpRef = ref(storage, `${props.id}/CURPCliente_${curp.name}`)
-      const carg = await uploadBytes(curpRef, curp)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        CURP: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube documento de CURP"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const handleActaNac = async () => {
-    if (actaNac == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/ActaNacimientoCliente_${actaNac.name}`)
-      const carg = await uploadBytes(Ref, actaNac)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        ActNac: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube documento de acta de nacimiento"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const handleNoActaMatrimonioCliente = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Inexistencia_matrimonial_Cliente_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        InexistenciaMatrimonial: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se subió el comprobante de inexistencia matrimonial del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const handlePredial = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Predial_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        Predial: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube documento de predial del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const handleNoAdeudoPredial = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/CompNoAdeudoPredial_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        NoAdeudoPredial: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube el comprobante de no adeudo de predial del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-
-  const handleAgua = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Agua_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        Agua: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube recibo del agua del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const handleNoAdeudoAgua = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/NoAdeudoAgua_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        NoAdeudoAgua: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube comprobante de no adeudo del agua"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const HandleEscrituraPublica = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Escritura_publica_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        Escritura: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube la escritura del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const HandleGravamen = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Gravamen_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        Gravamen: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube el documento con el estado del gravamen del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const HandleNomina = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Talon_Nomina_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        Nomina: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube el talón de nómina del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const HandleCuotasCondominales = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Cuotas_Condominales_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        CuotasCondominales: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube el recibo de pago de cuotas condominales del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const HandleNoAdeudoCuotasCondominales = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/No_Adeudo_Cuotas_Condominales_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        NoAdeudoCuotasCondominales: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube el comprobante de no adeudo de cuotas condominales del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const HandleLicenciaAlineamiento = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Licencia_alineamiento_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        LicenciaAlineamiento: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube la licencia de alineamiento y número oficial del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const HandleCartaAdeudo = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Carta_Adeudo_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        CartaAdeudo: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube la Carta de Adeudo del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
-
-  const HandleEdoCuenta = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Estado_Cuenta_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        EdoCuenta: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube el estado de cuenta del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
+  ]
   
-  const HandlePrecalificacionINFONAVIT = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Precalificacion_INFONAVIT_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        PrecalificacionINFONAVIT: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube la Precalificación de INFONAVIT del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
+  let listTramite = [
+    {
+      title: 'Predial',
+      key: 'Predial',
+      text: 'Predial',
+      comment: 'Se sube documento de predial '
+    },
+    {
+      title: 'Comprobante de no adeudo de Predial',
+      key: 'NoAdeudoPredial',
+      text: 'CompNoAdeudoPredial',
+      comment: 'Se sube el comprobante de no adeudo de Predial'
+    },
+    {
+      title: 'Comprobante de Agua',
+      key: 'Agua',
+      text: 'Agua',
+      comment: 'Se sube documento del agua'
+    },
+    {
+      title: 'Comprobante de no adeudo de Agua',
+      key: 'NoAdeudoAgua',
+      text: 'NoAdeudoAgua',
+      comment: 'Se sube documento de no adeudo del agua'
+    },
+    {
+      title: 'Escritura Pública de Compra Venta con boleta registral y hoja de transmisión patrimonial',
+      key: 'Escritura',
+      text: 'Escritura_publica',
+      comment: 'Se sube documento de escritura pública'
+    },
+    {
+      title: 'Certificado de existencia o inexistencia de gravamen',
+      key: 'Gravamen',
+      text: 'Gravamen',
+      comment: 'Se sube el documento con el estado del gravamen del cliente'
+    },
+    {
+      title: 'Talón de Nómina',
+      key: 'Nomina',
+      text: 'Talon_Nomina',
+      comment: 'Se sube el talón de nómina del cliente'
+    },
+    {
+      title: 'Recibo de pago de Cuotas Condominales',
+      key: 'CuotasCondominales',
+      text: 'Cuotas_Condominales',
+      comment: 'Se sube el recibo de pago de cuotas condominales del cliente'
+    },
+    {
+      title: 'Constancia de no adeudo de Cuotas Condominales',
+      key: 'NoAdeudoCuotasCondominales',
+      text: 'No_Adeudo_Cuotas_Condominales',
+      comment: 'Se sube el comprobante de no adeudo de cuotas condominales del cliente'
+    },
+    {
+      title: 'Licencia de alineamiento y número oficial',
+      key: 'LicenciaAlineamiento',
+      text: 'Licencia_alineamiento',
+      comment: 'Se sube la licencia de alineamiento y número oficial del cliente'
+    },
+    {
+      title: 'Carta de adeudo, Saldo o Condicionada al Pago',
+      key: 'CartaAdeudo',
+      text: 'Carta_Adeudo',
+      comment: 'Se sube la Carta de Adeudo del cliente'
+    },
+    {
+      title: 'Estado de cuenta del cliente',
+      key: 'EdoCuenta',
+      text: 'Estado_Cuenta',
+      comment: 'Se sube el estado de cuenta del cliente'
+    },
+    {
+      title: 'Precalificación de INFONAVIT',
+      key: 'PrecalificacionINFONAVIT',
+      text: 'Precalificacion_INFONAVIT',
+      comment: 'Se sube la Precalificación de INFONAVIT del cliente'
+    },
+    {
+      title: 'Constancia de Vigencia de Derechos. Observaciones',
+      key: 'ConstanciaDerechos',
+      text: 'Constancia_Derechos',
+      comment: 'Se sube la Constancia de Derechos del cliente'
     }
-  }
-  
-  const HandleConstanciaDerechos = async () => {
-    if (currentfile == null) return;
-    try {
-      const Ref = ref(storage, `${props.id}/Constancia_Derechos_${currentfile.name}`)
-      const carg = await uploadBytes(Ref, currentfile)
-      
-      const enlaceUrl = await getDownloadURL(carg.ref)
-      const docRef = doc(db, 'clientes', props.id)
-      await updateDoc(docRef, {
-        ConstanciaDerechos: {
-          url: enlaceUrl,
-          vendedor: true
-        },
-        historial: arrayUnion({
-          registrado: props.currentUser,
-          fecha: Timestamp.fromDate(new Date()),
-          comentario: "Se sube la Constancia de Derechos del cliente"
-        })
-      })
-      setShow(true)
-
-    } catch(e) {
-      window.alert(e)
-    }
-  }
+  ]
 
   return (
     <>
       <ModalG
         show={show}
         onHide={() => {setShow(false)}}
-        message={"Documento cargado y registro exitoso"}
+        message={message}
         onClick={() => {setShow(false)}}
         button={"Aceptar"}
       />
-
-      <div className='container mt-5 mb-4'>
-        <h3>Documentos del cliente</h3>
-      </div>
       
-      <div className='row text-start mx-5 px-5'>
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Documentos del cliente
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              
+              <div className='row text-start mx-5 px-5'>
+                { listCliente.map((v, k) => {
+                  return (
+                    <div key={k} >
+                      { props.upload[v.key] != undefined ? (
+                        <div className="mb-3">
+                          <label htmlFor={v.key} className="form-label">{v.title}</label>
+                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                          <button type='button' onClick={
 
-          <form >
-            <div className="mb-3">
-              <label for="ine" className="form-label">INE</label>
-              <input className="form-control" onChange={(e) => setIne(e.target.files[0])} type="file" id="ine" />
-              <button type='button' onClick={handleINE} className='btn btn-secondary my-3' >Subir archivo</button>
+                              async function handleFile () {
+                                if (currentfile == null) {
+                                  return
+                                };
+                                try {
+                                  const ineRef = ref(storage, `${props.id}/${v.text}_${currentfile.name}`)
+                                  const carg = await uploadBytes(ineRef, currentfile)
+                                  
+                                  const enlaceUrl = await getDownloadURL(carg.ref)
+                                  const docRef = doc(db, 'clientes', props.id)
+                                  await updateDoc(docRef, {
+                                    [v.key]: {
+                                      url: enlaceUrl,
+                                      vendedor: true
+                                    },
+                                    historial: arrayUnion({
+                                      registrado: props.currentUser,
+                                      fecha: Timestamp.fromDate(new Date()),
+                                      comentario: v.comment
+                                    })
+                                  })
+                                  setMessage(v.comment)
+                                  setShow(true)
+                                  setCurrentfile(null)
+                                } catch(e) {
+                                  setMessage(e)
+                                  setShow(true)
+                                  setCurrentfile(null)
+                                }
+                              }
+
+                          } className='btn btn-secondary my-3' id={v.key} disabled={props.disabled} >Subir archivo</button>
+                        </div>
+                      ) : (
+                        <div className="mb-3">
+                          <label htmlFor={k} className="form-label">{v.title}</label>
+                          <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={k} />
+                          <button type='button' onClick={
+
+                            async function handleFile () {
+                              if (currentfile == null) {
+                                setMessage('No se ha agregado ningun archivo')
+                                setShow(true)
+                                return
+                              };
+                              try {
+                                const ineRef = ref(storage, `${props.id}/${v.text}_${currentfile.name}`)
+                                const carg = await uploadBytes(ineRef, currentfile)
+                                
+                                const enlaceUrl = await getDownloadURL(carg.ref)
+                                const docRef = doc(db, 'clientes', props.id)
+                                await updateDoc(docRef, {
+                                  [v.key]: {
+                                    url: enlaceUrl,
+                                    vendedor: true
+                                  },
+                                  historial: arrayUnion({
+                                    registrado: props.currentUser,
+                                    fecha: Timestamp.fromDate(new Date()),
+                                    comentario: v.comment
+                                  })
+                                })
+                                setMessage(v.comment)
+                                setShow(true)
+                                setCurrentfile(null)
+                              } catch(e) {
+                                setMessage(e)
+                                setShow(true)
+                                setCurrentfile(null)
+                              }
+                            }
+
+                          } className='btn btn-secondary my-3' >Subir archivo</button>
+                        </div>
+                      )
+                      }
+                    </div>
+                  )
+                })
+                }
+              </div>
+
             </div>
-          </form>
+          </div>
+        </div>
 
-          <form >
-            <div className="mb-3">
-              <label for="curp" className="form-label">CURP</label>
-              <input className="form-control" onChange={(e) => setCurp(e.target.files[0])} type="file" id="curp" />
-              <button type='button' onClick={handleCURP} className='btn btn-secondary my-3' >Subir archivo</button>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Documentos del trámite
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+              <div className='row text-start mx-5 px-5'>
+                { listTramite.map((v, k) => {
+                  return (
+                    <div key={k} >
+                      { props.upload[v.key] != undefined ? (
+                        <div className="mb-3">
+                          <label htmlFor={v.key} className="form-label">{v.title}</label>
+                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                          <button type='button' onClick={
+
+                              async function handleFile () {
+                                if (currentfile == null) {
+                                  return
+                                };
+                                try {
+                                  const ineRef = ref(storage, `${props.id}/${v.text}_${currentfile.name}`)
+                                  const carg = await uploadBytes(ineRef, currentfile)
+                                  
+                                  const enlaceUrl = await getDownloadURL(carg.ref)
+                                  const docRef = doc(db, 'clientes', props.id)
+                                  await updateDoc(docRef, {
+                                    [v.key]: {
+                                      url: enlaceUrl,
+                                      vendedor: true
+                                    },
+                                    historial: arrayUnion({
+                                      registrado: props.currentUser,
+                                      fecha: Timestamp.fromDate(new Date()),
+                                      comentario: v.comment
+                                    })
+                                  })
+                                  setMessage(v.comment)
+                                  setShow(true)
+                                  setCurrentfile(null)
+                                } catch(e) {
+                                  setMessage(e)
+                                  setShow(true)
+                                  setCurrentfile(null)
+                                }
+                              }
+
+                          } className='btn btn-secondary my-3' id={v.key} disabled={props.disabled} >Subir archivo</button>
+                        </div>
+                      ) : (
+                        <div className="mb-3">
+                          <label htmlFor={k} className="form-label">{v.title}</label>
+                          <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={k} />
+                          <button type='button' onClick={
+
+                            async function handleFile () {
+                              if (currentfile == null) {
+                                setMessage('No se ha agregado ningun archivo')
+                                setShow(true)
+                                return
+                              };
+                              try {
+                                const ineRef = ref(storage, `${props.id}/${v.text}_${currentfile.name}`)
+                                const carg = await uploadBytes(ineRef, currentfile)
+                                
+                                const enlaceUrl = await getDownloadURL(carg.ref)
+                                const docRef = doc(db, 'clientes', props.id)
+                                await updateDoc(docRef, {
+                                  [v.key]: {
+                                    url: enlaceUrl,
+                                    vendedor: true
+                                  },
+                                  historial: arrayUnion({
+                                    registrado: props.currentUser,
+                                    fecha: Timestamp.fromDate(new Date()),
+                                    comentario: v.comment
+                                  })
+                                })
+                                setMessage(v.comment)
+                                setShow(true)
+                                setCurrentfile(null)
+                              } catch(e) {
+                                setMessage(e)
+                                setShow(true)
+                                setCurrentfile(null)
+                              }
+                            }
+
+                          } className='btn btn-secondary my-3' >Subir archivo</button>
+                        </div>
+                      )
+                      }
+                    </div>
+                  )
+                })
+                }
+              </div>
+
             </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="actnac" className="form-label">Acta de nacimiento</label>
-              <input className="form-control" onChange={(e) => setactaNac(e.target.files[0])} type="file" id="actnac" />
-              <button type='button' onClick={handleActaNac} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="actaMatrimonioCliente" className="form-label">Inexistencia Matrimonial</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="actaMatrimonioCliente" />
-              <button type='button' onClick={handleNoActaMatrimonioCliente} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
+          </div>
+        </div>
       </div>
 
-      <div className='container mt-5 mb-4'>
-        <h3>Documentos del trámite</h3>
-      </div>
-      
-      <div className='row text-start mx-5 px-5'>
-
-          <form >
-            <div className="mb-3">
-              <label for="predial" className="form-label">Recibo de Predial</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="predial" />
-              <button type='button' onClick={handlePredial} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="noadeudopredial" className="form-label">Comprobante de no adeudo predial</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="noadeudopredial" />
-              <button type='button' onClick={handleNoAdeudoPredial} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="agua" className="form-label">Recibo de pago del Agua</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="agua" />
-              <button type='button' onClick={handleAgua} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-          
-          <form >
-            <div className="mb-3">
-              <label for="NoAdagua" className="form-label">Comprobante de no adeudo de Agua</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="NoAdagua" />
-              <button type='button' onClick={handleNoAdeudoAgua} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="escritura" className="form-label">Escritura Pública de Compra Venta con boleta registral y hoja de transmisión patrimonial</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="escritura" />
-              <button type='button' onClick={HandleEscrituraPublica} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-          
-          <form >
-            <div className="mb-3">
-              <label for="cert" className="form-label">Certificado de existencia o inexistencia de gravamen</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="cert" />
-              <button type='button' onClick={HandleGravamen} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="nomina" className="form-label">Talón de Nómina</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="nomina" />
-              <button type='button' onClick={HandleNomina} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="cuotas" className="form-label">Recibo de pago de Cuotas Condominales</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="cuotas" />
-              <button type='button' onClick={HandleCuotasCondominales} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="constancia" className="form-label">Constancia de no adeudo de Cuotas Condominales</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="constancia" />
-              <button type='button' onClick={HandleNoAdeudoCuotasCondominales} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="licencia" className="form-label">Licencia de alineamiento y número oficial</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="licencia" />
-              <button type='button' onClick={HandleLicenciaAlineamiento} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="cartaAdeudo" className="form-label">Carta de adeudo, Saldo o Condicionada al Pago</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="cartaAdeudo" />
-              <button type='button' onClick={HandleCartaAdeudo} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="edoCta" className="form-label">Estado de cuenta con clabe interbancaria a nombre del afiliado</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="edoCta" />
-              <button type='button' onClick={HandleEdoCuenta} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="precali" className="form-label">Precalificación de INFONAVIT</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="precali" />
-              <button type='button' onClick={HandlePrecalificacionINFONAVIT} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-          <form >
-            <div className="mb-3">
-              <label for="vigencia" className="form-label">Constancia de Vigencia de Derechos. Observaciones</label>
-              <input className="form-control" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id="vigencia" />
-              <button type='button' onClick={HandleConstanciaDerechos} className='btn btn-secondary my-3' >Subir archivo</button>
-            </div>
-          </form>
-
-      </div>
-      
     </>
   )
 }

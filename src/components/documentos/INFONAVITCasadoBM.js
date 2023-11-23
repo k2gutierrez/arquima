@@ -568,7 +568,7 @@ export default function INFONAVITCasadoBM(props) {
           <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             <div class="accordion-body">
 
-            <div className='row text-start mx-5 px-5'>
+              <div className='row text-start mx-5 px-5'>
                 { listConyugeVendedor.map((v, k) => {
                   return (
                     <div key={k} >
