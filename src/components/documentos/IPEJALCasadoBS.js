@@ -147,7 +147,11 @@ export default function IPEJALCasadoBS(props) {
               
               <div className='row text-start mx-5 px-5'>
                 { listCliente.map((v, k) => {
-                  let [estado, setEstado] = useState(false)
+                  let estado = false
+                  function cambio() {
+                    estado = true
+                    return estado
+                  }
                   return (
                     <div key={k} >
                       { props.upload[v.key] != undefined || estado == true ? (
@@ -222,7 +226,7 @@ export default function IPEJALCasadoBS(props) {
                                 })
                                 setMessage(v.comment)
                                 setShow(true)
-                                setEstado(true)
+                                cambio()
                                 setCurrentfile(null)
                               } catch(e) {
                                 setMessage(e)
@@ -256,7 +260,11 @@ export default function IPEJALCasadoBS(props) {
 
               <div className='row text-start mx-5 px-5'>
                 { listTramite.map((v, k) => {
-                  let [estado, setEstado] = useState(false)
+                  let estado = false
+                  function cambio() {
+                    estado = true
+                    return estado
+                  }
                   return (
                     <div key={k} >
                       { props.upload[v.key] != undefined || estado == true ? (
@@ -331,7 +339,7 @@ export default function IPEJALCasadoBS(props) {
                                 })
                                 setMessage(v.comment)
                                 setShow(true)
-                                setEstado(true)
+                                cambio()
                                 setCurrentfile(null)
                               } catch(e) {
                                 setMessage(e)

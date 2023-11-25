@@ -538,7 +538,11 @@ export default function BANCOSoltero(props) {
             
             <div className='row text-start mx-5 px-5'>
               { listCliente.map((v, k) => {
-                let [estado, setEstado] = useState(false)
+                let estado = false
+                function cambio() {
+                  estado = true
+                  return estado
+                }
                 return (
                   <div key={k} >
                     { props.upload[v.key] != undefined || estado == true ? (
@@ -613,7 +617,7 @@ export default function BANCOSoltero(props) {
                               })
                               setM(v.comment)
                               setShow(true)
-                              setEstado(true)
+                              cambio()
                               setCurrentfile(null)
                             } catch(e) {
                               setM(e)
@@ -645,7 +649,11 @@ export default function BANCOSoltero(props) {
             <div className='row text-start mx-5 px-5'>
             
               { listNomina.map((v, k) => {
-                let [estado, setEstado] = useState(false)
+                let estado = false
+                function cambio() {
+                  estado = true
+                  return estado
+                }
                 return (
                   <div key={k} >
                     { props.upload[v.key] != undefined || estado == true ? (
@@ -720,7 +728,7 @@ export default function BANCOSoltero(props) {
                               })
                               setM(v.comment)
                               setShow(true)
-                              setEstado(true)
+                              cambio()
                               setCurrentfile(null)
                             } catch(e) {
                               setM(e)
@@ -759,7 +767,11 @@ export default function BANCOSoltero(props) {
             <div className='row text-start mx-5 px-5'>
 
               { listIndependiente.map((v, k) => {
-                let [estado, setEstado] = useState(false)
+                let estado = false
+                function cambio() {
+                  estado = true
+                  return estado
+                }
                 return (
                   <div key={k} >
                     { props.upload[v.key] != undefined || estado == true ? (
@@ -834,7 +846,7 @@ export default function BANCOSoltero(props) {
                               })
                               setM(v.comment)
                               setShow(true)
-                              setEstado(true)
+                              cambio()
                               setCurrentfile(null)
                             } catch(e) {
                               setM(e)
