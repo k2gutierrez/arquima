@@ -46,7 +46,7 @@ export default function ContadoSoltero(props) {
       title: 'Carta General del cliente',
       key: 'CartaG',
       text: 'CartaGeneralCliente',
-      comment: 'Se sube documento de Carta General del cliente'
+      comment: 'Se sube documento de Carta General del cliente',
     },
   ]
 
@@ -165,19 +165,22 @@ export default function ContadoSoltero(props) {
         </h2>
         <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
           <div className="accordion-body">
-            
+
             <div className='row text-start mx-5 px-5'>
               { listCliente.map((v, k) => {
+                let [estado, setEstado] = useState(false)
                 return (
                   <div key={k} >
-                    { props.upload[v.key] != undefined ? (
+                    { props.upload[v.key] != undefined || estado == true ?(
                       <div className="mb-3">
                         <label htmlFor={v.key} className="form-label">{v.title}</label>
-                        <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                        <input className="form-control bg-success"  onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                         <button type='button' onClick={
 
                             async function handleFile () {
                               if (currentfile == null) {
+                                setMessage('No se ha agregado ningun archivo')
+                                setShow(true)
                                 return
                               };
                               try {
@@ -240,7 +243,9 @@ export default function ContadoSoltero(props) {
                               })
                               setMessage(v.comment)
                               setShow(true)
+                              setEstado(true)
                               setCurrentfile(null)
+                              estado = false
                             } catch(e) {
                               setMessage(e)
                               setShow(true)
@@ -272,16 +277,19 @@ export default function ContadoSoltero(props) {
             
           <div className='row text-start mx-5 px-5'>
             { listVendedor.map((v, k) => {
+              let [estado, setEstado] = useState(false)
               return (
                 <div key={k} >
-                  { props.upload[v.key] != undefined ? (
+                  { props.upload[v.key] != undefined || estado == true ? (
                     <div className="mb-3">
                       <label htmlFor={v.key} className="form-label">{v.title}</label>
-                      <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                      <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                       <button type='button' onClick={
 
                           async function handleFile () {
                             if (currentfile == null) {
+                              setMessage('No se ha agregado ningun archivo')
+                              setShow(true)
                               return
                             };
                             try {
@@ -344,6 +352,7 @@ export default function ContadoSoltero(props) {
                             })
                             setMessage(v.comment)
                             setShow(true)
+                            setEstado(true)
                             setCurrentfile(null)
                           } catch(e) {
                             setMessage(e)
@@ -376,16 +385,19 @@ export default function ContadoSoltero(props) {
             
             <div className='row text-start mx-5 px-5'>
               { listConyugeVendedor.map((v, k) => {
+                let [estado, setEstado] = useState(false)
                 return (
                   <div key={k} >
-                    { props.upload[v.key] != undefined ? (
+                    { props.upload[v.key] != undefined || estado == true ? (
                       <div className="mb-3">
                         <label htmlFor={v.key} className="form-label">{v.title}</label>
-                        <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                        <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                         <button type='button' onClick={
 
                             async function handleFile () {
                               if (currentfile == null) {
+                                setMessage('No se ha agregado ningun archivo')
+                                setShow(true)
                                 return
                               };
                               try {
@@ -448,6 +460,7 @@ export default function ContadoSoltero(props) {
                               })
                               setMessage(v.comment)
                               setShow(true)
+                              setEstado(true)
                               setCurrentfile(null)
                             } catch(e) {
                               setMessage(e)

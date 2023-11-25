@@ -392,17 +392,20 @@ export default function INFONAVITUnamosCreditos2(props) {
             
           <div className='row text-start mx-3 my-3'>
 
-          { listCliente.map((v, k) => {
+                { listCliente.map((v, k) => {
+                  let [estado, setEstado] = useState(false)
                   return (
                     <div key={k} >
-                      { props.upload[v.key] != undefined ? (
+                      { props.upload[v.key] != undefined || estado == true ? (
                         <div className="mb-3">
                           <label htmlFor={v.key} className="form-label">{v.title}</label>
-                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                           <button type='button' onClick={
 
                               async function handleFile () {
                                 if (currentfile == null) {
+                                  setMessage('No se ha agregado ningun archivo')
+                                  setShow(true)
                                   return
                                 };
                                 try {
@@ -465,6 +468,7 @@ export default function INFONAVITUnamosCreditos2(props) {
                                 })
                                 setMessage(v.comment)
                                 setShow(true)
+                                setEstado(true)
                                 setCurrentfile(null)
                               } catch(e) {
                                 setMessage(e)
@@ -504,16 +508,19 @@ export default function INFONAVITUnamosCreditos2(props) {
               
               <div className='row text-start mx-5 px-5'>
                 { listClienteConyuge.map((v, k) => {
+                  let [estado, setEstado] = useState(false)
                   return (
                     <div key={k} >
-                      { props.upload[v.key] != undefined ? (
+                      { props.upload[v.key] != undefined || estado == true ? (
                         <div className="mb-3">
                           <label htmlFor={v.key} className="form-label">{v.title}</label>
-                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                           <button type='button' onClick={
 
                               async function handleFile () {
                                 if (currentfile == null) {
+                                  setMessage('No se ha agregado ningun archivo')
+                                  setShow(true)
                                   return
                                 };
                                 try {
@@ -576,6 +583,7 @@ export default function INFONAVITUnamosCreditos2(props) {
                                 })
                                 setMessage(v.comment)
                                 setShow(true)
+                                setEstado(true)
                                 setCurrentfile(null)
                               } catch(e) {
                                 setMessage(e)
@@ -603,17 +611,20 @@ export default function INFONAVITUnamosCreditos2(props) {
           <Accordion.Body>
             <div className='row text-start mx-3 my-3'>
 
-            { listCliente2.map((v, k) => {
+                { listCliente2.map((v, k) => {
+                  let [estado, setEstado] = useState(false)
                   return (
                     <div key={k} >
-                      { props.upload[v.key] != undefined ? (
+                      { props.upload[v.key] != undefined || estado == true ? (
                         <div className="mb-3">
                           <label htmlFor={v.key} className="form-label">{v.title}</label>
-                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                           <button type='button' onClick={
 
                               async function handleFile () {
                                 if (currentfile == null) {
+                                  setMessage('No se ha agregado ningun archivo')
+                                  setShow(true)
                                   return
                                 };
                                 try {
@@ -676,6 +687,7 @@ export default function INFONAVITUnamosCreditos2(props) {
                                 })
                                 setMessage(v.comment)
                                 setShow(true)
+                                setEstado(true)
                                 setCurrentfile(null)
                               } catch(e) {
                                 setMessage(e)
@@ -714,16 +726,19 @@ export default function INFONAVITUnamosCreditos2(props) {
               
             <div className='row text-start mx-5 px-5'>
                 { listClienteConyuge2.map((v, k) => {
+                  let [estado, setEstado] = useState(false)
                   return (
                     <div key={k} >
-                      { props.upload[v.key] != undefined ? (
+                      { props.upload[v.key] != undefined || estado == true ? (
                         <div className="mb-3">
                           <label htmlFor={v.key} className="form-label">{v.title}</label>
-                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                           <button type='button' onClick={
 
                               async function handleFile () {
                                 if (currentfile == null) {
+                                  setMessage('No se ha agregado ningun archivo')
+                                  setShow(true)
                                   return
                                 };
                                 try {
@@ -786,6 +801,7 @@ export default function INFONAVITUnamosCreditos2(props) {
                                 })
                                 setMessage(v.comment)
                                 setShow(true)
+                                setEstado(true)
                                 setCurrentfile(null)
                               } catch(e) {
                                 setMessage(e)
@@ -815,16 +831,19 @@ export default function INFONAVITUnamosCreditos2(props) {
             
               <div className='row text-start mx-5 px-5'>
                 { listVendedor.map((v, k) => {
+                  let [estado, setEstado] = useState(false)
                   return (
                     <div key={k} >
-                      { props.upload[v.key] != undefined ? (
+                      { props.upload[v.key] != undefined || estado == true ? (
                         <div className="mb-3">
                           <label htmlFor={v.key} className="form-label">{v.title}</label>
-                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                           <button type='button' onClick={
 
                               async function handleFile () {
                                 if (currentfile == null) {
+                                  setMessage('No se ha agregado ningun archivo')
+                                  setShow(true)
                                   return
                                 };
                                 try {
@@ -887,6 +906,7 @@ export default function INFONAVITUnamosCreditos2(props) {
                                 })
                                 setMessage(v.comment)
                                 setShow(true)
+                                setEstado(true)
                                 setCurrentfile(null)
                               } catch(e) {
                                 setMessage(e)
@@ -913,16 +933,19 @@ export default function INFONAVITUnamosCreditos2(props) {
             
           <div className='row text-start mx-5 px-5'>
                 { listConyugeVendedor.map((v, k) => {
+                  let [estado, setEstado] = useState(false)
                   return (
                     <div key={k} >
-                      { props.upload[v.key] != undefined ? (
+                      { props.upload[v.key] != undefined || estado == true ? (
                         <div className="mb-3">
                           <label htmlFor={v.key} className="form-label">{v.title}</label>
-                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                           <button type='button' onClick={
 
                               async function handleFile () {
                                 if (currentfile == null) {
+                                  setMessage('No se ha agregado ningun archivo')
+                                  setShow(true)
                                   return
                                 };
                                 try {
@@ -985,6 +1008,7 @@ export default function INFONAVITUnamosCreditos2(props) {
                                 })
                                 setMessage(v.comment)
                                 setShow(true)
+                                setEstado(true)
                                 setCurrentfile(null)
                               } catch(e) {
                                 setMessage(e)

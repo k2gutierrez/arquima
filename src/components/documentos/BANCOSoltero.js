@@ -538,16 +538,19 @@ export default function BANCOSoltero(props) {
             
             <div className='row text-start mx-5 px-5'>
               { listCliente.map((v, k) => {
+                let [estado, setEstado] = useState(false)
                 return (
                   <div key={k} >
-                    { props.upload[v.key] != undefined ? (
+                    { props.upload[v.key] != undefined || estado == true ? (
                       <div className="mb-3">
                         <label htmlFor={v.key} className="form-label">{v.title}</label>
-                        <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                        <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                         <button type='button' onClick={
 
                             async function handleFile () {
                               if (currentfile == null) {
+                                setM('No se ha agregado ningun archivo')
+                                setShow(true)
                                 return
                               };
                               try {
@@ -610,6 +613,7 @@ export default function BANCOSoltero(props) {
                               })
                               setM(v.comment)
                               setShow(true)
+                              setEstado(true)
                               setCurrentfile(null)
                             } catch(e) {
                               setM(e)
@@ -640,17 +644,20 @@ export default function BANCOSoltero(props) {
           <div id="flush-collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
             <div className='row text-start mx-5 px-5'>
             
-            { listNomina.map((v, k) => {
+              { listNomina.map((v, k) => {
+                let [estado, setEstado] = useState(false)
                 return (
                   <div key={k} >
-                    { props.upload[v.key] != undefined ? (
+                    { props.upload[v.key] != undefined || estado == true ? (
                       <div className="mb-3">
                         <label htmlFor={v.key} className="form-label">{v.title}</label>
-                        <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                        <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                         <button type='button' onClick={
 
                             async function handleFile () {
                               if (currentfile == null) {
+                                setM('No se ha agregado ningun archivo')
+                                setShow(true)
                                 return
                               };
                               try {
@@ -713,6 +720,7 @@ export default function BANCOSoltero(props) {
                               })
                               setM(v.comment)
                               setShow(true)
+                              setEstado(true)
                               setCurrentfile(null)
                             } catch(e) {
                               setM(e)
@@ -750,17 +758,20 @@ export default function BANCOSoltero(props) {
 
             <div className='row text-start mx-5 px-5'>
 
-            { listIndependiente.map((v, k) => {
+              { listIndependiente.map((v, k) => {
+                let [estado, setEstado] = useState(false)
                 return (
                   <div key={k} >
-                    { props.upload[v.key] != undefined ? (
+                    { props.upload[v.key] != undefined || estado == true ? (
                       <div className="mb-3">
                         <label htmlFor={v.key} className="form-label">{v.title}</label>
-                        <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                        <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                         <button type='button' onClick={
 
                             async function handleFile () {
                               if (currentfile == null) {
+                                setM('No se ha agregado ningun archivo')
+                                setShow(true)
                                 return
                               };
                               try {
@@ -823,6 +834,7 @@ export default function BANCOSoltero(props) {
                               })
                               setM(v.comment)
                               setShow(true)
+                              setEstado(true)
                               setCurrentfile(null)
                             } catch(e) {
                               setM(e)

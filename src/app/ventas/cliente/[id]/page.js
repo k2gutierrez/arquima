@@ -65,7 +65,7 @@ export default function Page({ params }) {
   const handleShow = () => setShow(true);
 
   const router = useRouter()
-  const { currentName } = useAuthContext()
+  const { currentName, currentRol } = useAuthContext()
 
   const [bancoSoltero, setBancoSoltero] = useState(false)
   const [bancoCasado, setBancoCasado] = useState(false)
@@ -4460,7 +4460,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4469,7 +4469,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4478,7 +4478,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4487,7 +4487,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4496,7 +4496,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4505,7 +4505,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4514,7 +4514,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4523,7 +4523,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4532,7 +4532,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4541,7 +4541,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4550,7 +4550,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4559,7 +4559,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4568,7 +4568,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4577,7 +4577,7 @@ export default function Page({ params }) {
                     id={docu.id}
                     currentUser={currentName} 
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                 />
                 ) : (<></>)
                 }
@@ -4590,7 +4590,7 @@ export default function Page({ params }) {
                     civil2={docu.civil2 == undefined || docu.civil2 == null ? ('') : (docu.civil2)}
                     regimen_patrimonial2={docu.regimen_patrimonial2 == undefined || docu.regimen_patrimonial2 == null ? ('') : (docu.regimen_patrimonial2)}
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                   />
                 ) : (<></>)
                 }
@@ -4605,7 +4605,7 @@ export default function Page({ params }) {
                     civil3={docu.civil3 == undefined || docu.civil3 == null ? ('') : (docu.civil3)}
                     regimen_patrimonial3={docu.regimen_patrimonial3 == undefined || docu.regimen_patrimonial3 == null ? ('') : (docu.regimen_patrimonial3)}
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                   />
                 ) : (<></>)
                 }
@@ -4622,7 +4622,7 @@ export default function Page({ params }) {
                     civil4={docu.civil4 == undefined || docu.civil4 == null ? ('') : (docu.civil4)}
                     regimen_patrimonial4={docu.regimen_patrimonial4 == undefined || docu.regimen_patrimonial4 == null ? ('') : (docu.regimen_patrimonial4)}
                     upload={docu}
-                    disabled={Boolean(currentRol == 'vendedor')}
+                    disabled={currentRol == 'vendedor' ? true : false}
                   />
                 ) : (<></>)
                 }

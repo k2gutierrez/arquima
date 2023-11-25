@@ -141,16 +141,19 @@ export default function IPEJALSoltero(props) {
               
               <div className='row text-start mx-5 px-5'>
                 { listCliente.map((v, k) => {
+                  let [estado, setEstado] = useState(false)
                   return (
                     <div key={k} >
-                      { props.upload[v.key] != undefined ? (
+                      { props.upload[v.key] != undefined || estado == true ? (
                         <div className="mb-3">
                           <label htmlFor={v.key} className="form-label">{v.title}</label>
-                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                           <button type='button' onClick={
 
                               async function handleFile () {
                                 if (currentfile == null) {
+                                  setMessage('No se ha agregado ningun archivo')
+                                  setShow(true)
                                   return
                                 };
                                 try {
@@ -213,6 +216,7 @@ export default function IPEJALSoltero(props) {
                                 })
                                 setMessage(v.comment)
                                 setShow(true)
+                                setEstado(true)
                                 setCurrentfile(null)
                               } catch(e) {
                                 setMessage(e)
@@ -246,16 +250,19 @@ export default function IPEJALSoltero(props) {
 
               <div className='row text-start mx-5 px-5'>
                 { listTramite.map((v, k) => {
+                  let [estado, setEstado] = useState(false)
                   return (
                     <div key={k} >
-                      { props.upload[v.key] != undefined ? (
+                      { props.upload[v.key] != undefined || estado == true ? (
                         <div className="mb-3">
                           <label htmlFor={v.key} className="form-label">{v.title}</label>
-                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} />
+                          <input className="form-control bg-success" onChange={(e) => setCurrentfile(e.target.files[0])} type="file" id={v.key} disabled={props.disabled} />
                           <button type='button' onClick={
 
                               async function handleFile () {
                                 if (currentfile == null) {
+                                  setMessage('No se ha agregado ningun archivo')
+                                  setShow(true)
                                   return
                                 };
                                 try {
@@ -318,6 +325,7 @@ export default function IPEJALSoltero(props) {
                                 })
                                 setMessage(v.comment)
                                 setShow(true)
+                                setEstado(true)
                                 setCurrentfile(null)
                               } catch(e) {
                                 setMessage(e)

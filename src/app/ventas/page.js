@@ -54,9 +54,9 @@ export default function Ventas() {
   const [NSS4, setNSS4] = useState('')
 
   const [pago, setPago] = useState('')
-  const [folio, setFolio] = useState('')
+  const [folio, setFolio] = useState(null)
 
-  const [propiedadID, setPropiedadID] = useState("")
+  const [propiedadID, setPropiedadID] = useState(null)
 
   const [compra, setCompra] = useState('')
 
@@ -108,24 +108,23 @@ export default function Ventas() {
 
   // Use efecto con la función getPropiedadFolio para revisar cambios en el estado y declarar el ID de la propiedad para el registro del cliente
   useEffect(() => {
-    if (propiedadID == '') {
+    if (propiedadID != null) {
       getPropiedadFolio()
       getInfoAsesor()
     } else {
-      getPropiedadFolio()
-      getInfoAsesor()
+      return
     }
   }, [propiedadID])
 
 
   // Función para obtener el folio de la propiedad seleccionada para el registro del cliente se pone en un useEffect que siga los cambios de propiedadID
   async function getPropiedadFolio () {
-    if (propiedadID != '') {
+    if (propiedadID != null) {
       const docRef = doc(db, "propiedades", propiedadID)
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         let docu = docSnap.data()
-        setFolio(docu.folio.type)
+        setFolio(docu.folio)
       }
     }
   }
@@ -263,6 +262,11 @@ export default function Ventas() {
 
   // Función para registrar clientes
   async function registerClient () {
+    if (folio == null || folio == "") {
+      setMessagem("El folio aparece en blanco o nulo")
+      setShow(true)
+      return
+    }
     if (compra === "INFONAVIT-unamos-creditos" && n_creditos == '2') {
       try {
         const data = {
@@ -316,6 +320,7 @@ export default function Ventas() {
   
         setMessagem("Registro exitoso") //poner un modal bonito para indicar que el registro fue exitoso!
         handleShow()
+        setFolio(null)
         setUpdate(!update)
         setMenu('clientes')
       } catch (e) {
@@ -383,6 +388,7 @@ export default function Ventas() {
   
         setMessagem("Registro exitoso") //poner un modal bonito para indicar que el registro fue exitoso!
         handleShow()
+        setFolio(null)
         setUpdate(!update)
         setMenu('clientes')
       } catch (e) {
@@ -457,6 +463,7 @@ export default function Ventas() {
   
         setMessagem("Registro exitoso") //poner un modal bonito para indicar que el registro fue exitoso!
         handleShow()
+        setFolio(null)
         setUpdate(!update)
         setMenu('clientes')
       } catch (e) {
@@ -510,6 +517,7 @@ export default function Ventas() {
   
         setMessagem("Registro exitoso") //poner un modal bonito para indicar que el registro fue exitoso!
         handleShow()
+        setFolio(null)
         setUpdate(!update)
         setMenu('clientes')
       } catch (e) {
