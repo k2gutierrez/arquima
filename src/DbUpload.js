@@ -54,8 +54,8 @@ export default function DbUpload() {
     }
 
     return (
-    <div>
+    {/*<div>
         <button type='button' className='btn btn-secondary' onClick={arquimaUpload}>Cargar base</button>
-    </div>
+    </div>*/}
     )
 }
