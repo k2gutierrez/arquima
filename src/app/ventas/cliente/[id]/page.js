@@ -209,7 +209,7 @@ export default function Page({ params }) {
                   <div className="offcanvas-body">
                       <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li className="nav-item">
-                            <Link href="/dashboard"><button type='button' className="btn" data-bs-dismiss="offcanvas" >Volver al dashboard</button></Link>
+                            <Link href="/ventas"><button type='button' className="btn" data-bs-dismiss="offcanvas" >Volver al dashboard</button></Link>
                         </li>
                       </ul>
                       
@@ -227,7 +227,7 @@ export default function Page({ params }) {
               <h2>BIENVENIDO</h2>
             </div>
             <div className='col-sm-4 col-6 order-md-3 order-2'>
-              <Link href="/dashboard"><button type="button"  className="btn m-2"><h5>Volver a Dashboard</h5></button></Link>
+              <Link href="/ventas"><button type="button"  className="btn m-2"><h5>Volver a Dashboard</h5></button></Link>
             </div>
           </div>
 
