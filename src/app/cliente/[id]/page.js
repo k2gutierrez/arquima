@@ -224,7 +224,8 @@ export default function Page({ params }) {
 
         { menu == "agradecimiento" ?
           (
-            <Agradecimiento 
+            docu.status != "FECHA DE ENTREGA" ? (<div className='text-center'><h1>Documento no disponible de momento</h1></div>) : (
+              <Agradecimiento 
               className={cls(styles.containerMain, "")}
               imgClass={cls(styles.imgC, '')}
               textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
@@ -232,39 +233,45 @@ export default function Page({ params }) {
               mz={docuProp.mz}
               domicilio={docuProp.direccion + " " + docuProp.numero_ext}
               folio={docu.folio}
-              precio={docuProp.precio}
+              precio={docuProp.precio == undefined || docuProp.precio == null ? '___________________________________________________' : docuProp.precio}
+              precioLetra={docuProp.precio == undefined || docuProp.precio == null ? '___________________________________________________' : docuProp.precio}
               credito={docu.esquema}
-            />
+              />
+            )
           ) : (<></>)
         }
 
         { menu == "entrega" ?
           (
-            <ActaDeEntrega 
-              nombre={docu.nombre + ' ' + docu.apellidoP + ' ' + docu.apellidoM}
-              lte={docuProp.lte}
-              mz={docuProp.mz}
-              domicilio={docuProp.direccion + " " + docuProp.numero_ext}
-              folio={docu.folio}
-              textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
-              className={cls(styles.containerMain2, "")}
-              imgClass={cls(styles.imgC, '')}
-              foliotext={styles.folio}
-            />
+            docu.status != "FECHA DE ENTREGA" ? (<div className='text-center'><h1>Documento no disponible de momento</h1></div>) : (
+              <ActaDeEntrega 
+                nombre={docu.nombre + ' ' + docu.apellidoP + ' ' + docu.apellidoM}
+                lte={docuProp.lte}
+                mz={docuProp.mz}
+                domicilio={docuProp.direccion + " " + docuProp.numero_ext}
+                folio={docu.folio}
+                textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
+                className={cls(styles.containerMain2, "")}
+                imgClass={cls(styles.imgC, '')}
+                foliotext={styles.folio}
+              />
+            )
           ) : (<></>)
         }
 
         { menu == "poliza" ?
           (
-            <Poliza 
-              lte={docuProp.lte}
-              mz={docuProp.mz}
-              domicilio={docuProp.direccion}
-              folio={docu.folio}
-              className={cls(styles.containerMain3, "")}
-              imgClass={cls(styles.imgC, '')}
-              textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
-            />
+            docu.status != "FECHA DE ENTREGA" ? (<div className='text-center'><h1>Documento no disponible de momento</h1></div>) : (
+              <Poliza 
+                lte={docuProp.lte}
+                mz={docuProp.mz}
+                domicilio={docuProp.direccion}
+                folio={docu.folio}
+                className={cls(styles.containerMain3, "")}
+                imgClass={cls(styles.imgC, '')}
+                textCotoCielo={cls(styles.textCotoCielo, "w-75 mb-3")}
+              />
+            )
           ) : (<></>)
         }
 

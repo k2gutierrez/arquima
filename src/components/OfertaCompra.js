@@ -4,6 +4,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf'
 import Image from 'next/image';
 import imageCotoCielo from '../../public/formatos/Membrete_coto_cielo.png'
+import { NumerosLetras } from '@/NumerosLetras';
 
 function OfertaCompra(props) {
     
@@ -57,7 +58,7 @@ function OfertaCompra(props) {
                                 <p className='mb-4'>
                                     <strong>CLAUSULA TERCERA: DE LA OFERTA</strong> <br />
                                     <strong>"EL OFERENTE"</strong> propone al legítimo propietario de "EL INMUEBLE", en lo sucesivo denominado <strong>"EL PROPIETARIO", </strong>
-                                    adquirido en la suma de <u>{props.precio} </u>(_______________________________________________), que pagaré de la siguiente manera: Mediante un crédito 
+                                    adquirido en la suma de <u>{props.precio} ({NumerosLetras(props.precioLetra)})</u>, que pagaré de la siguiente manera: Mediante un crédito 
                                     que en este momento manifiesta <strong>"EL OFERENTE"</strong> tener preautorizado or la institución _____________________, hasta por la cantidad 
                                     de $____________________(____________________________________________________) y estando su oferta condicionada a que la institución bancaria, le apruebe 
                                     de forma definitiva su crédito. <br />

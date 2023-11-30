@@ -4,6 +4,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf'
 import Image from 'next/image';
 import imageCotoCielo from '../../public/formatos/MEMBRETE_CON_CASA_COTO_CIELO.png'
+import { NumerosLetras } from '@/NumerosLetras';
 
 function Agradecimiento(props) {
     
@@ -95,7 +96,7 @@ function Agradecimiento(props) {
                                 <b>EL INMUEBLE</b> <br />
                                 El inmueble objeto de la presente oferta de compra se encuentra ubicado en la CALLE {props.domicilio} edificada sobre el 
                                 lote {props.lte} de la manzana {props.mz} del fraccionamiento, CAMPO SUR “COTO CIELO” en el municipio de TLAJOMULCO DE ZUÑIGA del estado 
-                                de JALISCO. Se adquiere la vivienda por la suma de {props.precio} (______________________________), que pagare de 
+                                de JALISCO. Se adquiere la vivienda por la suma de {props.precio} ({NumerosLetras(props.precioLetra)}), que pagare de 
                                 la siguiente manera: Mediante un crédito {props.credito}
                                 </p>
 

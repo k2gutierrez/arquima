@@ -40,7 +40,7 @@ function ActaDeEntrega(props) {
                                 <p className='my-5'>
                                 En la ciudad de TLAJUMULCO DE ZUÑIGA, a los 28 dias del mes de julio del año 2023, se reunieron en las instalaciones del 
                                 proyecto “COTO DEL CIELO” , en una parte el/la Sr/ Sra Lucía Hinojoza. <br />
-                                En representación de la constructora PROMOTORA DYAJA, S.A. DE C.V. y de otra el/la Sr/Sra { props.nombre } 
+                                En representación de la constructora PROMOTORA DYAJA, S.A. DE C.V. y de otra el/la Sr/Sra { props.nombre } <> </> 
                                 Beneficiario/a de la vivienda, ubicada en el domicilio {props.domicilio}, MANZANA {props.mz}, LOTE {props.lte}, folio de vivienda No. {props.folio}, objeto 
                                 de la presente entrega y manifiestan lo siguiente; (INVENTARIO DE LA VIVIENDA):
                                 </p>

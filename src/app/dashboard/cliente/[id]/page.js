@@ -829,7 +829,8 @@ export default function Page({ params }) {
                 mz={propiedad.mz}
                 domicilio={propiedad.direccion + " " + propiedad.numero_ext}
                 folio={docu.folio}
-                precio={propiedad.precio}
+                precio={propiedad.precio == undefined || propiedad.precio == null ? '___________________________________________________' : propiedad.precio}
+                precioLetra={propiedad.precio == undefined || propiedad.precio == null ? '___________________________________________________' : propiedad.precio}
                 credito={docu.esquema}
               />
             ) : (<></>)
@@ -875,7 +876,7 @@ export default function Page({ params }) {
                 rfc={'______________'}
                 identificacion={'________'}
                 nIdentificacion={'______________'}
-                domicilio={propiedad.direccion + " " + propiedad.numero_ext}
+                domicilio={propiedad.direccion + " " + propiedad.numero_ext} 
                 cel={docu.cel}
                 email={docu.email}
                 tel={'______________'}
@@ -888,12 +889,13 @@ export default function Page({ params }) {
                 cel2={'____________'}
                 email2={'_________________________'}
                 tel2={'____________'}
-                direccion={'___________________________________________________'}
-                numero_ext={'______'}
+                direccion={propiedad.direccion}
+                numero_ext={propiedad.numero_ext}
                 lte={propiedad.lte}
                 mz={propiedad.mz}
                 proyecto={propiedad.proyecto}
-                precio={propiedad.precio}
+                precio={propiedad.precio == undefined || propiedad.precio == null ? '___________________________________________________' : propiedad.precio}
+                precioLetra={propiedad.precio == undefined || propiedad.precio == null ? '___________________________________________________' : propiedad.precio}
               /> 
             )
             :
