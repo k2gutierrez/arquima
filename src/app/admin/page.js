@@ -207,11 +207,11 @@ export default function Admin() {
       case "IPEJAL-conyugal":
         setTipoDocEsquema("N_Afiliado")
         break
-      case "BANCARIO-terreno":
+      case "BANCARIO / caja popular -terreno":
         setTipoDocEsquema("CURP_DATA")
         setEsquemaLength(18)
         break
-      case "BANCARIO-casa":
+      case "BANCARIO / caja popular -casa":
         setTipoDocEsquema("CURP_DATA")
         setEsquemaLength(18)
         break
